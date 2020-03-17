@@ -1,4 +1,4 @@
-package com.sharknados;
+package com.sharknados.client;
 
 
 import javafx.application.Application;
