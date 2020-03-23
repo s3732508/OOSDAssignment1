@@ -23,7 +23,8 @@ public class Client extends RMIServer {
 
     public static void main(String[] args) {
         try {
-            new Client().getServer().print("Hey server!");
+            RemoteServer server = new Client().getServer();
+            server.print("Hey server!");
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
         }

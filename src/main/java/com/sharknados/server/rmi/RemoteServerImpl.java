@@ -1,8 +1,10 @@
 package com.sharknados.server.rmi;
 
+import com.sharknados.common.Board;
 import com.sharknados.common.rmi.BeforeServerConnection;
 import com.sharknados.common.rmi.RemoteClient;
 import com.sharknados.common.rmi.RemoteServer;
+import com.sharknados.common.Tile;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -18,6 +20,11 @@ public class RemoteServerImpl implements BeforeServerConnection, RemoteServer {
     @Override
     public void print(String message) {
         System.out.println("Client said: " + message);
+    }
+
+    @Override
+    public Board[] getBoards() throws RemoteException {
+        return new Board[]{ new Board(new Tile()), new Board(new Tile()) };
     }
 
     @Override
