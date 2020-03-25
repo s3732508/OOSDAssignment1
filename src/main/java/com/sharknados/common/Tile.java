@@ -1,12 +1,63 @@
 package com.sharknados.common;
 
 public class Tile {
-    private Tile north;
-    private Tile northEast;
-    private Tile southEast;
-    private Tile south;
-    private Tile southWest;
-    private Tile northWest;
+    private int x, z;
+    private Tile north, northEast, southEast, south, southWest, northWest;
+
+    public Tile(int x, int z){
+        this.x = x;
+        this.z = z;
+    }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getZ(){
+        return z;
+    }
+
+    public void setNeighborByVector(Tile neighbor, int xVector, int zVector){
+        switch(xVector) {
+            case -1:
+                //NORTHWEST
+                if (zVector == 0){
+                    setNorthWest(neighbor);
+                }
+
+                //SOUTHWEST
+                else if (zVector == 1){
+                    setSouthWest(neighbor);
+                }
+                break;
+
+            case 0:
+                //NORTH
+                if (zVector == -1){
+                    setNorth(neighbor);
+                }
+
+                //SOUTH
+                else if (zVector == 1){
+                    setSouth(neighbor);
+                }
+                break;
+
+            case 1:
+                //NORTHEAST
+                if (zVector == -1){
+                    setNorthEast(neighbor);
+                }
+
+                //SOUTHEAST
+                else if (zVector == 0){
+                    setSouthEast(neighbor);
+                }
+                break;
+            default:
+                // code block
+        }
+    }
 
     public Tile getNorth() {
         return north;
@@ -54,5 +105,10 @@ public class Tile {
 
     public void setNorthWest(Tile northWest) {
         this.northWest = northWest;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("(" + x + ", " + z + ")");
     }
 }
