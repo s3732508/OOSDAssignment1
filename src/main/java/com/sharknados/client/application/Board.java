@@ -1,108 +1,105 @@
-package com.sharknados.client.application;
+package application;
 
+import java.io.FileNotFoundException;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.sharknados.client.shapes.Eagle;
-import com.sharknados.client.shapes.Shark;
-
-import java.io.FileNotFoundException;
+import shapes.Piece;
+import shapes.eagles.Eagle;
+import shapes.sharks.Shark;
 
 public class Board extends Application {
-	// directions used for indices
+
+	// directionS used for indices
 
 	public final static int EAST = 0;
 	public final static int NORTHEAST = 1;
 	public final static int NORTHWEST = 2;
-	public final static int NORTH = 2;
 	public final static int WEST = 3;
 	public final static int SOUTHWEST = 4;
 	public final static int SOUTHEAST = 5;
-	public final static int SOUTH = 5;
 
 	double size = 12;
+	int sides = 4;
 
-	Tile[][] map = new Tile[8][8];
+	Tile[][] map = new Tile[2 * sides][2 * sides];
+
+	
+	public final static int deltaR[] = { 1, 0, -1, -1, 0, 1 };
+	public final static int deltaC[] = { 0, -1, -1, 0, 1, 1 };
+	
+	//Checks if the cell is in the maze
+
+	protected boolean isIn(int r, int c) {
+		return r >= 0 && r < 2 * sides && c >= 0 && c < 2 * sides;
+	} // end of isIn()
+
+	protected boolean isIn(Tile tile) {
+		if (tile == null)
+			return false;
+		return isIn(tile.x, tile.y);
+	} // end of isIn()
 
 	@Override
 	public void start(Stage stage) throws FileNotFoundException {
-		
-		
+
 		Group root = new Group();
-		for (int row = 0; row < 7; row++) {
-
-			switch (row) {
-			case 0:
-				for (int x = 0; x < 4; x++) {
-
-					map[x][row] = new Tile(x, row);
-
-					root.getChildren().add(map[x][row].tile);
-
-				}
-				break;
-			case 1:
-				for (int x = 0; x < 5; x++) {
-
-					map[x][row] = new Tile(x, row);
-					root.getChildren().add(map[x][row].tile);
-				}
-				break;
-			case 2:
-				for (int x = 0; x < 6; x++) {
-
-					map[x][row] = new Tile(x, row);
-					root.getChildren().add(map[x][row].tile);
-				}
-				break;
-			case 3:
-				for (int x = 0; x < 7; x++) {
-
-					map[x][row] = new Tile(x, row);
-					root.getChildren().add(map[x][row].tile);
-				}
-				break;
-			case 4:
-				for (int x = 1; x < 7; x++) {
-
-					map[x][row] = new Tile(x, row);
-					root.getChildren().add(map[x][row].tile);
-
-				}
-				break;
-			case 5:
-				for (int x = 2; x < 7; x++) {
-
-					map[x][row] = new Tile(x, row);
-					root.getChildren().add(map[x][row].tile);
-
-				}
-				break;
-			case 6:
-				for (int x = 3; x < 7; x++) {
-
-					map[x][row] = new Tile(x, row);
-					root.getChildren().add(map[x][row].tile);
-
-				}
-				break;
+		int rowend = 4;
+		int rowinitial = 0;
+		for (int y = 0; y < 7; y++) {
+			for (int x = rowinitial; x < rowend; x++) {
+				map[x][y] = new Tile(x, y);
+				root.getChildren().add(map[x][y].tile);
 
 			}
+			if (rowend == 7) {
+				if (rowinitial == 3)
+					break;
+				rowinitial++;
+			} else
+				rowend++;
+		}
+
+		rowend = 4;
+		rowinitial = 0;
+		for (int y = 0; y < 7; y++) {
+			Tile tile;
+			Tile neighbor;
+			for (int x = rowinitial; x < rowend; x++) {
+				tile = map[x][y];
+
+				for (int direction = 0; direction < 6; direction++) {
+					if (x + deltaR[direction] >= 0 && y + deltaC[direction] >= 0) {
+						neighbor = map[x + deltaR[direction]][y + deltaC[direction]];
+						if (isIn(neighbor)) {
+							tile.neigh[direction] = neighbor;
+
+						}
+					}
+
+				}
+
+			}
+			if (rowend == 7) {
+				if (rowinitial == 3)
+					break;
+				rowinitial++;
+			} else
+				rowend++;
 		}
 
 		// Adding Shark
-		Shark shark = new Shark(3, 3, size);
 
-		root.getChildren().add(shark.shark);
+		Piece shark = new Shark(map[3][3].neigh[WEST], 0, 0);
+
+		root.getChildren().add(shark.piece);
 
 		// Adding Eagle
-		Eagle eagle = new Eagle(1, 0, size);
+		Eagle eagle = new Eagle(map[3][3].neigh[EAST], 0, 0);
 
-		root.getChildren().add(eagle.eagle);
-		
-		
-
+		root.getChildren().add(eagle.piece);
+//
 		// Creating a scene object
 		Scene scene = new Scene(root, 600, 600);
 

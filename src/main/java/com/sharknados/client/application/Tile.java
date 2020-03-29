@@ -1,4 +1,4 @@
-package com.sharknados.client.application;
+package application;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -7,8 +7,8 @@ import javafx.scene.shape.Polygon;
 public class Tile {
 	
 	Polygon tile = new Polygon();
-	int x;
-	int y;
+	public int x;
+	public int y;
 	boolean occupied = false;
 	
 	/**
