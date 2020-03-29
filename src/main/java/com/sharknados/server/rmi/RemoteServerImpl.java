@@ -23,8 +23,8 @@ public class RemoteServerImpl implements BeforeServerConnection, RemoteServer {
     }
 
     @Override
-    public Board[] getBoards() throws RemoteException {
-        return new Board[]{ new Board(), new Board() };
+    public Board[] generateNewBoards() throws RemoteException {
+        return new Board[]{ new Board(2), new Board(2) };
     }
 
     @Override
@@ -40,6 +40,9 @@ public class RemoteServerImpl implements BeforeServerConnection, RemoteServer {
 
         for (RemoteClient client : clients) {
             client.print("A new client connected!");
+            Board[] boards = generateNewBoards();
+            client.print("Generated new boards!");
+//            client.showBoardsStatus(boards);
         }
 
         return this;

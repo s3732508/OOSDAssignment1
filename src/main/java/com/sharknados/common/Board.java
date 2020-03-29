@@ -17,9 +17,12 @@ public class Board {
     NORTHWEST   = (-1, 0)
      */
 
+    private int size;
+
     private Tile[][] tilePositions;
 
-    public void generateBoard(int size){
+    public Board(int size) {
+        this.size = size;
         this.tilePositions = new Tile[2*size+1][2*size+1];
 
         for (int x = 0; x <= 2*size; x++) {
@@ -37,7 +40,6 @@ public class Board {
                 setNeighbors(tilePositions[x][z]);
             }
         }
-
     }
 
     private void setNeighbors(Tile tile){
@@ -57,11 +59,20 @@ public class Board {
 
     private boolean trySetNeighbor(Tile tile, int xVector, int zVector){
         boolean success = false;
-        Tile neighbor = tilePositions[tile.getX()+xVector][tile.getZ()+zVector];
+        Tile neighbor = null;
+        try {
+            neighbor = tilePositions[tile.getX() + xVector][tile.getZ() + zVector];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            //
+        }
         if (neighbor != null){
             tile.setNeighborByVector(neighbor, xVector, zVector);
             success = true;
         }
         return success;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
