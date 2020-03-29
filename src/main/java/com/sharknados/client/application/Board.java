@@ -1,20 +1,13 @@
-package application;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+package com.sharknados.client.application;
 
 import javafx.application.Application;
 import javafx.scene.Group;
-
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
-import shapes.Eagle;
-import shapes.Shark;
+import com.sharknados.client.shapes.Eagle;
+import com.sharknados.client.shapes.Shark;
+
+import java.io.FileNotFoundException;
 
 public class Board extends Application {
 	// directions used for indices

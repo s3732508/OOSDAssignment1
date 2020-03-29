@@ -1,4 +1,4 @@
-package application;
+package com.sharknados.client.application;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;

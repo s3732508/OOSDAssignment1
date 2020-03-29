@@ -1,7 +1,6 @@
 package com.sharknados.common.rmi;
 
-import com.sharknados.common.Board;
-import com.sharknados.common.Tile;
+import com.sharknados.common.models.Board;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

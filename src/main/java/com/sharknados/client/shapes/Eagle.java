@@ -1,4 +1,4 @@
-package shapes;
+package com.sharknados.client.shapes;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

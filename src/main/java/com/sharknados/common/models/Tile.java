@@ -1,4 +1,4 @@
-package com.sharknados.common;
+package com.sharknados.common.models;
 
 public class Tile {
     private int x, z;

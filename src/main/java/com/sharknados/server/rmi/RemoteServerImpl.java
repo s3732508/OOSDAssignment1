@@ -1,10 +1,10 @@
 package com.sharknados.server.rmi;
 
-import com.sharknados.common.Board;
+import com.sharknados.common.models.Board;
 import com.sharknados.common.rmi.BeforeServerConnection;
 import com.sharknados.common.rmi.RemoteClient;
 import com.sharknados.common.rmi.RemoteServer;
-import com.sharknados.common.Tile;
+import com.sharknados.common.models.Tile;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
