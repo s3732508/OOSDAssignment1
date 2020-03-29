@@ -24,7 +24,7 @@ public class RemoteServerImpl implements BeforeServerConnection, RemoteServer {
 
     @Override
     public Board[] getBoards() throws RemoteException {
-        return new Board[]{ new Board(new Tile()), new Board(new Tile()) };
+        return new Board[]{ new Board(), new Board() };
     }
 
     @Override
