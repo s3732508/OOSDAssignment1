@@ -1,4 +1,4 @@
-package application;
+package com.sharknados.client.application;
 
 import java.io.FileNotFoundException;
 import javafx.application.Application;

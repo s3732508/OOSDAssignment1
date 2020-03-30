@@ -7,5 +7,5 @@ import java.rmi.RemoteException;
 
 public interface RemoteServer extends Remote {
     void print(String message) throws RemoteException;
-    Board[] getBoards() throws RemoteException;
+    Board[] generateNewBoards() throws RemoteException;
 }

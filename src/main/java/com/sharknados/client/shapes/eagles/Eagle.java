@@ -1,12 +1,10 @@
-package shapes.eagles;
+package com.sharknados.client.shapes.eagles;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import shapes.Piece;
-
-import application.Tile;
+import com.sharknados.client.application.Tile;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

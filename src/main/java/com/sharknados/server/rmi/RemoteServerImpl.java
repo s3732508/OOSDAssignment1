@@ -4,7 +4,6 @@ import com.sharknados.common.models.Board;
 import com.sharknados.common.rmi.BeforeServerConnection;
 import com.sharknados.common.rmi.RemoteClient;
 import com.sharknados.common.rmi.RemoteServer;
-import com.sharknados.common.models.Tile;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -23,8 +22,8 @@ public class RemoteServerImpl implements BeforeServerConnection, RemoteServer {
     }
 
     @Override
-    public Board[] getBoards() throws RemoteException {
-        return new Board[]{ new Board(new Tile()), new Board(new Tile()) };
+    public Board[] generateNewBoards() throws RemoteException {
+        return new Board[]{ new Board(2), new Board(2) };
     }
 
     @Override
@@ -40,6 +39,9 @@ public class RemoteServerImpl implements BeforeServerConnection, RemoteServer {
 
         for (RemoteClient client : clients) {
             client.print("A new client connected!");
+            Board[] boards = generateNewBoards();
+            client.print("Generated new boards!");
+//            client.showBoardsStatus(boards);
         }
 
         return this;
