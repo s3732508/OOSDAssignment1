@@ -1,6 +1,6 @@
-package shapes;
+package com.sharknados.client.shapes;
 
-import application.Tile;
+import com.sharknados.client.application.Tile;
 import javafx.scene.image.ImageView;
 
 import java.util.List;

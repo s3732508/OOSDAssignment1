@@ -1,12 +1,12 @@
-package shapes.sharks;
+package com.sharknados.client.shapes.sharks;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import shapes.Piece;
+import com.sharknados.client.shapes.Piece;
 
-import application.Tile;
+import com.sharknados.client.application.Tile;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -19,7 +19,7 @@ public  class Shark extends Piece {
 		super(health, 1, energy);
 
 		Image image = new Image(
-				new FileInputStream("C:\\Users\\Vikas\\Documents\\New folder\\Assignmemt1\\src\\shapes\\Shark.PNG"));
+				new FileInputStream("C:\\Users\\bigbeno37\\IdeaProjects\\OOSDAssignment1\\src\\main\\java\\com\\sharknados\\client\\shapes\\Shark.png"));
 		// Setting the image view
 		piece = new ImageView(image);
 

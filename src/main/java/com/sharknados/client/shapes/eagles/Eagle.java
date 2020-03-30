@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import com.sharknados.client.application.Tile;
+import com.sharknados.client.shapes.Piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -17,7 +18,7 @@ public class Eagle extends Piece {
 		super(1, attack, energy);
 		
 		Image image = new Image(
-				new FileInputStream("C:\\Users\\Vikas\\Documents\\New folder\\Assignmemt1\\src\\shapes\\Eagle.PNG"));
+				new FileInputStream("C:\\Users\\bigbeno37\\IdeaProjects\\OOSDAssignment1\\src\\main\\java\\com\\sharknados\\client\\shapes\\Eagle.png"));
 		// Setting the image view
 		piece = new ImageView(image);
 
