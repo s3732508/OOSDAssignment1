@@ -17,8 +17,7 @@ public class Eagle extends Piece {
 	public Eagle(Tile tile, int attack, int energy) throws FileNotFoundException {
 		super(1, attack, energy);
 		
-		Image image = new Image(
-				new FileInputStream("C:\\Users\\bigbeno37\\IdeaProjects\\OOSDAssignment1\\src\\main\\java\\com\\sharknados\\client\\shapes\\Eagle.png"));
+		Image image = new Image(this.getClass().getResourceAsStream("/Eagle.png"));
 		// Setting the image view
 		piece = new ImageView(image);
 

@@ -18,8 +18,7 @@ public  class Shark extends Piece {
 	public Shark(Tile tile, int health, int energy) throws FileNotFoundException {
 		super(health, 1, energy);
 
-		Image image = new Image(
-				new FileInputStream("C:\\Users\\bigbeno37\\IdeaProjects\\OOSDAssignment1\\src\\main\\java\\com\\sharknados\\client\\shapes\\Shark.png"));
+		Image image = new Image(this.getClass().getResourceAsStream("/Shark.png"));
 		// Setting the image view
 		piece = new ImageView(image);
 
