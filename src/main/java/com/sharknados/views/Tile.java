@@ -1,4 +1,4 @@
-package com.sharknados.client.application;
+package com.sharknados.views;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;

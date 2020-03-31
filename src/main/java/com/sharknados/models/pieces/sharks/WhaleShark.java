@@ -1,22 +1,22 @@
-package com.sharknados.common.models.pieces.eagles;
+package com.sharknados.models.pieces.sharks;
 
-import com.sharknados.common.models.Tile;
+import com.sharknados.models.Tile;
 
 import java.util.List;
 
-public class LesserFishEagle extends Eagle {
-    public LesserFishEagle() {
-        super(1, 14);
+public class WhaleShark extends Shark {
+    public WhaleShark() {
+        super(3, 2);
     }
 
     @Override
     public String getAbilityName() {
-        return "Reveal";
+        return "Birth New Shark";
     }
 
     @Override
     public int getAbilityCost() {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -26,6 +26,6 @@ public class LesserFishEagle extends Eagle {
 
     @Override
     public void doAbility(Tile currentTile, Tile selectedTile) {
-        // TODO:
+        // TODO
     }
 }

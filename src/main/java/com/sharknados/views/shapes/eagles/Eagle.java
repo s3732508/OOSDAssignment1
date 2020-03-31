@@ -1,34 +1,33 @@
-package com.sharknados.client.shapes.sharks;
+package com.sharknados.views.shapes.eagles;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import com.sharknados.client.shapes.Piece;
-
-import com.sharknados.client.application.Tile;
+import com.sharknados.views.Tile;
+import com.sharknados.views.shapes.Piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public  class Shark extends Piece {
-
+public class Eagle extends Piece {
 	
-	double size=12;
-
-	public Shark(Tile tile, int health, int energy) throws FileNotFoundException {
-		super(health, 1, energy);
-
-		Image image = new Image(this.getClass().getResourceAsStream("/Shark.png"));
+	
+	double size = 12;
+	
+	public Eagle(Tile tile, int attack, int energy) throws FileNotFoundException {
+		super(1, attack, energy);
+		
+		Image image = new Image(this.getClass().getResourceAsStream("/Eagle.png"));
 		// Setting the image view
 		piece = new ImageView(image);
 
 		// Setting the position of the image
-		piece.setX((6.2 + (4 * tile.x - 2 * tile.y)) * size);
-		piece.setY((3.2 + (3 * tile.y)) * size);
+		piece.setX((5.91 + (4 * tile.x - 2 * tile.y)) * size);
+		piece.setY((4.0 + (3 * tile.y)) * size);
 
 		// setting the fit height and width of the image view
-		piece.setFitHeight(40);
-		piece.setFitWidth(40);
+		piece.setFitHeight(25);
+		piece.setFitWidth(50);
+
 	}
 
 	@Override
@@ -54,4 +53,8 @@ public  class Shark extends Piece {
 		// TODO Auto-generated method stub
 		
 	}
+	
+//    public Eagle(int attack, int energy) {
+//        super(1, attack, energy);
+//    }
 }

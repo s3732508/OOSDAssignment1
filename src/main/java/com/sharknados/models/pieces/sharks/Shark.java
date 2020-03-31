@@ -1,6 +1,6 @@
-package com.sharknados.common.models.pieces.sharks;
+package com.sharknados.models.pieces.sharks;
 
-import com.sharknados.common.models.pieces.Piece;
+import com.sharknados.models.pieces.Piece;
 
 public abstract class Shark extends Piece {
     public Shark(int health, int energy) {

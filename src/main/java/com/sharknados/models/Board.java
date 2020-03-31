@@ -1,4 +1,4 @@
-package com.sharknados.common.models;
+package com.sharknados.models;
 
 
 import static java.lang.Math.max;

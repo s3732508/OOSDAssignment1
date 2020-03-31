@@ -1,6 +1,6 @@
-package com.sharknados.common.models.pieces.eagles;
+package com.sharknados.models.pieces.eagles;
 
-import com.sharknados.common.models.pieces.Piece;
+import com.sharknados.models.pieces.Piece;
 
 public abstract class Eagle extends Piece {
     public Eagle(int attack, int energy) {

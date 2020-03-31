@@ -1,14 +1,14 @@
-package com.sharknados.client.application;
+package com.sharknados.views;
 
 import java.io.FileNotFoundException;
 
-import com.sharknados.client.shapes.eagles.Eagle;
-import com.sharknados.client.shapes.sharks.Shark;
+import com.sharknados.views.shapes.eagles.Eagle;
+import com.sharknados.views.shapes.sharks.Shark;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.sharknados.client.shapes.Piece;
+import com.sharknados.views.shapes.Piece;
 
 public class Board extends Application {
 

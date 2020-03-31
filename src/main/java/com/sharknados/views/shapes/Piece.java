@@ -1,6 +1,7 @@
-package com.sharknados.common.models.pieces;
+package com.sharknados.views.shapes;
 
-import com.sharknados.common.models.Tile;
+import com.sharknados.views.Tile;
+import javafx.scene.image.ImageView;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ public abstract class Piece {
     private int health;
     private int attack;
     private int energy;
+    public ImageView piece;
 
     public Piece(int health, int attack, int energy) {
         this.health = health;
