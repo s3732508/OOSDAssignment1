@@ -11,22 +11,24 @@ import javafx.scene.image.ImageView;
 public class Eagle extends Piece {
 	
 	
-	double size = 12;
+	double size = 14;
 	
 	public Eagle(Tile tile, int attack, int energy) throws FileNotFoundException {
 		super(1, attack, energy);
 		
-		Image image = new Image(this.getClass().getResourceAsStream("/Eagle.png"));
+		Image image = new Image(
+				new FileInputStream("C:\\Users\\Vikas\\Documents\\New folder\\Assignmemt1\\src\\shapes\\Eagle.PNG"));
 		// Setting the image view
 		piece = new ImageView(image);
 
 		// Setting the position of the image
-		piece.setX((5.91 + (4 * tile.x - 2 * tile.y)) * size);
-		piece.setY((4.0 + (3 * tile.y)) * size);
+		piece.setX((3.21 + (3 * tile.x)) * size);
+		piece.setY((8 + (4 * tile.y - 2 * tile.x)) * size);
+		
 
 		// setting the fit height and width of the image view
-		piece.setFitHeight(25);
-		piece.setFitWidth(50);
+		piece.setFitHeight(25.5);
+		piece.setFitWidth(51);
 
 	}
 

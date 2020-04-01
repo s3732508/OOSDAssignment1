@@ -14,10 +14,10 @@ public class Board extends Application {
 
 	// directionS used for indices
 
-	public final static int EAST = 0;
+	public final static int NORTH = 0;
 	public final static int NORTHEAST = 1;
 	public final static int NORTHWEST = 2;
-	public final static int WEST = 3;
+	public final static int SOUTH = 3;
 	public final static int SOUTHWEST = 4;
 	public final static int SOUTHEAST = 5;
 
@@ -27,8 +27,8 @@ public class Board extends Application {
 	Tile[][] map = new Tile[2 * sides][2 * sides];
 
 	
-	public final static int deltaR[] = { 1, 0, -1, -1, 0, 1 };
-	public final static int deltaC[] = { 0, -1, -1, 0, 1, 1 };
+	public final static int deltaR[] = {0, 1, -1, 0, -1, 1 };
+	public final static int deltaC[] = { -1, 0, -1, 1, 0, 1};
 	
 	//Checks if the cell is in the maze
 
@@ -48,6 +48,9 @@ public class Board extends Application {
 		Group root = new Group();
 		int rowend = 4;
 		int rowinitial = 0;
+		
+		
+		
 		for (int y = 0; y < 7; y++) {
 			for (int x = rowinitial; x < rowend; x++) {
 				map[x][y] = new Tile(x, y);
@@ -92,15 +95,15 @@ public class Board extends Application {
 
 		// Adding Shark
 
-		Piece shark = new Shark(map[3][3].neigh[WEST], 0, 0);
+		Piece shark = new Shark(map[3][3].neigh[NORTHWEST], 0, 0);
 
 		root.getChildren().add(shark.piece);
 
 		// Adding Eagle
-		Eagle eagle = new Eagle(map[3][3].neigh[EAST], 0, 0);
+		Eagle eagle = new Eagle(map[3][3].neigh[SOUTHEAST], 0, 0);
 
 		root.getChildren().add(eagle.piece);
-//
+
 		// Creating a scene object
 		Scene scene = new Scene(root, 600, 600);
 
