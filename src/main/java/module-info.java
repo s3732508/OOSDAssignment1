@@ -1,6 +1,7 @@
 module com.sharknados {
     requires javafx.controls;
     requires java.rmi;
+    requires kotlin.stdlib;
     exports com.sharknados.models;
     exports com.sharknados.models.pieces.eagles;
     exports com.sharknados.models.pieces.sharks;

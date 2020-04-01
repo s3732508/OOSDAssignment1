@@ -4,23 +4,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
 
-public class Tile {
+public class TileView {
 	
 	Polygon tile = new Polygon();
-	public int x;
-	public int y;
-	boolean occupied = false;
+
 	
-	/**
-	 * neigh[i] is the neighbor tile of direction i
-	 	 * hexagonal tiles have 6 neighbors 	 
-	*/
-	public Tile neigh[] = {null, null, null, null, null, null};
-	
-	public  Tile(int x,int y) {
-		this.x=x;
-		this.y=y;
-		
+	public TileView(int x, int y, boolean occupied) {
 		double size=12;
 		 
 		tile.getPoints().addAll(new Double[]{ 
@@ -31,18 +20,18 @@ public class Tile {
 				(10+(4*x-2*y))*size, (6+(3*y))*size,
 				(8+(4*x-2*y))*size, (7+(3*y))*size
 	      }); 
-		tile.setFill(Paint.valueOf("#DAD4D7"));
-	      tile.setStroke(Color.BLACK);
+		updateTile(occupied);
+		tile.setStroke(Color.BLACK);
 	}
 	
-	public void setOccupied() {
-		this.occupied= true;
-		tile.setFill(Paint.valueOf("#F1C40F"));
-		
-		
-		
-		
+	public void updateTile(boolean occupied) {
+		if(occupied) {
+			tile.setFill(Paint.valueOf("#F1C40F"));
+		}
+		else{
+			tile.setFill(Paint.valueOf("#DAD4D7"));
+		}
+
 	}
-	
-	
+
 }
