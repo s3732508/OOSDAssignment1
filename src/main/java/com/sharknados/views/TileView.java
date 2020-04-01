@@ -9,17 +9,21 @@ public class TileView {
 	Polygon tile = new Polygon();
 
 	
-	public TileView(int x, int y, boolean occupied) {
-		double size=12;
-		 
-		tile.getPoints().addAll(new Double[]{ 
-				(6+(4*x-2*y))*size, (6+(3*y))*size,
-				(6+(4*x-2*y))*size, (4+(3*y))*size,
-				(8+(4*x-2*y))*size, (3+(3*y))*size,
-				(10+(4*x-2*y))*size, (4+(3*y))*size,
-				(10+(4*x-2*y))*size, (6+(3*y))*size,
-				(8+(4*x-2*y))*size, (7+(3*y))*size
-	      }); 
+	public TileView(int x, int z, boolean occupied) {
+		double r = 16;
+		double size = 2*r;
+		double pixelX = 3.0/2.0*x;
+		double pixelY = (Math.sqrt(3.0))/2.0*x + Math.sqrt(3.0)*z;
+
+		// Print real pixel coords
+		System.out.println("Pixel coords (" + pixelX + " " + pixelY +")");
+
+			for (int i = 0; i < 6; i++) {
+				double angle = 2.0 * Math.PI *(i) / 6.0;
+				double offsetX = size*Math.cos(angle) + size;
+				double offsetY = size*Math.sin(angle);
+				tile.getPoints().addAll(pixelX + offsetX + pixelX*size, pixelY + offsetY + pixelY*size);
+			}
 		updateTile(occupied);
 		tile.setStroke(Color.BLACK);
 	}

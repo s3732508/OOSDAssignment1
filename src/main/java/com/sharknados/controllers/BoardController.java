@@ -26,9 +26,11 @@ public class BoardController {
     public void updateBoard(){
         List<Tile> tileList = board.getAllTiles();
         List<TileView> tileViewList = new ArrayList<>();
+        System.out.println("Tile List:");
         for(Tile tile : tileList){
+            System.out.println(tile.toString());
             int x = tile.getX();
-            int z = tile.getX();
+            int z = tile.getZ();
             boolean occupied = tile.isOccupied();
             tileViewList.add(new TileView(x,z,occupied));
         }

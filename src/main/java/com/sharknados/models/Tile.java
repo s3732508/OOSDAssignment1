@@ -38,6 +38,6 @@ public class Tile {
 
     @Override
     public String toString(){
-        return String.format("(" + x + ", " + z + ")");
+        return String.format("Axial coords (" + x + ", " + z + ")");
     }
 }

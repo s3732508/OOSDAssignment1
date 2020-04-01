@@ -3,6 +3,7 @@ module com.sharknados {
     requires java.rmi;
     requires kotlin.stdlib;
     exports com.sharknados.models;
+    exports com.sharknados;
     exports com.sharknados.models.pieces.eagles;
     exports com.sharknados.models.pieces.sharks;
     exports com.sharknados.models.pieces;
