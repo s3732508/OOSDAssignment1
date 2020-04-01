@@ -21,17 +21,20 @@ public class Tile {
 		this.x=x;
 		this.y=y;
 		
-		double size=12;
+		double size=14;
 		 
 		tile.getPoints().addAll(new Double[]{ 
-				(6+(4*x-2*y))*size, (6+(3*y))*size,
-				(6+(4*x-2*y))*size, (4+(3*y))*size,
-				(8+(4*x-2*y))*size, (3+(3*y))*size,
-				(10+(4*x-2*y))*size, (4+(3*y))*size,
-				(10+(4*x-2*y))*size, (6+(3*y))*size,
-				(8+(4*x-2*y))*size, (7+(3*y))*size
+				 (6+(3*x))*size, (7+(4*y-2*x))*size,
+				 (4+(3*x))*size, (7+(4*y-2*x))*size,
+				 (3+(3*x))*size, (9+(4*y-2*x))*size,
+				 (4+(3*x))*size, (11+(4*y-2*x))*size,
+				 (6+(3*x))*size, (11+(4*y-2*x))*size,
+				 (7+(3*x))*size, (9+(4*y-2*x))*size
 	      }); 
-		tile.setFill(Paint.valueOf("#DAD4D7"));
+		if(y%2==0)
+		tile.setFill(Paint.valueOf("#AEB3B8"));
+		else
+			tile.setFill(Paint.valueOf("#BDBFB8"));
 	      tile.setStroke(Color.BLACK);
 	}
 	
