@@ -1,6 +1,10 @@
 package com.sharknados.views;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import com.sharknados.views.shapes.eagles.Eagle;
 import com.sharknados.views.shapes.sharks.Shark;

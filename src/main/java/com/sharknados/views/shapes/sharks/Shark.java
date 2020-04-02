@@ -1,6 +1,9 @@
 package com.sharknados.views.shapes.sharks;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 import com.sharknados.views.shapes.Piece;
@@ -17,8 +20,8 @@ public  class Shark extends Piece {
 	public Shark(Tile tile, int health, int energy) throws FileNotFoundException {
 		super(health, 1, energy);
 
-		Image image = new Image(
-				new FileInputStream("C:\\Users\\Vikas\\Documents\\New folder\\Assignmemt1\\src\\shapes\\Shark.PNG"));
+		Image image = new Image(new FileInputStream("src/main/resources/Shark.png"));
+//		Image image =  new Image(this.getClass().getResourceAsStream("/Shark.png"));
 		// Setting the image view
 		piece = new ImageView(image);
 
