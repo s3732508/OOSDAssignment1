@@ -1,6 +1,6 @@
 package com.sharknados.views.shapes;
 
-import com.sharknados.views.Tile;
+import com.sharknados.views.TileView;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
@@ -31,6 +31,6 @@ public abstract class Piece {
 
     public abstract String getAbilityName();
     public abstract int getAbilityCost();
-    public abstract List<Tile> getValidCellsForAbility(Tile currentTile);
-    public abstract void doAbility(Tile currentTile, Tile selectedTile);
+    public abstract List<TileView> getValidCellsForAbility(TileView currentTile);
+    public abstract void doAbility(TileView currentTile, TileView selectedTile);
 }

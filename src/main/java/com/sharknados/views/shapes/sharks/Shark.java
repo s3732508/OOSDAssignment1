@@ -8,16 +8,16 @@ import java.util.List;
 
 import com.sharknados.views.shapes.Piece;
 
-import com.sharknados.views.Tile;
+import com.sharknados.views.TileView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public  class Shark extends Piece {
-
+public  class Shark{//} extends Piece {
+/*
 	
 	double size=14;
 
-	public Shark(Tile tile, int health, int energy) throws FileNotFoundException {
+	public Shark(TileView tile, int health, int energy) throws FileNotFoundException {
 		super(health, 1, energy);
 
 		Image image = new Image(new FileInputStream("src/main/resources/Shark.png"));
@@ -47,14 +47,14 @@ public  class Shark extends Piece {
 	}
 
 	@Override
-	public List<Tile> getValidCellsForAbility(Tile currentTile) {
+	public List<TileView> getValidCellsForAbility(TileView currentTile) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void doAbility(Tile currentTile, Tile selectedTile) {
+	public void doAbility(TileView currentTile, TileView selectedTile) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 }
