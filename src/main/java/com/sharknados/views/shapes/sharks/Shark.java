@@ -12,18 +12,19 @@ import javafx.scene.image.ImageView;
 public  class Shark{//} extends Piece {
 /*
 	
-	double size=12;
+	double size=14;
 
 	public Shark(TileView tile, int health, int energy) throws FileNotFoundException {
 		super(health, 1, energy);
 
-		Image image = new Image(this.getClass().getResourceAsStream("/Shark.png"));
+		Image image = new Image(
+				new FileInputStream("C:\\Users\\Vikas\\Documents\\New folder\\Assignmemt1\\src\\shapes\\Shark.PNG"));
 		// Setting the image view
 		piece = new ImageView(image);
 
 		// Setting the position of the image
-		piece.setX((6.2 + (4 * tile.x - 2 * tile.y)) * size);
-		piece.setY((3.2 + (3 * tile.y)) * size);
+		piece.setX((3.4 + (3 * tile.x)) * size);
+		piece.setY((7.4 + (4 * tile.y - 2 * tile.x)) * size);
 
 		// setting the fit height and width of the image view
 		piece.setFitHeight(40);
