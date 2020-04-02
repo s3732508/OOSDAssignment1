@@ -2,3 +2,8 @@
 target/
 out/
 *.iml
+.classpath
+.project
+*.fxbuild
+.settings/
+bin/

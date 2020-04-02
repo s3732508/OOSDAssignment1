@@ -1,6 +1,10 @@
 package com.sharknados.views.shapes.eagles;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import com.sharknados.views.Tile;
@@ -15,16 +19,15 @@ public class Eagle extends Piece {
 	
 	public Eagle(Tile tile, int attack, int energy) throws FileNotFoundException {
 		super(1, attack, energy);
-		
-		Image image = new Image(
-				new FileInputStream("C:\\Users\\Vikas\\Documents\\New folder\\Assignmemt1\\src\\shapes\\Eagle.PNG"));
+
+		Image image = new Image(new FileInputStream("src/main/resources/Eagle.png"));
+//		Image image =  new Image(this.getClass().getResourceAsStream("src/main/java/resources/Eagle.png"));
 		// Setting the image view
 		piece = new ImageView(image);
 
 		// Setting the position of the image
 		piece.setX((3.21 + (3 * tile.x)) * size);
 		piece.setY((8 + (4 * tile.y - 2 * tile.x)) * size);
-		
 
 		// setting the fit height and width of the image view
 		piece.setFitHeight(25.5);
