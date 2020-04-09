@@ -49,6 +49,7 @@ public class TileView {
 	public void select(){
 		tile.setFill(Paint.valueOf("#315B86"));
 	}
+
 	public void unselect(){
 		tile.setFill(Paint.valueOf("#DAD4D7"));
 	}

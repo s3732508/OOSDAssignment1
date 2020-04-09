@@ -18,14 +18,14 @@ import static java.lang.Math.min;
 public class BoardController {
     private Board board;
     private BoardView boardView;
-    Tile[][] tiles;
+
     TileView[][] tileViews ;
 
     public BoardController(Board board, BoardView boardView){
 
         this.board = board;
         this.boardView = boardView;
-        this.tiles= board.getAllTiles();
+
         this.tileViews = new TileView[2*board.getSize()+1][2*board.getSize()+1];
         updateBoard();
     }
@@ -39,9 +39,9 @@ public class BoardController {
             int zStart = max(0, size - x);
             int zStop = min(2*size, 3*size - x);
             for (int z = zStart; z <= zStop; z++) {
-                boolean occupied = tiles[x][z].isOccupied();
+                boolean occupied = board.getTileAt(x,z).isOccupied();
                 tileViews[x][z]= new TileView(x,z,occupied);
-                tileViews[x][z].tile.addEventFilter(MouseEvent.MOUSE_CLICKED, selectTileHandler(tiles[x][z]));
+                tileViews[x][z].tile.addEventFilter(MouseEvent.MOUSE_CLICKED, selectTileHandler(board.getTileAt(x,z)));
                 tileViewList.add(tileViews[x][z]);
             }
         }

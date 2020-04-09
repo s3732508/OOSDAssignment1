@@ -60,6 +60,10 @@ public class Board {
         }
     }
 
+    public Tile getTileAt(int x, int z){
+        return tiles[x][z];
+    }
+
 
     private boolean trySetNeighbor(Tile tile, int direction){
         boolean success = false;
