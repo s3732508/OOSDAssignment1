@@ -32,18 +32,18 @@ public class Board {
     public final static int deltaX[] = { 0, 1, 1, 0, -1, -1 };
     public final static int deltaZ[] = { -1, -1, 0, 1, 1, 0 };
 
-    private Tile[][] tilePositions;
+    private Tile[][] tiles;
 
     public Board(int size) {
         this.size = size;
-        this.tilePositions = new Tile[2*size+1][2*size+1];
+        this.tiles = new Tile[2*size+1][2*size+1];
 
         // Generate a board. Add tiles to the 2d array
         for (int x = 0; x <= 2*size; x++) {
             int zStart = max(0, size - x);
             int zStop = min(2*size, 3*size - x);
             for (int z = zStart; z <= zStop; z++) {
-                tilePositions[x][z] = new Tile(x,z);
+                tiles[x][z] = new Tile(x,z);
             }
         }
 
@@ -54,7 +54,7 @@ public class Board {
             for (int z = zStart; z <= zStop; z++) {
                 //Loop through each direction setting a neighbor if it exists
                 for (int direction = 0; direction < 6; direction ++){
-                    trySetNeighbor(tilePositions[x][z], direction);
+                    trySetNeighbor(tiles[x][z], direction);
                 }
             }
         }
@@ -65,7 +65,7 @@ public class Board {
         boolean success = false;
         Tile neighbor = null;
         try {
-            neighbor = tilePositions[tile.getX() + deltaX[direction]][tile.getZ() + deltaZ[direction]];
+            neighbor = tiles[tile.getX() + deltaX[direction]][tile.getZ() + deltaZ[direction]];
         } catch (ArrayIndexOutOfBoundsException e) {
             //
         }
@@ -79,17 +79,7 @@ public class Board {
     public int getSize() {
         return size;
     }
-    public List<Tile> getAllTiles(){
-        List<Tile> list = new ArrayList<Tile>();
-
-        for (int x = 0; x <= 2*size; x++) {
-            int zStart = max(0, size - x);
-            int zStop = min(2*size, 3*size - x);
-            for (int z = zStart; z <= zStop; z++) {
-                list.add(tilePositions[x][z]);
-            }
-        }
-
-        return list;
+    public Tile[][] getAllTiles(){
+        return tiles;
     }
 }
