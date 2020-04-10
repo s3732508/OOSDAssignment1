@@ -39,9 +39,9 @@ public class BoardController {
             int zStart = max(0, size - x);
             int zStop = min(2*size, 3*size - x);
             for (int z = zStart; z <= zStop; z++) {
-                boolean occupied = board.getTileAt(x,z).isOccupied();
+                boolean occupied = board.getTilePositions(x,z).isOccupied();
                 tileViews[x][z]= new TileView(x,z,occupied);
-                tileViews[x][z].tile.addEventFilter(MouseEvent.MOUSE_CLICKED, selectTileHandler(board.getTileAt(x,z)));
+                tileViews[x][z].tile.addEventFilter(MouseEvent.MOUSE_CLICKED, selectTileHandler(board.getTilePositions(x,z)));
                 tileViewList.add(tileViews[x][z]);
             }
         }
