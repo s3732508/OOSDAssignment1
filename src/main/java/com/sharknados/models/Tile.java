@@ -1,6 +1,9 @@
 package com.sharknados.models;
 
+import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.TileView;
+
+import java.util.List;
 
 public class Tile {
     private int x, z;
@@ -39,6 +42,15 @@ public class Tile {
 
     public boolean isOccupied() {
         return occupied;
+    }
+
+    public Piece getOccupyingPiece(List<Piece> pieces) {
+        for (Piece piece : pieces) {
+            if (piece.getTile() == this) {
+                return piece;
+            }
+        }
+        return null;
     }
 
     @Override
