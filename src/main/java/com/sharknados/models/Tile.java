@@ -30,6 +30,11 @@ public class Tile {
     public Tile getNeighbor(int direction) {
         return neighbor[direction];
     }
+    public boolean checkneighbor(int direction) {
+        if(neighbor[direction] !=null)
+            return true;
+        return false;
+    }
 
     public void setOccupied(boolean occupied) {
         this.occupied = occupied;
