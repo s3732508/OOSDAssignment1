@@ -18,11 +18,6 @@ public class BoardController {
         updateBoard();
     }
 
-
-
-
-
-
     public void updateBoard(){
         List<Tile> tileList = board.getAllTiles();
         List<TileView> tileViewList = new ArrayList<>();

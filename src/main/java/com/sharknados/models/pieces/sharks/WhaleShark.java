@@ -1,12 +1,14 @@
 package com.sharknados.models.pieces.sharks;
 
 import com.sharknados.models.Tile;
+import com.sharknados.models.pieces.Piece;
 
 import java.util.List;
 
 public class WhaleShark extends Shark {
-    public WhaleShark() {
-        super(3, 2);
+
+    public WhaleShark(int attack, int defence, Tile tile) {
+        super(attack, defence, tile);
     }
 
     @Override
@@ -28,4 +30,6 @@ public class WhaleShark extends Shark {
     public void doAbility(Tile currentTile, Tile selectedTile) {
         // TODO
     }
+    @Override
+    public boolean inTheSameArmyAs(Piece piece) {return piece instanceof Shark;};
 }

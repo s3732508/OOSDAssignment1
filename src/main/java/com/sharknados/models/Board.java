@@ -1,11 +1,13 @@
 package com.sharknados.models;
 
 
+import com.sharknados.models.pieces.Piece;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+import static java.lang.Math.*;
+import static java.lang.Math.abs;
 
 public class Board {
     /*
@@ -33,6 +35,7 @@ public class Board {
     public final static int deltaZ[] = { -1, -1, 0, 1, 1, 0 };
 
     private Tile[][] tilePositions;
+    private List<Piece> pieces;
 
     public Board(int size) {
         this.size = size;
@@ -60,6 +63,35 @@ public class Board {
         }
     }
 
+    private boolean canMovePieceToTile(Piece piece, Tile destTile) {
+        Tile fromTile = piece.getTile();
+
+        if (destTile == piece.getTile())
+            return false;
+        //limit movement to just one tile away
+        int x = destTile.getX() - fromTile.getX();
+        int z = destTile.getZ() - fromTile.getZ();
+        if (abs(x) > 1 || abs(z) > 1) {
+            return false;
+        }
+        // if the destination Tile is occupied by enemy, move in
+        Piece destPiece = destTile.getOccupyingPiece(getPieces());
+        if (destPiece != null) {
+            if (piece.inTheSameArmyAs(destPiece))
+                return false;
+        }
+        return true;
+    }
+
+    public void move(Piece piece, Tile tile) {
+        // if tile is already occupied, kill the occupier
+        Piece destPiece = tile.getOccupyingPiece(pieces);
+        if (destPiece != null) {
+            destPiece.setTile(null); //killed
+        }
+        // move
+        piece.setTile(tile);
+    }
 
     private boolean trySetNeighbor(Tile tile, int direction){
         boolean success = false;
@@ -92,4 +124,10 @@ public class Board {
 
         return list;
     }
+
+    public List<Piece> getPieces() {return pieces;}
+    public Tile getTilePositions(int i, int j) {
+        return tilePositions[i][j];
+    }
+
 }
