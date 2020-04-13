@@ -1,16 +1,4 @@
-package com.sharknados.views.shapes.sharks;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.List;
-
-import com.sharknados.views.shapes.Piece;
-
-import com.sharknados.views.TileView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+package com.sharknados.views.pieces.sharks;
 
 public  class Shark{//} extends Piece {
 /*
