@@ -1,10 +1,13 @@
 package com.sharknados.models;
 
+import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.TileView;
+
+import java.util.List;
 
 public class Tile {
     private int x, z;
-    private boolean occupied = false;
+    private boolean occupied = true;
     private Tile neighbor[] = {null, null, null, null, null, null};
 
     public Tile(int x, int z){
@@ -27,6 +30,11 @@ public class Tile {
     public Tile getNeighbor(int direction) {
         return neighbor[direction];
     }
+    public boolean checkneighbor(int direction) {
+        if(neighbor[direction] !=null)
+            return true;
+        return false;
+    }
 
     public void setOccupied(boolean occupied) {
         this.occupied = occupied;
@@ -34,6 +42,15 @@ public class Tile {
 
     public boolean isOccupied() {
         return occupied;
+    }
+
+    public Piece getOccupyingPiece(List<Piece> pieces) {
+        for (Piece piece : pieces) {
+            if (piece.getTile() == this) {
+                return piece;
+            }
+        }
+        return null;
     }
 
     @Override

@@ -1,16 +1,4 @@
-package com.sharknados.views.shapes.eagles;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-
-import com.sharknados.views.TileView;
-import com.sharknados.views.shapes.Piece;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+package com.sharknados.views.pieces.eagles;
 
 public class Eagle {//extends Piece {
 /*
