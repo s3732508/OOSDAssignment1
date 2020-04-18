@@ -1,13 +1,10 @@
 package com.sharknados.views;
 
-import com.sharknados.models.Tile;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
-
-import java.util.List;
 
 public class TileView {
 	public Polygon tile = new Polygon();
@@ -15,6 +12,7 @@ public class TileView {
 
 
 	public TileView(int x, int z, boolean occupied) {
+
 		double r = 16;
 		double size = 2*r;
 		double pixelX = 3.0/2.0*x;
@@ -27,7 +25,7 @@ public class TileView {
 			double angle = 2.0 * Math.PI *(i) / 6.0;
 			double offsetX = size*Math.cos(angle) + size;
 			double offsetY = size*Math.sin(angle);
-			tile.getPoints().addAll(pixelX + offsetX + pixelX*size, pixelY + offsetY + pixelY*size);
+			tile.getPoints().addAll(offsetX + pixelX*size, offsetY + pixelY*size);
 			tile.setStroke(Color.WHITESMOKE);
 		}
 		updateTile(occupied);

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Tile {
     private int x, z;
-    private boolean occupied = false;
+    private boolean occupied = true;
     private Tile neighbor[] = {null, null, null, null, null, null};
 
     public Tile(int x, int z){
