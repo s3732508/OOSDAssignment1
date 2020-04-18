@@ -68,7 +68,6 @@ public class BoardController {
                         tileViews[tile.getNeighbor(dir).getX()][tile.getNeighbor(dir).getZ()].pathallowed();
                     }
                 }
-
             }
         };
         return eventHandler;

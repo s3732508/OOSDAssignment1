@@ -8,6 +8,9 @@ public class Game {
 
     private Board board;
     private Turn turn;
+    private GameState saveState;
+    private GameState loadState;
+
 
     public Game() {
         board = new Board(5);
@@ -33,4 +36,7 @@ public class Game {
             turn = Turn.SHARK;
         return turn;
     }
+
+
+
 }
