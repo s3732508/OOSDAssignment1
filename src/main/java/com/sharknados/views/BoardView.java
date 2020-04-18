@@ -18,8 +18,6 @@ public class BoardView extends Group {
 		//this.root = root;
 	}
 
-
-
 	public void refreshBoard(List<TileView> tileViewList){
 		this.getChildren().clear();
 		for (TileView tile : tileViewList) {
