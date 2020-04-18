@@ -53,7 +53,7 @@ public class GameController extends AbstractController {
                 Piece testPM = new WhaleShark(1, 1, board.getTileAtPosition(i+1, i+1));
                 board.getTileAtPosition(i+1, i+1).setOccupied(true);
                 PieceView testPV = new PieceView(i+1, i+1);
-                testPV.pieceBackground.addEventFilter(MouseEvent.MOUSE_CLICKED, selectPieceHandler(this.view, tileViewList, testPM));
+                testPV.pieceBackground.addEventFilter(MouseEvent.MOUSE_CLICKED, selectPieceHandler(this.view, testPM));
                 pieceViewList.add(testPV);
                 testPC.addModel(testPM);
                 testPC.addView(testPV);
@@ -72,7 +72,7 @@ public class GameController extends AbstractController {
 
 
 
-    public EventHandler selectPieceHandler (View view, List < TileView > tileViewList, Piece piece){
+    public EventHandler selectPieceHandler (View view, Piece piece){
         List<Tile> tileList = board.getTileList();
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -98,4 +98,5 @@ public class GameController extends AbstractController {
         };
         return eventHandler;
     }
+
 }
