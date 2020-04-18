@@ -1,7 +1,9 @@
 package com.sharknados;
 
-import com.sharknados.controllers.BoardController;
-import com.sharknados.models.Board;
+
+import com.sharknados.controllers.GameController;
+
+import com.sharknados.models.Game;
 import com.sharknados.views.View;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -14,12 +16,12 @@ public class Client extends Application{
     }
 
     public void start(Stage mainStage) throws Exception {
-        Board board = new Board(4);
+        Game game = new Game();
         StackPane root = new StackPane();
-        View view = new View();
+        GameController gameController = new GameController (game);
+        View view = gameController.getView();
         root.getChildren().add(view);
-        BoardController boardController = new BoardController(board, view.getBoardView());
-        Scene scene = new Scene(root,480,700);
+        Scene scene = new Scene(root,490,700);
         mainStage.setTitle("Sharknados");
         mainStage.setScene(scene);
         mainStage.show();

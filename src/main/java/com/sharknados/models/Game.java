@@ -13,7 +13,7 @@ public class Game {
 
 
     public Game() {
-        board = new Board(5);
+        board = new Board(3);
         turn = Turn.SHARK;
     }
 

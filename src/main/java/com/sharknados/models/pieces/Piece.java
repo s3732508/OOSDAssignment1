@@ -1,10 +1,11 @@
 package com.sharknados.models.pieces;
 
+import com.sharknados.models.AbstractModel;
 import com.sharknados.models.Tile;
 
 import java.util.List;
 
-public abstract class Piece {
+public abstract class Piece extends AbstractModel {
     private int defence;
     private int attack;
     private Tile tile;

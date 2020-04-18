@@ -34,7 +34,7 @@ public class Board {
     public final static int deltaX[] = { 0, 1, 1, 0, -1, -1 };
     public final static int deltaZ[] = { -1, -1, 0, 1, 1, 0 };
 
-    private Tile[][] tiles;
+    private Tile[][] tilePositions;
     private List<Piece> pieces;
 
     public Board(int size) {
@@ -116,12 +116,25 @@ public class Board {
     }
 
     public List<Piece> getPieces() {return pieces;}
-    public Tile getTilePositions(int i, int j) {
-        return tiles[i][j];
+
+    public Tile getTileAtPosition(int x, int z){
+        return tilePositions[x][z];
     }
 
-    public Tile getTileAt(int x, int z){
-        return tiles[x][z];
+    public Tile getCentreTile(){
+        return tilePositions[size][size];
+    }
+
+    public List<Tile> getTileList(){
+        List<Tile> tileList = new ArrayList<>();
+        for (int x = 0; x <= 2*size; x++) {
+            int zStart = max(0, size - x);
+            int zStop = min(2*size, 3*size - x);
+            for (int z = zStart; z <= zStop; z++) {
+                tileList.add(tilePositions[x][z]);
+            }
+        }
+        return tileList;
     }
 
 }

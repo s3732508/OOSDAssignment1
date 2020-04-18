@@ -15,6 +15,7 @@ public class BoardView extends BorderPane {
 
 		for (PieceView piece : pieceViewList) {
 			this.getChildren().add(piece.piece);
+			this.getChildren().add(piece.pieceBackground);
 		}
 	}
 
