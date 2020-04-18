@@ -39,14 +39,14 @@ public class Board {
 
     public Board(int size) {
         this.size = size;
-        this.tiles = new Tile[2*size+1][2*size+1];
+        this.tilePositions = new Tile[2*size+1][2*size+1];
 
         // Generate a board. Add tiles to the 2d array
         for (int x = 0; x <= 2*size; x++) {
             int zStart = max(0, size - x);
             int zStop = min(2*size, 3*size - x);
             for (int z = zStart; z <= zStop; z++) {
-                tiles[x][z] = new Tile(x,z);
+                tilePositions[x][z] = new Tile(x,z);
             }
         }
 
@@ -57,7 +57,7 @@ public class Board {
             for (int z = zStart; z <= zStop; z++) {
                 //Loop through each direction setting a neighbor if it exists
                 for (int direction = 0; direction < 6; direction ++){
-                    trySetNeighbor(tiles[x][z], direction);
+                    trySetNeighbor(tilePositions[x][z], direction);
                 }
             }
         }
@@ -97,7 +97,7 @@ public class Board {
         boolean success = false;
         Tile neighbor = null;
         try {
-            neighbor = tiles[tile.getX() + deltaX[direction]][tile.getZ() + deltaZ[direction]];
+            neighbor = tilePositions[tile.getX() + deltaX[direction]][tile.getZ() + deltaZ[direction]];
         } catch (ArrayIndexOutOfBoundsException e) {
             //
         }
@@ -112,7 +112,7 @@ public class Board {
         return size;
     }
     public Tile[][] getAllTiles(){
-        return tiles;
+        return tilePositions;
     }
 
     public List<Piece> getPieces() {return pieces;}
