@@ -7,6 +7,8 @@ import com.sharknados.views.PieceView;
 import com.sharknados.views.TileView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import static java.lang.Math.max;
@@ -41,16 +43,31 @@ public class BoardController {
                 tileViews[x][z]= new TileView(x,z,occupied);
                 tileViews[x][z].tile.addEventFilter(MouseEvent.MOUSE_CLICKED, selectTileHandler(board.getTilePositions(x,z)));
                 tileViewList.add(tileViews[x][z]);
+            }
 
-                if(board.getTileAt(x,z).isOccupied()){
-                    try {
-                        pieceViewList.add(new PieceView(x,z));
-                    } catch (Exception e) {
-                        // Handle it.
-                    }
-                }
+            try {
+                pieceViewList.add(new PieceView(0 , 8, "src/main/resources/Shark.png"));
+                pieceViewList.add(new PieceView(1 , 8, "src/main/resources/Shark.png"));
+                pieceViewList.add(new PieceView(2 , 8, "src/main/resources/Shark.png"));
+                pieceViewList.add(new PieceView(3 , 8, "src/main/resources/Shark.png"));
+                pieceViewList.add(new PieceView(4 , 8, "src/main/resources/Shark.png"));
+                pieceViewList.add(new PieceView(5 , 7, "src/main/resources/Shark.png"));
+                pieceViewList.add(new PieceView(6 , 6, "src/main/resources/Shark.png"));
+                pieceViewList.add(new PieceView(7 , 5, "src/main/resources/Shark.png"));
+                pieceViewList.add(new PieceView(8 , 4, "src/main/resources/Shark.png"));
 
 
+                pieceViewList.add(new PieceView(0 , 4, "src/main/resources/Eagle.png"));
+                pieceViewList.add(new PieceView(1 , 3, "src/main/resources/Eagle.png"));
+                pieceViewList.add(new PieceView(2 , 2, "src/main/resources/Eagle.png"));
+                pieceViewList.add(new PieceView(3 , 1, "src/main/resources/Eagle.png"));
+                pieceViewList.add(new PieceView(4 , 0, "src/main/resources/Eagle.png"));
+                pieceViewList.add(new PieceView(5 , 0, "src/main/resources/Eagle.png"));
+                pieceViewList.add(new PieceView(6 , 0, "src/main/resources/Eagle.png"));
+                pieceViewList.add(new PieceView(7 , 0, "src/main/resources/Eagle.png"));
+                pieceViewList.add(new PieceView(8 , 0, "src/main/resources/Eagle.png"));
+            } catch (Exception e) {
+                // Handle it.
             }
         }
 
