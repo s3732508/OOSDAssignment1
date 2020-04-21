@@ -8,7 +8,6 @@ import com.sharknados.models.pieces.sharks.WhaleShark;
 import com.sharknados.views.PieceView;
 import com.sharknados.views.TileView;
 import com.sharknados.views.View;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
@@ -21,9 +20,9 @@ public class GameController extends AbstractController {
     private Board board;
     private View view;
     private Piece selectedPiece = null;
-    TileView[][] tileViews;
-
-    List<TileView> tileViewList;
+    private TileView[][] tileViews;
+    private List<TileView> tileViewList;
+    private EventHandler[] moveFilters;
 
     public GameController(Game game) {
         this.game = game;
@@ -33,6 +32,7 @@ public class GameController extends AbstractController {
         //Initalize list of tile views and bind models and controllers
         int size = board.getSize();
         this.tileViews = new TileView[2 * size + 1][2 * size + 1];
+        this.moveFilters = new EventHandler[6];
         this.tileViewList = new ArrayList<>();
         for (int x = 0; x <= 2 * size; x++) {
             int zStart = max(0, size - x);
@@ -118,7 +118,8 @@ public class GameController extends AbstractController {
                 if (!tile.getNeighbor(dir).isOccupied()){
                     tile.getNeighbor(dir).setUnavailable(false);
                     tile.getNeighbor(dir).setHighlighted(true);
-                    tileViews[tile.getNeighbor(dir).getX()][tile.getNeighbor(dir).getZ()].tile.addEventFilter(MouseEvent.MOUSE_CLICKED, moveToTileHandler(tile.getNeighbor(dir)));
+                    this.moveFilters[dir] = moveToTileHandler(tile.getNeighbor(dir));
+                    tileViews[tile.getNeighbor(dir).getX()][tile.getNeighbor(dir).getZ()].tile.addEventFilter(MouseEvent.MOUSE_CLICKED, moveFilters[dir]);
                 }
             }
         }
@@ -130,6 +131,12 @@ public class GameController extends AbstractController {
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
+                if (selectedPiece !=null) {
+                    System.out.println("Selected");
+                }
+                if (selectedPiece ==null) {
+                    System.out.println(" Not Selected");
+                }
                 boolean valid = tile.isHighlighted();
                 //deselect all tiles
                 for (Tile t : tileList) {
@@ -148,7 +155,7 @@ public class GameController extends AbstractController {
                     Tile oldTile = selectedPiece.getTile();
                     for (int dir = 0; dir < 6; dir++) {
                         if (oldTile.checkneighbor(dir)) {
-                            tileViews[oldTile.getNeighbor(dir).getX()][oldTile.getNeighbor(dir).getZ()].tile.removeEventFilter(MouseEvent.MOUSE_CLICKED, moveToTileHandler(oldTile.getNeighbor(dir)));
+                            tileViews[oldTile.getNeighbor(dir).getX()][oldTile.getNeighbor(dir).getZ()].tile.removeEventFilter(MouseEvent.MOUSE_CLICKED, moveFilters[dir]);
                         }
                     }
                     if (valid) {
