@@ -13,6 +13,7 @@ public class Tile extends AbstractModel{
     private boolean selected = false;
     private boolean highlighted = false;
     private boolean unavailable = false;
+    private Piece piece;
     private Tile neighbor[] = {null, null, null, null, null, null};
 
     public Tile(int x, int z){
@@ -75,6 +76,14 @@ public class Tile extends AbstractModel{
 
     public boolean isHighlighted() {
         return highlighted;
+    }
+
+    public void setPiece(Piece piece){
+        this.piece = piece;
+    }
+
+    public Piece getPiece(){
+        return this.piece;
     }
 
     public Piece getOccupyingPiece(List<Piece> pieces) {

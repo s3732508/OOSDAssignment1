@@ -6,10 +6,11 @@ import com.sharknados.models.pieces.sharks.Shark;
 
 import java.util.List;
 
-public class LesserFishEagle extends Eagle {
+public class EagleOwl extends Eagle {
 
-    public LesserFishEagle(int attack, int defence, Tile tile) {
+    public EagleOwl(int attack, int defence, Tile tile) {
         super(attack, defence, tile);
+        setType(Type.EAGLE_OWL);
     }
 
     @Override
@@ -32,5 +33,5 @@ public class LesserFishEagle extends Eagle {
         // TODO:
     }
     @Override
-    public boolean inTheSameArmyAs(Piece piece) {return piece instanceof Shark;};
+    public boolean inTheSameArmyAs(Piece piece) {return piece instanceof Eagle;};
 }

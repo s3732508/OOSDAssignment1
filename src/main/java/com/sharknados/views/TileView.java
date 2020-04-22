@@ -25,9 +25,6 @@ public class TileView implements ViewImpl {
 		double pixelX = 3.0 / 2.0 * x;
 		double pixelY = (Math.sqrt(3.0)) / 2.0 * x + Math.sqrt(3.0) * z;
 
-		// Print real pixel coords
-		System.out.println("Pixel coords (" + pixelX + " " + pixelY + ")");
-
 		for (int i = 0; i < 6; i++) {
 			double angle = 2.0 * Math.PI * (i) / 6.0;
 			double offsetX = size * Math.cos(angle) + size;

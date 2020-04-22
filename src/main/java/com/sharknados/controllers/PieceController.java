@@ -1,5 +1,7 @@
 package com.sharknados.controllers;
 
+import com.sharknados.models.pieces.Piece;
+
 public class PieceController extends AbstractController {
     public static final String X_PROPERTY = "x position";
     public static final String Z_PROPERTY = "z position";

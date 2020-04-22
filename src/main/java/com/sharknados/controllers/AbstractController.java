@@ -1,8 +1,6 @@
 package com.sharknados.controllers;
-
 import com.sharknados.models.AbstractModel;
 import com.sharknados.views.ViewImpl;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.Method;

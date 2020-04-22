@@ -18,7 +18,7 @@ public class CommandBar extends HBox{
     public CommandBar(AbstractController controller){
         this.controller = (GameController) controller;
         attackButt = new Button("Attack");
-        //attackButt.setOnAction(attackHandler);
+        attackButt.setOnAction(attackButtonHandler);
         moveButt = new Button("Move");
         moveButt.setOnAction(moveButtonHandler);
         abilityButt = new Button("Ability");
@@ -36,5 +36,13 @@ public class CommandBar extends HBox{
             controller.moveButtonHandler();
         }
     };
+
+    EventHandler<ActionEvent> attackButtonHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.attackButtonHandler();
+        }
+    };
+
 
 }
