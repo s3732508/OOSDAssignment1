@@ -23,6 +23,10 @@ public class View extends BorderPane{
         this.commandBar.setVisible(vis);
     }
 
+    public void setCommandBarDisable(boolean disable){
+        this.commandBar.disableButtons(disable);
+    }
+
     public void addToView(List<TileView> tileViewList, List<PieceView> pieceViewList){
         boardPane.getChildren().clear();
         for (TileView tile : tileViewList) {

@@ -44,5 +44,10 @@ public class CommandBar extends HBox{
         }
     };
 
+    public void disableButtons(boolean disable) {
+        this.attackButt.setDisable(disable);
+        this.moveButt.setDisable(disable);
+        this.abilityButt.setDisable(disable);
+    }
 
 }

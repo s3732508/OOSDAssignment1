@@ -149,6 +149,12 @@ public class GameController extends AbstractController {
                 }
 
                 tile.setSelected(true);
+
+                view.setCommandBarDisable(true);
+                if (piece.getTeam() == Piece.Team.SHARK && game.getTurn() == Game.Turn.SHARK
+                    || piece.getTeam() == Piece.Team.EAGLE && game.getTurn() == Game.Turn.EAGLE) {
+                    view.setCommandBarDisable(false);
+                }
                 view.setCommandBarVisible(true);
 
             }
@@ -210,7 +216,9 @@ public class GameController extends AbstractController {
                         selectedPiece.setTile(tile);
                         tile.setOccupied(true);
                         tile.setPiece(selectedPiece);
+                        // end turn
                         selectedPiece = null;
+                        game.nextTurn();
                     }
                 }
             }
@@ -275,7 +283,9 @@ public class GameController extends AbstractController {
                     //todo attack single targeted tile of not commander (targetTile)
                     System.out.println("ATTACKING TARGETED TILE");
                 }
+                // end turn
                 selectedPiece = null;
+                game.nextTurn();
             }
         };
         return eventHandler;
