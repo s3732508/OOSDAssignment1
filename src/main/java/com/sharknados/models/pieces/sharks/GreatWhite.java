@@ -7,6 +7,7 @@ import java.util.List;
 
 public class GreatWhite extends Shark {
 
+
     public GreatWhite(int attack, int defence, Tile tile) {
         super(attack, defence, tile);
         setType(Type.GREAT_WHITE);

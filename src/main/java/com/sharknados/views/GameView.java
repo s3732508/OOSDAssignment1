@@ -5,12 +5,12 @@ import com.sharknados.controllers.GameController;
 import javafx.scene.layout.BorderPane;
 import java.util.List;
 
-public class View extends BorderPane{
+public class GameView extends BorderPane{
     private BorderPane boardPane;
     private CommandBar commandBar;
     private GameController controller = null;
 
-    public View(AbstractController controller){
+    public GameView(AbstractController controller){
         this.controller = (GameController) controller;
         this.boardPane = new BorderPane();
         this.commandBar = new CommandBar(controller);

@@ -8,7 +8,7 @@ import com.sharknados.models.pieces.eagles.EagleOwl;
 import com.sharknados.models.pieces.sharks.GreatWhite;
 import com.sharknados.views.PieceView;
 import com.sharknados.views.TileView;
-import com.sharknados.views.View;
+import com.sharknados.views.GameView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import static java.lang.Math.min;
 public class GameController extends AbstractController {
     private Game game;
     private Board board;
-    private View view;
+    private GameView view;
     private Piece selectedPiece = null;
     private TileView[][] tileViews;
     private List<TileView> tileViewList;
@@ -28,7 +28,7 @@ public class GameController extends AbstractController {
     public GameController(Game game) {
         this.game = game;
         this.board = game.getBoard();
-        this.view = new View(this);
+        this.view = new GameView(this);
 
         //Initalize list of tile views and bind models and controllers
         int size = board.getSize();
@@ -101,7 +101,7 @@ public class GameController extends AbstractController {
 
     }
 
-    public View getView() {
+    public GameView getView() {
         return view;
     }
 
@@ -126,7 +126,7 @@ public class GameController extends AbstractController {
 
 
 
-    public EventHandler selectPieceHandler (GameController controller, View view, Piece piece){
+    public EventHandler selectPieceHandler (GameController controller, GameView view, Piece piece){
         List<Tile> tileList = board.getTileList();
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override

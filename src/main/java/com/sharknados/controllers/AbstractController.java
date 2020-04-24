@@ -12,8 +12,8 @@ public abstract class AbstractController implements PropertyChangeListener {
     private ArrayList<AbstractModel> registeredModels;
 
     public AbstractController() {
-        registeredViews = new ArrayList<ViewImpl>();
-        registeredModels = new ArrayList<AbstractModel>();
+        registeredViews = new ArrayList<>();
+        registeredModels = new ArrayList<>();
     }
 
     public void addModel(AbstractModel model) {
