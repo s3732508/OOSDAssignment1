@@ -1,5 +1,6 @@
 package com.sharknados.models.pieces.eagles;
 
+import com.sharknados.models.Team;
 import com.sharknados.models.Tile;
 import com.sharknados.models.pieces.Piece;
 

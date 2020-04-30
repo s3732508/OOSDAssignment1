@@ -10,29 +10,18 @@ import static java.lang.Math.*;
 import static java.lang.Math.abs;
 
 public class Board {
-    /*
-    //
-    Vectors for direction
-    //
-    NORTH       = (0, -1)
-    NORTHEAST   = (+1, -1)
-    SOUTHEAST   = (+1, 0)
-    SOUTH       = (0, +1)
-    SOUTHWEST   = (-1, +1)
-    NORTHWEST   = (-1, 0)
-     */
 
+    //Vectors for direction
     public final static int NORTH = 0;
     public final static int NORTHEAST = 1;
     public final static int SOUTHEAST = 2;
     public final static int SOUTH = 3;
     public final static int SOUTHWEST = 4;
     public final static int NORTHWEST = 5;
-
-    private int size;
-
     public final static int deltaX[] = { 0, 1, 1, 0, -1, -1 };
     public final static int deltaZ[] = { -1, -1, 0, 1, 1, 0 };
+
+    private int size;
 
     private Tile[][] tilePositions;
     private List<Piece> pieces;
@@ -135,6 +124,22 @@ public class Board {
             }
         }
         return tileList;
+    }
+
+    public int getDistanceBetweenTiles(Tile a, Tile b){
+        //convert to cube coords
+        int aX = a.getX() - size;
+        int aZ = a.getZ() - size;
+        int aY = -aX - aZ;
+        int bX = b.getX() - size;
+        int bZ = b.getZ() - size;
+        int bY = -bX - bZ;
+
+        int dX = Math.abs(aX-bX);
+        int dY = Math.abs(aY-bY);
+        int dZ = Math.abs(aZ-bZ);
+
+        return Math.max(Math.max(dX,dY),dZ);
     }
 
 }

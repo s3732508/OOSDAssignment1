@@ -8,7 +8,4 @@ module com.sharknados {
     exports com.sharknados.models.pieces.sharks;
     exports com.sharknados.models.pieces;
     exports com.sharknados.views;
-    exports com.sharknados.views.pieces;
-    exports com.sharknados.views.pieces.eagles;
-    exports com.sharknados.views.pieces.sharks;
 }

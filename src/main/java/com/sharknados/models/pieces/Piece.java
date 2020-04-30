@@ -1,19 +1,13 @@
 package com.sharknados.models.pieces;
 
-import com.sharknados.controllers.PieceController;
-import com.sharknados.controllers.TileController;
-import com.sharknados.models.AbstractModel;
+import com.sharknados.models.AbstractSubject;
+import com.sharknados.models.Team;
 import com.sharknados.models.Tile;
-import com.sharknados.models.pieces.sharks.Shark;
 
 import java.util.List;
 
-public abstract class Piece extends AbstractModel {
+public abstract class Piece extends AbstractSubject {
 
-    public enum Team {
-        SHARK,
-        EAGLE
-    }
 
     public enum Type {
         AKHEILOS,
@@ -24,6 +18,7 @@ public abstract class Piece extends AbstractModel {
 
     private int defence;
     private int attack;
+    private int movement;
     private int x;
     private int z;
     private Tile tile;
@@ -34,6 +29,7 @@ public abstract class Piece extends AbstractModel {
     public Piece(int attack, int defence, Tile tile) {
         this.attack = attack;
         this.defence = defence;
+        this.movement = 1;
         this.tile = tile;
         this.x = tile.getX();
         this.z = tile.getZ();
@@ -70,21 +66,26 @@ public abstract class Piece extends AbstractModel {
         return this.type;
     }
 
+    public int getX(){
+        return x;
+    }
+
+    public int getZ(){
+        return z;
+    }
+
     public void setX(int x){
-        int oldValue  =  this.x;
         this.x = x;
-        firePropertyChange(PieceController.X_PROPERTY, oldValue, x);
+        notifyAllObservers();
     }
 
     public void setZ(int z){
-        int oldValue  =  this.z;
         this.z = z;
-        firePropertyChange(PieceController.Z_PROPERTY, oldValue, z);
+        notifyAllObservers();
     }
 
-    public void fireInitialProperties(){
-        firePropertyChange(PieceController.X_PROPERTY, null, x);
-        firePropertyChange(PieceController.Z_PROPERTY, null, z);
+    public int getMovement(){
+        return movement;
     }
 
     public void setTile(Tile tile) { this.tile = tile; }

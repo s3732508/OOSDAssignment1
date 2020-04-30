@@ -1,6 +1,5 @@
 package com.sharknados.views;
 
-import com.sharknados.controllers.AbstractController;
 import com.sharknados.controllers.GameController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,8 +14,8 @@ public class CommandBar extends HBox{
     private Button abilityButt;
     private GameController controller = null;
 
-    public CommandBar(AbstractController controller){
-        this.controller = (GameController) controller;
+    public CommandBar(GameController controller){
+        this.controller = controller;
         attackButt = new Button("Attack");
         attackButt.setOnAction(attackButtonHandler);
         moveButt = new Button("Move");

@@ -1,6 +1,5 @@
 package com.sharknados.views;
 
-import com.sharknados.controllers.AbstractController;
 import com.sharknados.controllers.GameController;
 import javafx.scene.layout.BorderPane;
 import java.util.List;
@@ -10,8 +9,8 @@ public class View extends BorderPane{
     private CommandBar commandBar;
     private GameController controller = null;
 
-    public View(AbstractController controller){
-        this.controller = (GameController) controller;
+    public View(GameController controller){
+        this.controller = controller;
         this.boardPane = new BorderPane();
         this.commandBar = new CommandBar(controller);
         this.setCenter(boardPane);
@@ -30,12 +29,11 @@ public class View extends BorderPane{
     public void addToView(List<TileView> tileViewList, List<PieceView> pieceViewList){
         boardPane.getChildren().clear();
         for (TileView tile : tileViewList) {
-            boardPane.getChildren().add(tile.tile);
+            boardPane.getChildren().add(tile.tilePoly);
         }
 
         for (PieceView piece : pieceViewList) {
-            boardPane.getChildren().add(piece.piece);
-            boardPane.getChildren().add(piece.pieceBackground);
+            boardPane.getChildren().add(piece.pieceImage);
         }
     }
 }
