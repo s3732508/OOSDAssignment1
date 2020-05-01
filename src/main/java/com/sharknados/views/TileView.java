@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
 
-public class TileView extends AbstractObserver {
+public class TileView implements Observer {
 
 	public Polygon tilePoly = new Polygon();
 	private Tile subject;
@@ -27,7 +27,7 @@ public class TileView extends AbstractObserver {
 			double angle = 2.0 * Math.PI * (i) / 6.0;
 			double offsetX = size * Math.cos(angle) + size;
 			double offsetY = size * Math.sin(angle);
-			tilePoly.getPoints().addAll(offsetX + pixelX * size, offsetY + pixelY * size);
+			tilePoly.getPoints().addAll(offsetX + pixelX * size, offsetY + pixelY * size - size);
 			tilePoly.setStroke(Color.WHITESMOKE);
 			tilePoly.setFill(Paint.valueOf("#DAD4D7"));
 		}

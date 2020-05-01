@@ -1,6 +1,6 @@
 package com.sharknados.models;
 
-import com.sharknados.views.AbstractObserver;
+import com.sharknados.views.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +9,14 @@ import java.util.List;
  ***********************************/
 
 public abstract class AbstractSubject {
-    private List<AbstractObserver> observers = new ArrayList<AbstractObserver>();
+    private List<Observer> observers = new ArrayList<Observer>();
 
-    public void attach(AbstractObserver observer){
+    public void attach(Observer observer){
         observers.add(observer);
     }
 
     public void notifyAllObservers(){
-        for (AbstractObserver observer : observers) {
+        for (Observer observer : observers) {
             observer.update();
         }
     }

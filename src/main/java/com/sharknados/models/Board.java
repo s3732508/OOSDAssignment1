@@ -1,13 +1,9 @@
 package com.sharknados.models;
 
-
 import com.sharknados.models.pieces.Piece;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static java.lang.Math.*;
-import static java.lang.Math.abs;
 
 public class Board {
 
@@ -106,11 +102,11 @@ public class Board {
         int bZ = b.getZ() - size;
         int bY = -bX - bZ;
 
-        int dX = Math.abs(aX-bX);
-        int dY = Math.abs(aY-bY);
-        int dZ = Math.abs(aZ-bZ);
+        int dX = abs(aX-bX);
+        int dY = abs(aY-bY);
+        int dZ = abs(aZ-bZ);
 
-        return Math.max(Math.max(dX,dY),dZ);
+        return max(max(dX,dY),dZ);
     }
 
 }

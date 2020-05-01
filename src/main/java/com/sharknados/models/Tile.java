@@ -1,9 +1,7 @@
 package com.sharknados.models;
 
-
 import com.sharknados.models.pieces.Piece;
-import com.sharknados.models.AbstractSubject;
-import java.util.List;
+
 
 public class Tile extends AbstractSubject{
     private int x, z;

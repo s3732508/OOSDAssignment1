@@ -12,19 +12,24 @@ public class CommandBar extends HBox{
     private Button attackButt;
     private Button moveButt;
     private Button abilityButt;
-    private GameController controller = null;
+    private GameController controller;
 
     public CommandBar(GameController controller){
         this.controller = controller;
+
         attackButt = new Button("Attack");
-        attackButt.setOnAction(attackButtonHandler);
-        moveButt = new Button("Move");
-        moveButt.setOnAction(moveButtonHandler);
-        abilityButt = new Button("Ability");
         attackButt.setPrefSize(140,40);
+        attackButt.setOnAction(attackButtonHandler);
+
+
+        moveButt = new Button("Move");
         moveButt.setPrefSize(140,40);
+        moveButt.setOnAction(moveButtonHandler);
+
+        abilityButt = new Button("Ability");
         abilityButt.setPrefSize(140,40);
         abilityButt.setDisable(true);
+
         this.setSpacing(5);
         this.setPadding(new Insets(0, 20, 10, 20));
         this.getChildren().addAll(attackButt, moveButt, abilityButt);
@@ -49,5 +54,4 @@ public class CommandBar extends HBox{
         this.moveButt.setDisable(disable);
         this.abilityButt.setDisable(disable);
     }
-
 }

@@ -1,80 +1,65 @@
 package com.sharknados.controllers;
 
-import com.sharknados.models.Board;
 import com.sharknados.models.Game;
 import com.sharknados.models.Tile;
 import com.sharknados.models.pieces.Piece;
-import com.sharknados.models.pieces.eagles.EagleOwl;
-import com.sharknados.models.pieces.sharks.GreatWhite;
 import com.sharknados.views.PieceView;
 import com.sharknados.views.TileView;
-import com.sharknados.views.View;
+import com.sharknados.views.GameView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class GameController{
     private Game game;
-    private Board board;
-    private View view;
+    private GameView gameView;
 
 
     public GameController(Game game) {
         this.game = game;
-        this.board = game.getBoard();
-        this.view = new View(this);
+        this.gameView = new GameView(this);
 
         //Initialize Tile Views
-        int size = board.getSize();
-        List<TileView> tileViewList = new ArrayList<>();
+        int size = game.getBoard().getSize();
         for (int x = 0; x <= 2 * size; x++) {
             int zStart = max(0, size - x);
             int zStop = min(2 * size, 3 * size - x);
             for (int z = zStart; z <= zStop; z++) {
-                TileView tileView = new TileView(board.getTileAtPosition(x,z));
+                TileView tileView = new TileView(game.getBoard().getTileAtPosition(x,z));
                 tileView.tilePoly.addEventFilter(MouseEvent.MOUSE_CLICKED, clickTile(tileView));
-                tileViewList.add(tileView);
+                gameView.addToView(tileView.tilePoly);
             }
         }
-
-        //intialize test pieces
-        List<PieceView> pieceViewList = new ArrayList<>();
-        for( int i = 0; i <=3;i++){
-            try{
-                Piece testPM = new GreatWhite(i, 6);
-                board.getTileAtPosition(i, 6).setOccupied(true);
-                board.getTileAtPosition(i, 6).setPiece(testPM);
-                PieceView testPV = new PieceView(testPM);
-                pieceViewList.add(testPV);
-            }catch (Exception e) {
-                // Handle it.
-            }
-        }
-
-        for( int i = 3; i <=6;i++){
-            try{
-                Piece testPM = new EagleOwl(i, 0);
-                board.getTileAtPosition(i, 0).setOccupied(true);
-                board.getTileAtPosition(i, 0).setPiece(testPM);
-                PieceView testPV = new PieceView(testPM);
-                pieceViewList.add(testPV);
-            }catch (Exception e) {
-                // Handle it.
-            }
-        }
-        view.addToView(tileViewList, pieceViewList);
     }
 
-    public View getView() {
-        return view;
+    public void newGame(){
+        List<Piece> pieceList = game.createNewGamePieces();
+        for(Piece p : pieceList){
+            try {
+                PieceView pieceView = new PieceView(p);
+                gameView.addToView(pieceView.pieceImage);
+                gameView.addToView(pieceView.atkText);
+                gameView.addToView(pieceView.defText);
+                gameView.addToView(pieceView.hpText);
+
+            }catch (Exception e) {
+                // Handle it.
+            }
+        }
+    }
+
+    public GameView getGameView() {
+        return gameView;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
 
     public EventHandler clickTile (TileView tileView){
-        List<Tile> tileList = board.getTileList();
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -85,10 +70,10 @@ public class GameController{
                     boolean validSelection = game.selectTile(tile);
                     //returns true if tile has piece and it is that pieces turn, false otherwise
                     if(validSelection){
-                        view.setCommandBarVisible(true);
+                        gameView.setCommandBarVisible(true);
                     }
                     else{
-                        view.setCommandBarVisible(false);
+                        gameView.setCommandBarVisible(false);
                     }
                 }
 
@@ -110,13 +95,19 @@ public class GameController{
     public void moveButtonHandler(){
         game.setMode(Game.Mode.MOVE);
         game.showMovementRange();
-        view.setCommandBarVisible(false);
+        gameView.setCommandBarVisible(false);
     }
 
     public void attackButtonHandler(){
         game.setMode(Game.Mode.ATTACK);
         game.showAttackRange();
-        view.setCommandBarVisible(false);
+        gameView.setCommandBarVisible(false);
+    }
+
+    public void cancelButtonHandler(){
+        game.setMode(Game.Mode.SELECT);
+        game.cancelAction();
+        gameView.setCommandBarVisible(false);
     }
 
 }

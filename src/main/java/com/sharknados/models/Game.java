@@ -1,13 +1,13 @@
 package com.sharknados.models;
 
-
 import com.sharknados.models.pieces.Piece;
-import javafx.scene.input.MouseEvent;
+import com.sharknados.models.pieces.eagles.EagleOwl;
+import com.sharknados.models.pieces.sharks.GreatWhite;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game extends AbstractSubject{
 
     public enum Mode {
         SELECT,
@@ -29,6 +29,24 @@ public class Game {
         mode = Mode.SELECT;
     }
 
+    public List<Piece> createNewGamePieces(){
+        //Initial Setup
+        List<Piece> pieceList = new ArrayList<>();
+        for( int i = 0; i <=3;i++){
+            Piece piece = new GreatWhite(i, 6);
+            board.getTileAtPosition(i, 6).setOccupied(true);
+            board.getTileAtPosition(i, 6).setPiece(piece);
+            pieceList.add(piece);
+        }
+        for( int i = 3; i <=6;i++){
+            Piece piece = new EagleOwl(i, 0);
+            board.getTileAtPosition(i, 0).setOccupied(true);
+            board.getTileAtPosition(i, 0).setPiece(piece);
+            pieceList.add(piece);
+        }
+        return pieceList;
+    }
+
     public Board getBoard() {
         return board;
     }
@@ -47,6 +65,7 @@ public class Game {
 
     public void setMode(Mode mode){
         this.mode = mode;
+        notifyAllObservers();
     }
 
     public Team nextTurn() {
@@ -54,6 +73,7 @@ public class Game {
             turn = Team.EAGLE;
         else
             turn = Team.SHARK;
+        notifyAllObservers();
         return turn;
     }
 
@@ -115,7 +135,7 @@ public class Game {
             tile.setPiece(piece);
             selectedTile = null;
             nextTurn();
-            mode = Mode.SELECT;
+            setMode(Mode.SELECT);
         }
     }
 
@@ -166,8 +186,13 @@ public class Game {
             }
             selectedTile = null;
             nextTurn();
-            mode = Mode.SELECT;
+            setMode(Mode.SELECT);
         }
+    }
+
+    public void cancelAction(){
+        deselectAll();
+        selectedTile = null;
     }
 
 }
