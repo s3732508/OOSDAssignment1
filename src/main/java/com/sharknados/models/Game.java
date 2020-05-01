@@ -125,33 +125,49 @@ public class Game {
             if (!t.isSelected()) {
                 t.setUnavailable(true);
             }
-        }
 
-        for (int dir = 0; dir < 6; dir++) {
-            if (selectedTile.checkneighbor(dir)) {
-                if (selectedTile.getNeighbor(dir).isOccupied()){
-                    if(!piece.inTheSameArmyAs(selectedTile.getNeighbor(dir).getPiece())) {
-                        selectedTile.getNeighbor(dir).setUnavailable(false);
-                        selectedTile.getNeighbor(dir).setHighlighted(true);
+            //attack range of 1
+            if(board.getDistanceBetweenTiles(selectedTile, t) <= 1){
+                if (t.isOccupied()){
+                    if(!piece.inTheSameArmyAs(t.getPiece())) {
+                        t.setUnavailable(false);
+                        t.setHighlighted(true);
                     }
                 }
             }
         }
+
     }
 
     public void executeAttack(Tile tile){
-        Piece piece = selectedTile.getPiece();
+        boolean valid = tile.isHighlighted();
+        Piece attacker = selectedTile.getPiece();
 
         //deselect all tiles
         deselectAll();
 
-        //todo attack all targetable tiles if commander
-        //todo attack single targeted tile of not commander
-        System.out.println("ATTACKING TARGETED TILE");
+        if (valid) {
+            Piece target = tile.getPiece();
+            int damage = attacker.getAttack() - target.getDefence();
+            if (damage>0){
+                if (target.getHealth()-damage <= 0){
+                    //todo implement proper solution for destroying pieces
+                    //hack
+                    tile.setPiece(null);
+                    tile.setOccupied(false);
+                    target.setX(-1);
+                    target.setZ(-1);
+                }
+                else{
+                    int newHealth = target.getHealth() - damage;
+                    target.setHealth(newHealth);
+                }
 
-        selectedTile = null;
-        nextTurn();
-        mode = Mode.SELECT;
+            }
+            selectedTile = null;
+            nextTurn();
+            mode = Mode.SELECT;
+        }
     }
 
 }

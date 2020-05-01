@@ -52,36 +52,6 @@ public class Board {
         }
     }
 
-    private boolean canMovePieceToTile(Piece piece, Tile destTile) {
-        Tile fromTile = piece.getTile();
-
-        if (destTile == piece.getTile())
-            return false;
-        //limit movement to just one tile away
-        int x = destTile.getX() - fromTile.getX();
-        int z = destTile.getZ() - fromTile.getZ();
-        if (abs(x) > 1 || abs(z) > 1) {
-            return false;
-        }
-        // if the destination Tile is occupied by enemy, move in
-        Piece destPiece = destTile.getOccupyingPiece(getPieces());
-        if (destPiece != null) {
-            if (piece.inTheSameArmyAs(destPiece))
-                return false;
-        }
-        return true;
-    }
-
-    public void move(Piece piece, Tile tile) {
-        // if tile is already occupied, kill the occupier
-        Piece destPiece = tile.getOccupyingPiece(pieces);
-        if (destPiece != null) {
-            destPiece.setTile(null); //killed
-        }
-        // move
-        piece.setTile(tile);
-    }
-
     private boolean trySetNeighbor(Tile tile, int direction){
         boolean success = false;
         Tile neighbor = null;
@@ -100,6 +70,7 @@ public class Board {
     public int getSize() {
         return size;
     }
+
     public Tile[][] getAllTiles(){
         return tilePositions;
     }

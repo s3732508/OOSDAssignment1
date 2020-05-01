@@ -84,14 +84,6 @@ public class Tile extends AbstractSubject{
         return this.piece;
     }
 
-    public Piece getOccupyingPiece(List<Piece> pieces) {
-        for (Piece piece : pieces) {
-            if (piece.getTile() == this) {
-                return piece;
-            }
-        }
-        return null;
-    }
 
     @Override
     public String toString(){

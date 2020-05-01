@@ -7,8 +7,8 @@ import com.sharknados.models.pieces.Piece;
 public abstract class Eagle extends Piece {
     private Type type;
 
-    public Eagle(int attack, int defence, Tile tile) {
-        super(attack, defence, tile);
+    public Eagle(int x, int z, int attack, int defence, int health, int movement) {
+        super(x, z,  attack,  defence,  health,  movement);
         setTeam(Team.EAGLE);
     }
 }

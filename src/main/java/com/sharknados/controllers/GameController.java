@@ -44,7 +44,7 @@ public class GameController{
         List<PieceView> pieceViewList = new ArrayList<>();
         for( int i = 0; i <=3;i++){
             try{
-                Piece testPM = new GreatWhite(1, 1, board.getTileAtPosition(i, 6));
+                Piece testPM = new GreatWhite(i, 6);
                 board.getTileAtPosition(i, 6).setOccupied(true);
                 board.getTileAtPosition(i, 6).setPiece(testPM);
                 PieceView testPV = new PieceView(testPM);
@@ -56,7 +56,7 @@ public class GameController{
 
         for( int i = 3; i <=6;i++){
             try{
-                Piece testPM = new EagleOwl(1, 1, board.getTileAtPosition(i, 0));
+                Piece testPM = new EagleOwl(i, 0);
                 board.getTileAtPosition(i, 0).setOccupied(true);
                 board.getTileAtPosition(i, 0).setPiece(testPM);
                 PieceView testPV = new PieceView(testPM);
@@ -82,8 +82,8 @@ public class GameController{
 
                 //Selecting a Piece
                 if (game.getMode() == Game.Mode.SELECT){
-                    //returns true if tile has piece and it is that pieces turn, false otherwise
                     boolean validSelection = game.selectTile(tile);
+                    //returns true if tile has piece and it is that pieces turn, false otherwise
                     if(validSelection){
                         view.setCommandBarVisible(true);
                     }

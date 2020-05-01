@@ -34,6 +34,9 @@ public class View extends BorderPane{
 
         for (PieceView piece : pieceViewList) {
             boardPane.getChildren().add(piece.pieceImage);
+            boardPane.getChildren().add(piece.atkText);
+            boardPane.getChildren().add(piece.defText);
+            boardPane.getChildren().add(piece.hpText);
         }
     }
 }

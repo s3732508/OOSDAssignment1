@@ -18,21 +18,21 @@ public abstract class Piece extends AbstractSubject {
 
     private int defence;
     private int attack;
+    private int health;
     private int movement;
     private int x;
     private int z;
-    private Tile tile;
     private boolean isCommander;
     private Team team;
     private Type type;
 
-    public Piece(int attack, int defence, Tile tile) {
+    public Piece(int x, int z, int attack, int defence, int health, int movement) {
         this.attack = attack;
         this.defence = defence;
-        this.movement = 1;
-        this.tile = tile;
-        this.x = tile.getX();
-        this.z = tile.getZ();
+        this.health = health;
+        this.movement = movement;
+        this.x = x;
+        this.z = z;
         this.isCommander = false;
     }
 
@@ -44,7 +44,14 @@ public abstract class Piece extends AbstractSubject {
         return defence;
     }
 
-    public Tile getTile() { return tile; }
+    public int getHealth(){
+        return health;
+    }
+
+    public void setHealth(int health){
+        this.health = health;
+        notifyAllObservers();;
+    }
 
     public boolean isCommander(){
         return this.isCommander;
@@ -88,7 +95,6 @@ public abstract class Piece extends AbstractSubject {
         return movement;
     }
 
-    public void setTile(Tile tile) { this.tile = tile; }
 
     public abstract boolean inTheSameArmyAs(Piece piece);
     public abstract String getAbilityName();

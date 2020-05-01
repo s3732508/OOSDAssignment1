@@ -7,8 +7,8 @@ import java.util.List;
 
 public class GreatWhite extends Shark {
 
-    public GreatWhite(int attack, int defence, Tile tile) {
-        super(attack, defence, tile);
+    public GreatWhite(int x, int z) {
+        super(x,  z,  2,  2,  5,  1);
         setType(Type.GREAT_WHITE);
     }
 

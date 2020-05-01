@@ -24,6 +24,7 @@ public class CommandBar extends HBox{
         attackButt.setPrefSize(140,40);
         moveButt.setPrefSize(140,40);
         abilityButt.setPrefSize(140,40);
+        abilityButt.setDisable(true);
         this.setSpacing(5);
         this.setPadding(new Insets(0, 20, 10, 20));
         this.getChildren().addAll(attackButt, moveButt, abilityButt);
