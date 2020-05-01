@@ -121,12 +121,12 @@ public class Game extends AbstractSubject{
     }
     public void executeMove(Tile tile){
         boolean valid = tile.isHighlighted();
-        Piece piece = selectedTile.getPiece();
-
-        //deselect all tiles
-        deselectAll();
-
         if (valid) {
+            Piece piece = selectedTile.getPiece();
+
+            //deselect all tiles
+            deselectAll();
+
             selectedTile.setOccupied(false);
             selectedTile.setPiece(null);
             piece.setX(tile.getX());
@@ -161,12 +161,13 @@ public class Game extends AbstractSubject{
 
     public void executeAttack(Tile tile){
         boolean valid = tile.isHighlighted();
-        Piece attacker = selectedTile.getPiece();
-
-        //deselect all tiles
-        deselectAll();
 
         if (valid) {
+            Piece attacker = selectedTile.getPiece();
+
+            //deselect all tiles
+            deselectAll();
+
             Piece target = tile.getPiece();
             int damage = attacker.getAttack() - target.getDefence();
             if (damage>0){
