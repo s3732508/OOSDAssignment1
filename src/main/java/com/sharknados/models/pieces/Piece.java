@@ -1,19 +1,13 @@
 package com.sharknados.models.pieces;
 
-import com.sharknados.controllers.PieceController;
-import com.sharknados.controllers.TileController;
-import com.sharknados.models.AbstractModel;
+import com.sharknados.models.AbstractSubject;
+import com.sharknados.models.Team;
 import com.sharknados.models.Tile;
-import com.sharknados.models.pieces.sharks.Shark;
 
 import java.util.List;
 
-public abstract class Piece extends AbstractModel {
+public abstract class Piece extends AbstractSubject {
 
-    public enum Team {
-        SHARK,
-        EAGLE
-    }
 
     public enum Type {
         AKHEILOS,
@@ -24,19 +18,21 @@ public abstract class Piece extends AbstractModel {
 
     private int defence;
     private int attack;
+    private int health;
+    private int movement;
     private int x;
     private int z;
-    private Tile tile;
     private boolean isCommander;
     private Team team;
     private Type type;
 
-    public Piece(int attack, int defence, Tile tile) {
+    public Piece(int x, int z, int attack, int defence, int health, int movement) {
         this.attack = attack;
         this.defence = defence;
-        this.tile = tile;
-        this.x = tile.getX();
-        this.z = tile.getZ();
+        this.health = health;
+        this.movement = movement;
+        this.x = x;
+        this.z = z;
         this.isCommander = false;
     }
 
@@ -48,7 +44,14 @@ public abstract class Piece extends AbstractModel {
         return defence;
     }
 
-    public Tile getTile() { return tile; }
+    public int getHealth(){
+        return health;
+    }
+
+    public void setHealth(int health){
+        this.health = health;
+        notifyAllObservers();;
+    }
 
     public boolean isCommander(){
         return this.isCommander;
@@ -70,24 +73,28 @@ public abstract class Piece extends AbstractModel {
         return this.type;
     }
 
+    public int getX(){
+        return x;
+    }
+
+    public int getZ(){
+        return z;
+    }
+
     public void setX(int x){
-        int oldValue  =  this.x;
         this.x = x;
-        firePropertyChange(PieceController.X_PROPERTY, oldValue, x);
+        notifyAllObservers();
     }
 
     public void setZ(int z){
-        int oldValue  =  this.z;
         this.z = z;
-        firePropertyChange(PieceController.Z_PROPERTY, oldValue, z);
+        notifyAllObservers();
     }
 
-    public void fireInitialProperties(){
-        firePropertyChange(PieceController.X_PROPERTY, null, x);
-        firePropertyChange(PieceController.Z_PROPERTY, null, z);
+    public int getMovement(){
+        return movement;
     }
 
-    public void setTile(Tile tile) { this.tile = tile; }
 
     public abstract boolean inTheSameArmyAs(Piece piece);
     public abstract String getAbilityName();

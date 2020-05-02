@@ -1,13 +1,9 @@
 package com.sharknados.models;
 
-import com.sharknados.controllers.TileController;
 import com.sharknados.models.pieces.Piece;
 
 
-import java.util.List;
-
-
-public class Tile extends AbstractModel{
+public class Tile extends AbstractSubject{
     private int x, z;
     private boolean occupied = false;
     private boolean selected = false;
@@ -43,27 +39,23 @@ public class Tile extends AbstractModel{
     }
 
     public void setOccupied(boolean occupied) {
-        boolean oldValue  =  this.occupied;
         this.occupied = occupied;
-        firePropertyChange(TileController.OCCUPIED_PROPERTY, oldValue, occupied);
+        notifyAllObservers();
     }
 
     public void setSelected(boolean selected) {
-        boolean oldValue  =  this.selected;
         this.selected = selected;
-        firePropertyChange(TileController.SELECTED_PROPERTY, oldValue, selected);
+        notifyAllObservers();
     }
 
     public void setHighlighted(boolean highlighted) {
-        boolean oldValue  =  this.highlighted;
         this.highlighted = highlighted;
-        firePropertyChange(TileController.HIGHLIGHTED_PROPERTY, oldValue, highlighted);
+        notifyAllObservers();
     }
 
     public void setUnavailable(boolean unavailable) {
-        boolean oldValue  =  this.unavailable;
         this.unavailable = unavailable;
-        firePropertyChange(TileController.UNAVAILABLE_PROPERTY, oldValue, unavailable);
+        notifyAllObservers();
     }
 
     public boolean isOccupied() {
@@ -78,6 +70,10 @@ public class Tile extends AbstractModel{
         return highlighted;
     }
 
+    public boolean isUnavailable(){
+        return unavailable;
+    }
+
     public void setPiece(Piece piece){
         this.piece = piece;
     }
@@ -86,21 +82,6 @@ public class Tile extends AbstractModel{
         return this.piece;
     }
 
-    public Piece getOccupyingPiece(List<Piece> pieces) {
-        for (Piece piece : pieces) {
-            if (piece.getTile() == this) {
-                return piece;
-            }
-        }
-        return null;
-    }
-
-    public void fireInitialProperties(){
-        firePropertyChange(TileController.OCCUPIED_PROPERTY, null, occupied);
-        firePropertyChange(TileController.SELECTED_PROPERTY, null, selected);
-        firePropertyChange(TileController.HIGHLIGHTED_PROPERTY, null, highlighted);
-        firePropertyChange(TileController.UNAVAILABLE_PROPERTY, null, unavailable);
-    }
 
     @Override
     public String toString(){

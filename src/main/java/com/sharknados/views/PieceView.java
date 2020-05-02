@@ -1,45 +1,29 @@
 package com.sharknados.views;
 
-import com.sharknados.controllers.AbstractController;
-import com.sharknados.controllers.PieceController;
+import com.sharknados.models.AbstractSubject;
+import com.sharknados.models.pieces.Piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
-import java.beans.PropertyChangeEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class PieceView implements ViewImpl{
+public class PieceView implements Observer {
 
-    private PieceController controller = null;
-    public ImageView piece;
-    public Polygon pieceBackground = new Polygon();
-    private int x;
-    private int z;
-    private int xDrift = 0;
-    public PieceView(AbstractController controller, int x, int z, String type) throws FileNotFoundException {
-        this.controller = (PieceController) controller;
-        this.x = x;
-        this.z = z;
-        int radius = 22;
-        double pixelX = 3.0/2.0*x;
-        double pixelY = (Math.sqrt(3.0))/2.0*x + Math.sqrt(3.0)*z;
+    public ImageView pieceImage;
+    public Text atkText;
+    public Text defText;
+    public Text hpText;
+    private Piece subject;
 
-        //todo figure out math to update mask position the reenable this
-/*        //Code for transparent tile sized mask for action listen to be able to select piece
-        double size = 2*radius;
-        for (int i = 0; i < 6; i++) {
-            double angle = 2.0 * Math.PI *(i) / 6.0;
-            double offsetX = size*Math.cos(angle) + size;
-            double offsetY = size*Math.sin(angle);
-            pieceBackground.getPoints().addAll(offsetX + pixelX*size, offsetY + pixelY*size);
-            pieceBackground.setFill(Color.BLACK);
-        }*/
-
+    public PieceView(AbstractSubject piece) throws FileNotFoundException {
+        this.subject = (Piece) piece;
+        this.subject.attach(this);
 
         Image image;
+        String type = subject.getType().toString();
         switch(type){
             case "GREAT_WHITE":image = new Image(new FileInputStream("src/main/resources/Shark.png"));
             break;
@@ -47,72 +31,68 @@ public class PieceView implements ViewImpl{
             break;
             default: image = new Image(new FileInputStream("src/main/resources/Shark.png"));
         }
-        //Image image = new Image(new FileInputStream("src/main/resources/Shark.png"));
-//		Image image =  new Image(this.getClass().getResourceAsStream("/Shark.png"));
 
         // Setting the image view
-        this.piece = new ImageView(image);
+        this.pieceImage = new ImageView(image);
 
-        // Setting the position of the image
-        //todo fix these magic numbers
-        piece.setX(pixelX*2*radius + 10);
-        piece.setY(pixelY*2*radius - 32);
+        //text
+        this.atkText = new Text();
+        this.defText = new Text();
+        this.hpText = new Text();
 
-        // setting the fit height and width of the image view
-        piece.setFitHeight(3*radius);
-        piece.setFitWidth(3*radius);
+        //Initial Drawing
+        update();
+
+        //stop the image or text blocking action listener of tile below
+        pieceImage.setDisable(true);
+        atkText.setDisable(true);
+        defText.setDisable(true);
+        hpText.setDisable(true);
         }
+
 
     @Override
-    public void modelPropertyChange(PropertyChangeEvent evt) {
-        if (evt.getNewValue() == null) return;
+    public AbstractSubject getSubject(){
+        return this.subject;
+    }
+
+    @Override
+    public void update() {
+        int x = subject.getX();
+        int z = subject.getZ();
         int radius = 22;
-        double shiftX = 0;
-        double shiftY = 0;
-        //todo figure out the maths on z to y conversion to redraw tile mask
-        //Update the X value and redraw
-        if (evt.getPropertyName().equals(PieceController.X_PROPERTY)) {
-            this.x = (int)evt.getNewValue();
-/*            if(x > (int)evt.getOldValue()){
-                shiftX = 3.0/2.0*(2*radius);
-            }
-            else if(x < (int)evt.getOldValue()){
-                shiftX = -3.0/2.0*(2*radius);
-            }
-            else{
-
-            }*/
-        }
-        if (evt.getPropertyName().equals(PieceController.Z_PROPERTY)) {
-            this.z = (int)evt.getNewValue();
-/*            if(z > (int)evt.getOldValue()){
-                shiftY = Math.sqrt(3.0)*(2*radius);
-            }
-            else if(z < (int)evt.getOldValue()){
-                shiftY = -(Math.sqrt(3.0)*(2*radius));
-            }
-            else{
-
-            }*/
-        }
-
-
-        //redraw
         double pixelX = 3.0/2.0*x;
         double pixelY = (Math.sqrt(3.0))/2.0*x + Math.sqrt(3.0)*z;
 
         // Setting the position of the image
         //todo fix these magic numbers
-        piece.setX(pixelX*2*radius + 10);
-        piece.setY(pixelY*2*radius - 32);
+        pieceImage.setX(pixelX*2*radius + radius);
+        pieceImage.setY(pixelY*2*radius - 3*radius);
 
         // setting the fit height and width of the image view
-        piece.setFitHeight(3*radius);
-        piece.setFitWidth(3*radius);
+        pieceImage.setFitHeight(2*radius);
+        pieceImage.setFitWidth(2*radius);
 
-/*        pieceBackground.setLayoutX(pieceBackground.getLayoutX()+shiftX);
-        pieceBackground.setLayoutY(pieceBackground.getLayoutY()+shiftY);*/
+        String atk = new String (new char[subject.getAttack()]).replace("\0","+");
+        String def = new String (new char[subject.getDefence()]).replace("\0","+");
+        String hp = new String (new char[subject.getHealth()]).replace("\0","+");
+        Font font = new Font("ARIAL", 10);
+        atkText.setText("Atk " + atk);
+        atkText.setFont(font);
+        atkText.setStyle("-fx-font-weight: bold;");
+        atkText.setX(pixelX*2*radius + radius);
+        atkText.setY(pixelY*2*radius - 3*radius -5);
 
+        defText.setText("Def " + def);
+        defText.setFont(font);
+        defText.setStyle("-fx-font-weight: bold;");
+        defText.setX(pixelX*2*radius + radius);
+        defText.setY(pixelY*2*radius - 3*radius +5);
 
+        hpText.setText("HP " + hp);
+        hpText.setFont(font);
+        hpText.setStyle("-fx-font-weight: bold;");
+        hpText.setX(pixelX*2*radius + radius);
+        hpText.setY(pixelY*2*radius -10);
     }
 }

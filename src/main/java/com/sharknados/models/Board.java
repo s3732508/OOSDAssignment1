@@ -1,38 +1,23 @@
 package com.sharknados.models;
 
-
 import com.sharknados.models.pieces.Piece;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static java.lang.Math.*;
-import static java.lang.Math.abs;
 
 public class Board {
-    /*
-    //
-    Vectors for direction
-    //
-    NORTH       = (0, -1)
-    NORTHEAST   = (+1, -1)
-    SOUTHEAST   = (+1, 0)
-    SOUTH       = (0, +1)
-    SOUTHWEST   = (-1, +1)
-    NORTHWEST   = (-1, 0)
-     */
 
+    //Vectors for direction
     public final static int NORTH = 0;
     public final static int NORTHEAST = 1;
     public final static int SOUTHEAST = 2;
     public final static int SOUTH = 3;
     public final static int SOUTHWEST = 4;
     public final static int NORTHWEST = 5;
-
-    private int size;
-
     public final static int deltaX[] = { 0, 1, 1, 0, -1, -1 };
     public final static int deltaZ[] = { -1, -1, 0, 1, 1, 0 };
+
+    private int size;
 
     private Tile[][] tilePositions;
     private List<Piece> pieces;
@@ -63,36 +48,6 @@ public class Board {
         }
     }
 
-    private boolean canMovePieceToTile(Piece piece, Tile destTile) {
-        Tile fromTile = piece.getTile();
-
-        if (destTile == piece.getTile())
-            return false;
-        //limit movement to just one tile away
-        int x = destTile.getX() - fromTile.getX();
-        int z = destTile.getZ() - fromTile.getZ();
-        if (abs(x) > 1 || abs(z) > 1) {
-            return false;
-        }
-        // if the destination Tile is occupied by enemy, move in
-        Piece destPiece = destTile.getOccupyingPiece(getPieces());
-        if (destPiece != null) {
-            if (piece.inTheSameArmyAs(destPiece))
-                return false;
-        }
-        return true;
-    }
-
-    public void move(Piece piece, Tile tile) {
-        // if tile is already occupied, kill the occupier
-        Piece destPiece = tile.getOccupyingPiece(pieces);
-        if (destPiece != null) {
-            destPiece.setTile(null); //killed
-        }
-        // move
-        piece.setTile(tile);
-    }
-
     private boolean trySetNeighbor(Tile tile, int direction){
         boolean success = false;
         Tile neighbor = null;
@@ -111,6 +66,7 @@ public class Board {
     public int getSize() {
         return size;
     }
+
     public Tile[][] getAllTiles(){
         return tilePositions;
     }
@@ -135,6 +91,22 @@ public class Board {
             }
         }
         return tileList;
+    }
+
+    public int getDistanceBetweenTiles(Tile a, Tile b){
+        //convert to cube coords
+        int aX = a.getX() - size;
+        int aZ = a.getZ() - size;
+        int aY = -aX - aZ;
+        int bX = b.getX() - size;
+        int bZ = b.getZ() - size;
+        int bY = -bX - bZ;
+
+        int dX = abs(aX-bX);
+        int dY = abs(aY-bY);
+        int dZ = abs(aZ-bZ);
+
+        return max(max(dX,dY),dZ);
     }
 
 }
