@@ -12,6 +12,10 @@ import java.util.List;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 public class GameController{
     private Game game;
     private GameView gameView;
@@ -36,6 +40,23 @@ public class GameController{
 
     public void newGame(){
         List<Piece> pieceList = game.createNewGamePieces();
+        for(Piece p : pieceList){
+            try {
+                PieceView pieceView = new PieceView(p);
+                gameView.addToView(pieceView.pieceImage);
+                gameView.addToView(pieceView.atkText);
+                gameView.addToView(pieceView.defText);
+                gameView.addToView(pieceView.hpText);
+
+            }catch (Exception e) {
+                // Handle it.
+            }
+        }
+    }
+    
+    public void loadGame() {
+    	System.out.println(" In Load Game");
+    	List<Piece> pieceList = game.loadGamePieces();
         for(Piece p : pieceList){
             try {
                 PieceView pieceView = new PieceView(p);
@@ -109,5 +130,23 @@ public class GameController{
         game.cancelAction();
         gameView.setCommandBarVisible(false);
     }
+    
+    public void saveButtonHandler(){
+
+        try {
+           FileOutputStream gameOut =
+           new FileOutputStream("src/main/Saved Game/game.ser");
+           ObjectOutputStream out = new ObjectOutputStream(gameOut);
+           out.writeObject(game);
+           out.close();
+           gameOut.close();
+           System.out.printf("Serialized data is saved in /tmp/game.ser");
+          
+        } catch (IOException i) {
+           i.printStackTrace();
+        }
+    }
+    
+    
 
 }

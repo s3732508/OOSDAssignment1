@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static java.lang.Math.*;
 
-public class Board {
+public class Board implements java.io.Serializable{
 
     //Vectors for direction
     public final static int NORTH = 0;

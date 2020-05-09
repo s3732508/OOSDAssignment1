@@ -4,10 +4,13 @@ import com.sharknados.models.pieces.Piece;
 import com.sharknados.models.pieces.eagles.EagleOwl;
 import com.sharknados.models.pieces.sharks.GreatWhite;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends AbstractSubject{
+public class Game extends AbstractSubject implements java.io.Serializable{
 
     public enum Mode {
         SELECT,
@@ -44,6 +47,28 @@ public class Game extends AbstractSubject{
             board.getTileAtPosition(i, 0).setPiece(piece);
             pieceList.add(piece);
         }
+        return pieceList;
+    }
+    
+    public List<Piece> loadGamePieces(){
+        //Initial Setup
+        List<Piece> pieceList = new ArrayList<>();
+        int size=board.getSize();
+        Tile[][] tiles=board.getAllTiles();
+        
+        for (int x = 0; x <= 2*size; x++) {
+            int zStart = max(0, size - x);
+            int zStop = min(2*size, 3*size - x);
+            for (int z = zStart; z <= zStop; z++) {
+            	if(tiles[x][z].isOccupied()) {
+            		board.getTileAtPosition(x,z).setOccupied(true);
+            		pieceList.add(tiles[x][z].getPiece());
+            	}
+            	
+            }
+        }
+        
+        
         return pieceList;
     }
 

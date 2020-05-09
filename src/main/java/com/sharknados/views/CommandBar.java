@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 
-public class CommandBar extends HBox{
+public class CommandBar extends HBox implements java.io.Serializable{
     private Button attackButt;
     private Button moveButt;
     private Button abilityButt;
