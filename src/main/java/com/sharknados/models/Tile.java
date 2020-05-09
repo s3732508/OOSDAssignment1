@@ -1,13 +1,15 @@
 package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
-import com.sharknados.views.TileView;
 
-import java.util.List;
 
-public class Tile {
+public class Tile extends AbstractSubject{
     private int x, z;
     private boolean occupied = false;
+    private boolean selected = false;
+    private boolean highlighted = false;
+    private boolean unavailable = false;
+    private Piece piece;
     private Tile neighbor[] = {null, null, null, null, null, null};
 
     public Tile(int x, int z){
@@ -38,20 +40,48 @@ public class Tile {
 
     public void setOccupied(boolean occupied) {
         this.occupied = occupied;
+        notifyAllObservers();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        notifyAllObservers();
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        this.highlighted = highlighted;
+        notifyAllObservers();
+    }
+
+    public void setUnavailable(boolean unavailable) {
+        this.unavailable = unavailable;
+        notifyAllObservers();
     }
 
     public boolean isOccupied() {
         return occupied;
     }
 
-    public Piece getOccupyingPiece(List<Piece> pieces) {
-        for (Piece piece : pieces) {
-            if (piece.getTile() == this) {
-                return piece;
-            }
-        }
-        return null;
+    public boolean isSelected() {
+        return selected;
     }
+
+    public boolean isHighlighted() {
+        return highlighted;
+    }
+
+    public boolean isUnavailable(){
+        return unavailable;
+    }
+
+    public void setPiece(Piece piece){
+        this.piece = piece;
+    }
+
+    public Piece getPiece(){
+        return this.piece;
+    }
+
 
     @Override
     public String toString(){

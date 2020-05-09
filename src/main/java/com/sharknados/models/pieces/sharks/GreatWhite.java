@@ -5,10 +5,11 @@ import com.sharknados.models.pieces.Piece;
 
 import java.util.List;
 
-public class WhaleShark extends Shark {
+public class GreatWhite extends Shark {
 
-    public WhaleShark(int attack, int defence, Tile tile) {
-        super(attack, defence, tile);
+    public GreatWhite(int x, int z) {
+        super(x,  z,  2,  2,  5,  1);
+        setType(Type.GREAT_WHITE);
     }
 
     @Override

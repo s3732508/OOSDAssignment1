@@ -1,63 +1,65 @@
 package com.sharknados.views;
 
+import com.sharknados.models.AbstractSubject;
+import com.sharknados.models.Tile;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
-import javafx.scene.input.MouseEvent;
-import javafx.event.EventHandler;
 
-public class TileView {
-	public Polygon tile = new Polygon();
-	EventHandler<MouseEvent> eventHandler;
+public class TileView implements Observer {
 
+	public Polygon tilePoly = new Polygon();
+	private Tile subject;
 
-	public TileView(int x, int z, boolean occupied) {
+	public TileView(AbstractSubject tile) {
+		this.subject = (Tile) tile;
+		this.subject.attach(this);
 
-		double r = 16;
-		double size = 2*r;
-		double pixelX = 3.0/2.0*x;
-		double pixelY = (Math.sqrt(3.0))/2.0*x + Math.sqrt(3.0)*z;
-
-		// Print real pixel coords
-		// System.out.println("Pixel coords (" + pixelX + " " + pixelY +")");
+		//Initial Drawing
+		int x = subject.getX();
+		int z = subject.getZ();
+		double radius = 22;
+		double size = 2 * radius;
+		double pixelX = 3.0 / 2.0 * x;
+		double pixelY = (Math.sqrt(3.0)) / 2.0 * x + Math.sqrt(3.0) * z;
 
 		for (int i = 0; i < 6; i++) {
-			double angle = 2.0 * Math.PI *(i) / 6.0;
-			double offsetX = size*Math.cos(angle) + size;
-			double offsetY = size*Math.sin(angle);
-			tile.getPoints().addAll(offsetX + pixelX*size, offsetY + pixelY*size);
-			tile.setStroke(Color.WHITESMOKE);
+			double angle = 2.0 * Math.PI * (i) / 6.0;
+			double offsetX = size * Math.cos(angle) + size;
+			double offsetY = size * Math.sin(angle);
+			tilePoly.getPoints().addAll(offsetX + pixelX * size, offsetY + pixelY * size - size);
+			tilePoly.setStroke(Color.WHITESMOKE);
+			tilePoly.setFill(Paint.valueOf("#DAD4D7"));
 		}
-		updateTile(occupied);
-
 	}
 
-	public void updateTile(boolean occupied) {
-		if(occupied) {
-			tile.setFill(Paint.valueOf("#F1C40F"));
+	@Override
+	public AbstractSubject getSubject(){
+			return this.subject;
+	}
+	@Override
+	public void update() {
+		//Default
+		tilePoly.setFill(Paint.valueOf("#DAD4D7"));
+
+		//Update the colour of the tile if the tile is occupied
+		if (subject.isOccupied()){
+			tilePoly.setFill(Paint.valueOf("#F1C40F"));
 		}
-		else{
-			tile.setFill(Paint.valueOf("#DAD4D7"));
+
+		//Update the colour of the tile if the tile is unavailable
+		if (subject.isUnavailable()){
+			tilePoly.setFill(Paint.valueOf("#924141"));
 		}
 
+		//Update the colour of the tile if the tile is highlighted
+		if (subject.isHighlighted()){
+			tilePoly.setFill(Paint.valueOf("#929241"));
+		}
+
+		//Update the colour of the tile if the tile is selected
+		if (subject.isSelected()){
+			tilePoly.setFill(Paint.valueOf("#315B86"));
+		}
 	}
-
-
-
-	public void select(){
-		tile.setFill(Paint.valueOf("#315B86"));
-	}
-
-	public void unselect(){
-		tile.setFill(Paint.valueOf("#DAD4D7"));
-	}
-
-	public void pathallowed(){
-		tile.setFill(Paint.valueOf("#929241"));
-	}
-	public void pathnotallowed(){
-		tile.setFill(Paint.valueOf("#924141"));
-	}
-
-
 }

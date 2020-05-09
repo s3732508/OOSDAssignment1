@@ -1,0 +1,113 @@
+package com.sharknados.controllers;
+
+import com.sharknados.models.Game;
+import com.sharknados.models.Tile;
+import com.sharknados.models.pieces.Piece;
+import com.sharknados.views.PieceView;
+import com.sharknados.views.TileView;
+import com.sharknados.views.GameView;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+import java.util.List;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
+public class GameController{
+    private Game game;
+    private GameView gameView;
+
+
+    public GameController(Game game) {
+        this.game = game;
+        this.gameView = new GameView(this);
+
+        //Initialize Tile Views
+        int size = game.getBoard().getSize();
+        for (int x = 0; x <= 2 * size; x++) {
+            int zStart = max(0, size - x);
+            int zStop = min(2 * size, 3 * size - x);
+            for (int z = zStart; z <= zStop; z++) {
+                TileView tileView = new TileView(game.getBoard().getTileAtPosition(x,z));
+                tileView.tilePoly.addEventFilter(MouseEvent.MOUSE_CLICKED, clickTile(tileView));
+                gameView.addToView(tileView.tilePoly);
+            }
+        }
+    }
+
+    public void newGame(){
+        List<Piece> pieceList = game.createNewGamePieces();
+        for(Piece p : pieceList){
+            try {
+                PieceView pieceView = new PieceView(p);
+                gameView.addToView(pieceView.pieceImage);
+                gameView.addToView(pieceView.atkText);
+                gameView.addToView(pieceView.defText);
+                gameView.addToView(pieceView.hpText);
+
+            }catch (Exception e) {
+                // Handle it.
+            }
+        }
+    }
+
+    public GameView getGameView() {
+        return gameView;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+
+    public EventHandler clickTile (TileView tileView){
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                Tile tile = (Tile) tileView.getSubject();
+
+                //Selecting a Piece
+                if (game.getMode() == Game.Mode.SELECT){
+                    boolean validSelection = game.selectTile(tile);
+                    //returns true if tile has piece and it is that pieces turn, false otherwise
+                    if(validSelection){
+                        gameView.setCommandBarVisible(true);
+                    }
+                    else{
+                        gameView.setCommandBarVisible(false);
+                    }
+                }
+
+                //Moving a Piece
+                if (game.getMode() == Game.Mode.MOVE){
+                    game.executeMove(tile);
+                }
+
+                //Attacking a Piece
+                if (game.getMode() == Game.Mode.ATTACK){
+                    game.executeAttack(tile);
+                }
+
+            }
+        };
+        return eventHandler;
+    }
+
+    public void moveButtonHandler(){
+        game.setMode(Game.Mode.MOVE);
+        game.showMovementRange();
+        gameView.setCommandBarVisible(false);
+    }
+
+    public void attackButtonHandler(){
+        game.setMode(Game.Mode.ATTACK);
+        game.showAttackRange();
+        gameView.setCommandBarVisible(false);
+    }
+
+    public void cancelButtonHandler(){
+        game.setMode(Game.Mode.SELECT);
+        game.cancelAction();
+        gameView.setCommandBarVisible(false);
+    }
+
+}
