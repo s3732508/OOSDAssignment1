@@ -4,7 +4,7 @@ import com.sharknados.controllers.GameController;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
-public class GameView extends BorderPane{
+public class GameView extends BorderPane implements java.io.Serializable{
     private BorderPane boardPane;
     private CommandBar commandBar;
     private StatusBar statusBar;

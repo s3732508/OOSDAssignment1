@@ -6,7 +6,7 @@ import com.sharknados.models.Tile;
 
 import java.util.List;
 
-public abstract class Piece extends AbstractSubject {
+public abstract class Piece extends AbstractSubject implements java.io.Serializable{
 
 
     public enum Type {

@@ -3,7 +3,7 @@ package com.sharknados.models;
 import com.sharknados.models.pieces.Piece;
 
 
-public class Tile extends AbstractSubject{
+public class Tile extends AbstractSubject implements java.io.Serializable{
     private int x, z;
     private boolean occupied = false;
     private boolean selected = false;

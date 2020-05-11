@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
-public class StatusBar extends HBox implements Observer {
+public class StatusBar extends HBox implements Observer, java.io.Serializable{
     private Game subject;
     private Button cancelButton;
     private Button undoButton;
@@ -40,7 +40,8 @@ public class StatusBar extends HBox implements Observer {
 
         saveButton = new Button("Save");
         saveButton.setPrefSize(140,40);
-        saveButton.setDisable(true);
+        saveButton.setDisable(false);
+        saveButton.setOnAction(saveButtonHandler);
 
         this.setSpacing(5);
         this.setPadding(new Insets(0, 20, 10, 20));
@@ -54,6 +55,13 @@ public class StatusBar extends HBox implements Observer {
         @Override
         public void handle(ActionEvent event) {
             controller.cancelButtonHandler();
+        }
+    };
+    
+    EventHandler<ActionEvent> saveButtonHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.saveButtonHandler();
         }
     };
 
