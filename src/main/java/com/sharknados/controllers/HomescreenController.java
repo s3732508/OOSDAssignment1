@@ -3,7 +3,6 @@ package com.sharknados.controllers;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-
 import com.sharknados.models.Game;
 import com.sharknados.views.HomescreenView;
 import javafx.application.Platform;

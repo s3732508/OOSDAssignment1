@@ -1,8 +1,9 @@
 package com.sharknados.models;
 
+import com.sharknados.models.pieces.eagle.EagleFactory;
+import com.sharknados.models.pieces.PieceFactory;
 import com.sharknados.models.pieces.Piece;
-import com.sharknados.models.pieces.eagles.EagleOwl;
-import com.sharknados.models.pieces.sharks.GreatWhite;
+import com.sharknados.models.pieces.shark.SharkFactory;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -35,18 +36,37 @@ public class Game extends AbstractSubject implements java.io.Serializable{
     public List<Piece> createNewGamePieces(){
         //Initial Setup
         List<Piece> pieceList = new ArrayList<>();
-        for( int i = 0; i <=3;i++){
-            Piece piece = new GreatWhite(i, 6);
-            board.getTileAtPosition(i, 6).setOccupied(true);
-            board.getTileAtPosition(i, 6).setPiece(piece);
-            pieceList.add(piece);
-        }
-        for( int i = 3; i <=6;i++){
-            Piece piece = new EagleOwl(i, 0);
-            board.getTileAtPosition(i, 0).setOccupied(true);
-            board.getTileAtPosition(i, 0).setPiece(piece);
-            pieceList.add(piece);
-        }
+
+        PieceFactory factory = new PieceFactory();
+
+        //Shark Setup
+        pieceList.add(factory.getCommander(new SharkFactory(2,5)));
+        board.getTileAtPosition(2, 5).setPiece(pieceList.get(pieceList.size() - 1));
+
+        pieceList.add(factory.getSoldier(new SharkFactory(1,6)));
+        board.getTileAtPosition(1, 6).setPiece(pieceList.get(pieceList.size() - 1));
+        pieceList.add(factory.getSoldier(new SharkFactory(2,6)));
+        board.getTileAtPosition(2, 6).setPiece(pieceList.get(pieceList.size() - 1));
+
+        pieceList.add(factory.getTank(new SharkFactory(0,6)));
+        board.getTileAtPosition(0, 6).setPiece(pieceList.get(pieceList.size() - 1));
+        pieceList.add(factory.getTank(new SharkFactory(3,6)));
+        board.getTileAtPosition(3, 6).setPiece(pieceList.get(pieceList.size() - 1));
+
+        //Eagle Setup
+        pieceList.add(factory.getCommander(new EagleFactory(4,1)));
+        board.getTileAtPosition(4, 1).setPiece(pieceList.get(pieceList.size() - 1));
+
+        pieceList.add(factory.getSoldier(new EagleFactory(4,0)));
+        board.getTileAtPosition(4, 0).setPiece(pieceList.get(pieceList.size() - 1));
+        pieceList.add(factory.getSoldier(new EagleFactory(5,0)));
+        board.getTileAtPosition(5, 0).setPiece(pieceList.get(pieceList.size() - 1));
+
+        pieceList.add(factory.getTank(new EagleFactory(3,0)));
+        board.getTileAtPosition(3, 0).setPiece(pieceList.get(pieceList.size() - 1));
+        pieceList.add(factory.getTank(new EagleFactory(6,0)));
+        board.getTileAtPosition(6, 0).setPiece(pieceList.get(pieceList.size() - 1));
+
         return pieceList;
     }
     
@@ -61,7 +81,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             int zStop = min(2*size, 3*size - x);
             for (int z = zStart; z <= zStop; z++) {
             	if(tiles[x][z].isOccupied()) {
-            		board.getTileAtPosition(x,z).setOccupied(true);
+            		board.getTileAtPosition(x,z).notifyAllObservers();
             		pieceList.add(tiles[x][z].getPiece());
             	}
             	
@@ -152,11 +172,9 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             //deselect all tiles
             deselectAll();
 
-            selectedTile.setOccupied(false);
             selectedTile.setPiece(null);
             piece.setX(tile.getX());
             piece.setZ(tile.getZ());
-            tile.setOccupied(true);
             tile.setPiece(piece);
             selectedTile = null;
             nextTurn();
@@ -200,7 +218,6 @@ public class Game extends AbstractSubject implements java.io.Serializable{
                     //todo implement proper solution for destroying pieces
                     //hack
                     tile.setPiece(null);
-                    tile.setOccupied(false);
                     target.setX(-1);
                     target.setZ(-1);
                 }
