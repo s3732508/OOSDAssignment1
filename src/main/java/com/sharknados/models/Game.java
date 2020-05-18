@@ -23,9 +23,13 @@ public class Game extends AbstractSubject implements java.io.Serializable{
     private Team turn;
     private Mode mode;
     private Tile selectedTile;
-    private GameState saveState;
-    private GameState loadState;
+    private int turnNumber = 1;
 
+    private int eagleUndoMoveLeft = 3;
+    private int sharkUndoMoveLeft = 3;
+
+    private boolean eagleUndoOptionUsed = false;
+    private boolean sharkUndoOptionUsed = false;
 
     public Game() {
         board = new Board(3);
@@ -80,6 +84,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             int zStart = max(0, size - x);
             int zStop = min(2*size, 3*size - x);
             for (int z = zStart; z <= zStop; z++) {
+                tiles[x][z].notifyAllObservers();
             	if(tiles[x][z].isOccupied()) {
             		board.getTileAtPosition(x,z).notifyAllObservers();
             		pieceList.add(tiles[x][z].getPiece());
@@ -113,12 +118,49 @@ public class Game extends AbstractSubject implements java.io.Serializable{
         notifyAllObservers();
     }
 
+    public int getTurnNumber() {
+        return turnNumber;
+    }
+
+    public void setTurnNumber(int turnNumber) {
+        this.turnNumber = turnNumber;
+    }
+
+    public void incTurnNumber() {
+        this.turnNumber = turnNumber + 1;
+    }
+
+    public void decEagleUndoMoveLeft() {
+        this.eagleUndoMoveLeft = eagleUndoMoveLeft - 1;
+    }
+
+    public void decSharkUndoMoveLeft() {
+        this.sharkUndoMoveLeft = sharkUndoMoveLeft - 1;
+    }
+
+    public boolean isEagleUndoOptionUsed() {
+        return eagleUndoOptionUsed;
+    }
+
+    public boolean isSharkUndoOptionUsed() {
+        return sharkUndoOptionUsed;
+    }
+
+    public void setEagleUndoOptionUsed(boolean eagleUndoOptionUsed) {
+        this.eagleUndoOptionUsed = eagleUndoOptionUsed;
+    }
+
+    public void setSharkUndoOptionUsed(boolean sharkUndoOptionUsed) {
+        this.sharkUndoOptionUsed = sharkUndoOptionUsed;
+    }
+
     public Team nextTurn() {
         if (turn == Team.SHARK)
             turn = Team.EAGLE;
         else
             turn = Team.SHARK;
         notifyAllObservers();
+        System.out.println("Current turn is: " + getTurnNumber());
         return turn;
     }
 

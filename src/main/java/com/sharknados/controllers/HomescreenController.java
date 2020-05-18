@@ -54,6 +54,7 @@ public class HomescreenController {
 
     }
 
+
     public void exitGame(){
         Platform.exit();
         System.exit(0);

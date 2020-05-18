@@ -1,6 +1,7 @@
 package com.sharknados.controllers;
 
 import com.sharknados.models.Game;
+import com.sharknados.models.Team;
 import com.sharknados.models.Tile;
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.PieceView;
@@ -8,12 +9,11 @@ import com.sharknados.views.TileView;
 import com.sharknados.views.GameView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+
+import java.io.*;
 import java.util.List;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 public class GameController{
     private Game game;
@@ -22,6 +22,10 @@ public class GameController{
 
     public GameController(Game game) {
         this.game = game;
+        init();
+    }
+
+    public void init() {
         this.gameView = new GameView(this);
 
         //Initialize Tile Views
@@ -51,6 +55,8 @@ public class GameController{
                 // Handle it.
             }
         }
+
+        saveButtonHandler();
     }
     
     public void loadGame() {
@@ -100,11 +106,13 @@ public class GameController{
                 //Moving a Piece
                 if (game.getMode() == Game.Mode.MOVE){
                     game.executeMove(tile);
+                    saveButtonHandler();
                 }
 
                 //Attacking a Piece
                 if (game.getMode() == Game.Mode.ATTACK){
                     game.executeAttack(tile);
+                    saveButtonHandler();
                 }
 
             }
@@ -131,21 +139,86 @@ public class GameController{
     }
     
     public void saveButtonHandler(){
+        try {
+            FileOutputStream gameOut =
+                    new FileOutputStream("src/main/Saved Game/game.ser");
+            ObjectOutputStream out = new ObjectOutputStream(gameOut);
+            out.writeObject(game);
+            out.close();
+            gameOut.close();
+            System.out.printf("Serialized data is saved in /tmp/game.ser\n");
+
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
+        // same shit for turn number
+        try {
+            FileOutputStream gameOut =
+                    new FileOutputStream("src/main/Saved Game/" + game.getTurnNumber() + ".ser");
+            ObjectOutputStream out = new ObjectOutputStream(gameOut);
+            out.writeObject(game);
+            out.close();
+            gameOut.close();
+            System.out.printf("Serialized data is saved in /tmp/" + game.getTurnNumber() + ".ser\n");
+
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
+        game.incTurnNumber();
+    }
+
+    public void undoButtonHandler(){
+
+        int lastTurn = game.getTurnNumber() - 1;
+        boolean eagleUndoOptionUsed = game.isEagleUndoOptionUsed();
+        boolean sharkUndoOptionUsed = game.isEagleUndoOptionUsed();
+
+        if (game.getTurn() == Team.EAGLE) {
+            if (!game.isEagleUndoOptionUsed()) {
+                eagleUndoOptionUsed = true;
+            } else {
+                return;
+            }
+        }
+
+
+        if (game.getTurn() == Team.SHARK) {
+            if (!game.isSharkUndoOptionUsed()) {
+                sharkUndoOptionUsed = true;
+            } else {
+                return;
+            }
+        }
+
+        game=null;
+
+        System.out.println("Load Game");
 
         try {
-           FileOutputStream gameOut =
-           new FileOutputStream("src/main/Saved Game/game.ser");
-           ObjectOutputStream out = new ObjectOutputStream(gameOut);
-           out.writeObject(game);
-           out.close();
-           gameOut.close();
-           System.out.printf("Serialized data is saved in /tmp/game.ser");
-          
+            FileInputStream fileIn = new FileInputStream("src/main/Saved Game/" + lastTurn + ".ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            game = (Game) in.readObject();
+            in.close();
+            fileIn.close();
         } catch (IOException i) {
-           i.printStackTrace();
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+            return;
         }
+
+        //TODO reload game & UI
+//        game.setSharkUndoOptionUsed(sharkUndoOptionUsed);
+//        game.setEagleUndoOptionUsed(eagleUndoOptionUsed);
+        init(); // reinit with new game obj›
+        game.notifyAllObservers();
+        //pieces object needs to notify all observers?
+        loadGame(); // this should reload UI
+        System.out.println("Current turn is: " + game.getTurnNumber());
     }
-    
-    
 
 }
