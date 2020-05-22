@@ -1,90 +1,40 @@
 package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
+import com.sharknados.views.TileView;
+
+public interface Tile {
+
+	int getZ();
+
+	void setOccupied(boolean b);
+
+	void setPiece(Piece piece);
+
+	void setNeighbor(Tile neighbor, int direction);
 
 
-public class Tile extends AbstractSubject implements java.io.Serializable{
-    private int x, z;
-    private boolean occupied = false;
-    private boolean selected = false;
-    private boolean highlighted = false;
-    private boolean unavailable = false;
-    private Piece piece;
-    private Tile neighbor[] = {null, null, null, null, null, null};
 
-    public Tile(int x, int z){
-        this.x = x;
-        this.z = z;
-    }
+	boolean isOccupied();
 
-    public int getX(){
-        return x;
-    }
+	Piece getPiece();
 
-    public int getZ(){
-        return z;
-    }
+	void setSelected(boolean b);
 
-    public void setNeighbor(Tile neighbor, int direction){
-                this.neighbor[direction] = neighbor;
-    }
+	void setUnavailable(boolean b);
 
-    public Tile getNeighbor(int direction) {
-        return neighbor[direction];
-    }
-    public boolean checkneighbor(int direction) {
-        if(neighbor[direction] !=null)
-            return true;
-        return false;
-    }
+	void setHighlighted(boolean b);
 
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
-        notifyAllObservers();
-    }
+	boolean isSelected();
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-        notifyAllObservers();
-    }
+	boolean isHighlighted();
 
-    public void setHighlighted(boolean highlighted) {
-        this.highlighted = highlighted;
-        notifyAllObservers();
-    }
-
-    public void setUnavailable(boolean unavailable) {
-        this.unavailable = unavailable;
-        notifyAllObservers();
-    }
-
-    public boolean isOccupied() {
-        return occupied;
-    }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public boolean isHighlighted() {
-        return highlighted;
-    }
-
-    public boolean isUnavailable(){
-        return unavailable;
-    }
-
-    public void setPiece(Piece piece){
-        this.piece = piece;
-    }
-
-    public Piece getPiece(){
-        return this.piece;
-    }
+	int getX();
 
 
-    @Override
-    public String toString(){
-        return String.format("Axial coords (" + x + ", " + z + ")");
-    }
+
+
+
+
+
 }
