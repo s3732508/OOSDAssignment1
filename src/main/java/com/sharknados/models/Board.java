@@ -24,16 +24,20 @@ public class Board implements java.io.Serializable{
 
     public Board(int size) {
         this.size = size;
-        this.tilePositions = new Tile[2*size+1][2*size+1];
+        this.tilePositions = new HexagonTile[2*size+1][2*size+1];
+       // this.tilePositions = new TrapTileDecorator[2*size+1][2*size+1];
 
         // Generate a board. Add tiles to the 2d array
         for (int x = 0; x <= 2*size; x++) {
             int zStart = max(0, size - x);
             int zStop = min(2*size, 3*size - x);
             for (int z = zStart; z <= zStop; z++) {
-                tilePositions[x][z] = new Tile(x,z);
+            	Tile tile=new TrapTileDecorator(new HexagonTile(x,z));
+                tilePositions[x][z] = new HexagonTile(x,z);
             }
         }
+        Tile tile=new TrapTileDecorator(new HexagonTile(10,10));
+        System.out.println(tile.getX());
 
         // For each tile in the board set each of it's neighbors
         for (int x = 0; x <= 2*size; x++) {

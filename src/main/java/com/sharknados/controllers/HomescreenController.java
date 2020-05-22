@@ -42,12 +42,12 @@ public class HomescreenController {
             i.printStackTrace();
             return;
          } catch (ClassNotFoundException c) {
-            System.out.println("Employee class not found");
+            System.out.println("Game Object not Found");
             c.printStackTrace();
             return;
          }
          
-         System.out.println("Deserialized Employee...");
+         System.out.println("Deserialized Game...");
          GameController gameController = new GameController (game);
          gameController.loadGame();
          root.getChildren().remove(homescreenView);

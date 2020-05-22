@@ -1,6 +1,7 @@
 package com.sharknados.controllers;
 
 import com.sharknados.models.Game;
+import com.sharknados.models.HexagonTile;
 import com.sharknados.models.Tile;
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.PieceView;
@@ -55,7 +56,7 @@ public class GameController{
     }
     
     public void loadGame() {
-    	System.out.println(" In Load Game");
+    	
     	List<Piece> pieceList = game.loadGamePieces();
         for(Piece p : pieceList){
             try {
@@ -84,7 +85,7 @@ public class GameController{
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                Tile tile = (Tile) tileView.getSubject();
+                HexagonTile tile = (HexagonTile) tileView.getSubject();
 
                 //Selecting a Piece
                 if (game.getMode() == Game.Mode.SELECT){

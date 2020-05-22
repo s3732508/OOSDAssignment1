@@ -1,6 +1,8 @@
 package com.sharknados.views;
 
-import com.sharknados.models.AbstractSubject;
+
+import com.sharknados.models.HexagonTile;
+import com.sharknados.models.Subject;
 import com.sharknados.models.Tile;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -12,10 +14,10 @@ public class TileView implements Observer {
 	private Tile subject;
 
 	public TileView(AbstractSubject tile) {
-		this.subject = (Tile) tile;
+		this.subject = (HexagonTile) tile;
 		this.subject.attach(this);
 
-		//Initial Drawing 
+		//Initial Drawing
 		int x = subject.getX();
 		int z = subject.getZ();
 		double radius = 22;
@@ -34,7 +36,7 @@ public class TileView implements Observer {
 	}
 
 	@Override
-	public AbstractSubject getSubject(){
+	public Subject getSubject(){
 			return this.subject;
 	}
 	@Override

@@ -8,7 +8,7 @@ import java.util.List;
     Implements the observer pattern
  ***********************************/
 
-public abstract class AbstractSubject {
+public abstract class AbstractSubject implements Subject {
     private List<Observer> observers = new ArrayList<Observer>();
 
     public void attach(Observer observer){
