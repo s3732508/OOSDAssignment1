@@ -12,14 +12,15 @@ import javafx.scene.layout.StackPane;
 public class HomescreenController {
     private StackPane root;
     private HomescreenView homescreenView;
-    public HomescreenController(Pane root){
-        this.root = (StackPane) root;
+
+    public HomescreenController(Pane rootTemp){
+        this.root = (StackPane) rootTemp;
         this.homescreenView = new HomescreenView(this);
-        root.getChildren().add(homescreenView);
+        rootTemp.getChildren().add(homescreenView);
 
     }
 
-    public void newGame(){
+    public void newGameButtonHandler(){
         Game game = new Game();
         GameController gameController = new GameController (game);
         gameController.newGame();
@@ -27,7 +28,7 @@ public class HomescreenController {
         root.getChildren().add(gameController.getGameView());
     }
 
-    public void loadGame(){
+    public void loadGameButtonHandler(){
     	Game game=null;
     	System.out.println("Load Game");
     	

@@ -194,7 +194,7 @@ public class GameController{
 
         game=null;
 
-        System.out.println("Load Game");
+        System.out.println("Undo Move");
 
         try {
             FileInputStream fileIn = new FileInputStream("src/main/Saved Game/" + lastTurn + ".ser");
@@ -214,10 +214,12 @@ public class GameController{
         //TODO reload game & UI
 //        game.setSharkUndoOptionUsed(sharkUndoOptionUsed);
 //        game.setEagleUndoOptionUsed(eagleUndoOptionUsed);
-        init(); // reinit with new game obj›
+        init(); // reinit with new game obj
+        GameController gameController = new GameController (game);
+        gameController.loadGame();
+        //loadGame(); // this should reload UI
         game.notifyAllObservers();
         //pieces object needs to notify all observers?
-        loadGame(); // this should reload UI
         System.out.println("Current turn is: " + game.getTurnNumber());
     }
 

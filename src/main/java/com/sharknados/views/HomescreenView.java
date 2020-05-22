@@ -45,7 +45,7 @@ public class HomescreenView extends VBox {
 
     public EventHandler<ActionEvent> clickPlay() {
         return event -> {
-            controller.newGame();
+            controller.newGameButtonHandler();
         };
     }
 
@@ -57,7 +57,7 @@ public class HomescreenView extends VBox {
     
     public EventHandler<ActionEvent> clickLoad() {
         return event -> {
-            controller.loadGame();
+            controller.loadGameButtonHandler();
         };
     }
     
