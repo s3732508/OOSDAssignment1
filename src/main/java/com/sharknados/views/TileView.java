@@ -15,7 +15,7 @@ public class TileView implements Observer {
 		this.subject = (Tile) tile;
 		this.subject.attach(this);
 
-		//Initial Drawing
+		//Initial Drawing 
 		int x = subject.getX();
 		int z = subject.getZ();
 		double radius = 22;
