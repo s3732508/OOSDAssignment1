@@ -3,10 +3,10 @@ package com.sharknados.models;
 import com.sharknados.models.pieces.Piece;
 
 public abstract class TileDecorator implements Tile, java.io.Serializable {
-	protected HexagonTile decoratedTile;
+	protected Tile decoratedTile;
 
-	public TileDecorator(HexagonTile decoratedTile) {
-		this.decoratedTile = decoratedTile;
+	public TileDecorator(Tile decoratedTile2) {
+		this.decoratedTile = decoratedTile2;
 	
 	}
 

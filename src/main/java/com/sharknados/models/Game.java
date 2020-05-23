@@ -21,7 +21,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
     private Board board;
     private Team turn;
     private Mode mode;
-    private HexagonTile selectedTile;
+    private Tile selectedTile;
     private GameState saveState;
     private GameState loadState;
 
@@ -102,7 +102,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
         return turn;
     }
 
-    public boolean selectTile(HexagonTile tile){
+    public boolean selectTile(Tile tile){
         Piece piece = tile.getPiece();
         if (piece == null || piece.getTeam() != turn){
             return false;
@@ -117,7 +117,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
         return true;
     }
 
-    public HexagonTile getSelectedTile(){
+    public Tile getSelectedTile(){
         return this.selectedTile;
     }
 
@@ -144,7 +144,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             }
         }
     }
-    public void executeMove(HexagonTile tile){
+    public void executeMove(Tile tile){
         boolean valid = tile.isHighlighted();
         if (valid) {
             Piece piece = selectedTile.getPiece();
@@ -184,7 +184,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
 
     }
 
-    public void executeAttack(HexagonTile tile){
+    public void executeAttack(Tile tile){
         boolean valid = tile.isHighlighted();
 
         if (valid) {

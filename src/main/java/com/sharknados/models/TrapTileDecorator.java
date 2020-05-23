@@ -2,6 +2,7 @@ package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.Observer;
+import com.sharknados.views.TileView;
 
 public class TrapTileDecorator extends TileDecorator {
 
@@ -12,6 +13,7 @@ public class TrapTileDecorator extends TileDecorator {
 	}
 
 	public void setPiece(Piece piece) {
+		System.out.println("setPiece from TrapTile");
 		decoratedTile.setPiece(piece);
 	}
 
@@ -80,6 +82,18 @@ public class TrapTileDecorator extends TileDecorator {
 	public int getX() {
 		// TODO Auto-generated method stub
 		return decoratedTile.getX();
+	}
+
+	@Override
+	public void attach(TileView tileView) {
+		// TODO Auto-generated method stub
+		decoratedTile.attach(tileView);
+	}
+
+	@Override
+	public boolean isUnavailable() {
+		// TODO Auto-generated method stub
+		return decoratedTile.isUnavailable();
 	}
 
 	

@@ -31,6 +31,10 @@ public interface Tile {
 
 	int getX();
 
+	void attach(TileView tileView);
+
+	boolean isUnavailable();
+
 
 
 

@@ -89,6 +89,15 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 		return String.format("Axial coords (" + x + ", " + z + ")");
 	}
 
+	@Override
+	public void attach(TileView tileView) {
+		super.attach(tileView);
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	
 	
 	

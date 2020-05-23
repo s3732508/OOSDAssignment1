@@ -1,6 +1,7 @@
 package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
+import com.sharknados.views.TileView;
 
 public class ObstacleTileDecorator extends TileDecorator {
 
@@ -10,6 +11,7 @@ public class ObstacleTileDecorator extends TileDecorator {
 	}
 
 	public void setPiece(Piece piece) {
+		System.out.println("setPiece from ObstacleTile");
 		decoratedTile.setPiece(piece);
 		
 	}
@@ -82,4 +84,17 @@ public class ObstacleTileDecorator extends TileDecorator {
 		// TODO Auto-generated method stub
 		decoratedTile.setNeighbor(neighbor, direction);
 	}
+	
+	@Override
+	public void attach(TileView tileView) {
+		// TODO Auto-generated method stub
+		decoratedTile.attach(tileView);
+	}
+
+	@Override
+	public boolean isUnavailable() {
+		// TODO Auto-generated method stub
+		return decoratedTile.isUnavailable();
+	}
+
 }

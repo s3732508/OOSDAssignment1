@@ -85,7 +85,7 @@ public class GameController{
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                HexagonTile tile = (HexagonTile) tileView.getSubject();
+                Tile tile =  tileView.getSubject();
 
                 //Selecting a Piece
                 if (game.getMode() == Game.Mode.SELECT){
