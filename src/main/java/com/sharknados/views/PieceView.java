@@ -23,11 +23,11 @@ public class PieceView implements Observer {
         this.subject.attach(this);
 
         Image image;
-        String type = subject.getType().toString();
+        String type = subject.getTeam().toString();
         switch(type){
-            case "GREAT_WHITE":image = new Image(new FileInputStream("src/main/resources/Shark.png"));
+            case "SHARK":image = new Image(new FileInputStream("src/main/resources/Shark.png"));
             break;
-            case "EAGLE_OWL": image = new Image(new FileInputStream("src/main/resources/Eagle.png"));
+            case "EAGLE": image = new Image(new FileInputStream("src/main/resources/Eagle.png"));
             break;
             default: image = new Image(new FileInputStream("src/main/resources/Shark.png"));
         }

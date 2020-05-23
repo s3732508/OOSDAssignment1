@@ -36,7 +36,8 @@ public class StatusBar extends HBox implements Observer, java.io.Serializable{
 
         undoButton = new Button("Undo");
         undoButton.setPrefSize(140,40);
-        undoButton.setDisable(true);
+        undoButton.setDisable(false);
+        undoButton.setOnAction(undoButtonHandler);
 
         saveButton = new Button("Save");
         saveButton.setPrefSize(140,40);
@@ -57,7 +58,14 @@ public class StatusBar extends HBox implements Observer, java.io.Serializable{
             controller.cancelButtonHandler();
         }
     };
-    
+
+    EventHandler<ActionEvent> undoButtonHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.undoButtonHandler();
+        }
+    };
+
     EventHandler<ActionEvent> saveButtonHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
