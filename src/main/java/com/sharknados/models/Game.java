@@ -159,6 +159,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             turn = Team.EAGLE;
         else
             turn = Team.SHARK;
+        incTurnNumber();
         notifyAllObservers();
         System.out.println("Current turn is: " + getTurnNumber());
         return turn;

@@ -4,24 +4,28 @@ import com.sharknados.models.Game;
 import com.sharknados.models.Team;
 import com.sharknados.models.Tile;
 import com.sharknados.models.pieces.Piece;
+import com.sharknados.views.GameView;
 import com.sharknados.views.PieceView;
 import com.sharknados.views.TileView;
-import com.sharknados.views.GameView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 import java.io.*;
 import java.util.List;
+
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class GameController{
     private Game game;
     private GameView gameView;
+    private Pane rootPane;
 
 
-    public GameController(Game game) {
+    public GameController(Game game, Pane rootPane) {
         this.game = game;
+        this.rootPane = rootPane;
         init();
     }
 
@@ -69,9 +73,8 @@ public class GameController{
                 gameView.addToView(pieceView.atkText);
                 gameView.addToView(pieceView.defText);
                 gameView.addToView(pieceView.hpText);
-
             }catch (Exception e) {
-                // Handle it.
+                System.out.println("shit happens");
             }
         }
     }
@@ -105,13 +108,13 @@ public class GameController{
 
                 //Moving a Piece
                 if (game.getMode() == Game.Mode.MOVE){
-                    game.executeMove(tile);
+                    game.executeMove(tile);//nextTurn() is part of executeMove() and is invoked so can save as a "turn"
                     saveButtonHandler();
                 }
 
                 //Attacking a Piece
                 if (game.getMode() == Game.Mode.ATTACK){
-                    game.executeAttack(tile);
+                    game.executeAttack(tile);//same with this
                     saveButtonHandler();
                 }
 
@@ -152,7 +155,7 @@ public class GameController{
             i.printStackTrace();
         }
 
-        // same shit for turn number
+        // same for turn number
         try {
             FileOutputStream gameOut =
                     new FileOutputStream("src/main/Saved Game/" + game.getTurnNumber() + ".ser");
@@ -165,13 +168,16 @@ public class GameController{
         } catch (IOException i) {
             i.printStackTrace();
         }
-
-        game.incTurnNumber();
     }
 
     public void undoButtonHandler(){
 
+        System.out.println("Current turn is: " + game.getTurnNumber());
+
         int lastTurn = game.getTurnNumber() - 1;
+
+        if (lastTurn < 1) return;
+
         boolean eagleUndoOptionUsed = game.isEagleUndoOptionUsed();
         boolean sharkUndoOptionUsed = game.isEagleUndoOptionUsed();
 
@@ -183,7 +189,6 @@ public class GameController{
             }
         }
 
-
         if (game.getTurn() == Team.SHARK) {
             if (!game.isSharkUndoOptionUsed()) {
                 sharkUndoOptionUsed = true;
@@ -194,7 +199,7 @@ public class GameController{
 
         game=null;
 
-        System.out.println("Undo Move");
+        System.out.println("Undo Move, loading turn " + lastTurn);
 
         try {
             FileInputStream fileIn = new FileInputStream("src/main/Saved Game/" + lastTurn + ".ser");
@@ -211,15 +216,16 @@ public class GameController{
             return;
         }
 
-        //TODO reload game & UI
 //        game.setSharkUndoOptionUsed(sharkUndoOptionUsed);
 //        game.setEagleUndoOptionUsed(eagleUndoOptionUsed);
+
+        rootPane.getChildren().remove(gameView);
+
         init(); // reinit with new game obj
-        GameController gameController = new GameController (game);
-        gameController.loadGame();
-        //loadGame(); // this should reload UI
-        game.notifyAllObservers();
-        //pieces object needs to notify all observers?
+        loadGame();
+
+        rootPane.getChildren().add(gameView);
+
         System.out.println("Current turn is: " + game.getTurnNumber());
     }
 

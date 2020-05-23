@@ -19,11 +19,11 @@ public class Client extends Application{
     }
 
     public void start(Stage mainStage) throws Exception {
-        StackPane root = new StackPane();
-        RootController rootController = new RootController(root);
+        StackPane rootPane = new StackPane();
+        RootController rootController = new RootController(rootPane);
 
         HomescreenController homescreenController = new HomescreenController(rootController.getRoot());
-        Scene scene = new Scene(root,490,700);
+        Scene scene = new Scene(rootPane,490,700);
         mainStage.setTitle("Sharknados");
         mainStage.setScene(scene);
         mainStage.show();
