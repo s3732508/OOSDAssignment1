@@ -1,6 +1,7 @@
 package com.sharknados.views;
 
 import com.sharknados.models.AbstractSubject;
+import com.sharknados.models.Subject;
 import com.sharknados.models.Tile;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -11,8 +12,8 @@ public class TileView implements Observer {
 	public Polygon tilePoly = new Polygon();
 	private Tile subject;
 
-	public TileView(AbstractSubject tile) {
-		this.subject = (Tile) tile;
+	public TileView(Subject subject2) {
+		this.subject = (Tile) subject2;
 		this.subject.attach(this);
 
 		//Initial Drawing
@@ -34,8 +35,8 @@ public class TileView implements Observer {
 	}
 
 	@Override
-	public AbstractSubject getSubject(){
-			return this.subject;
+	public Subject getSubject(){	
+			return (Subject) this.subject;
 	}
 	@Override
 	public void update() {

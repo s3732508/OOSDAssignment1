@@ -1,6 +1,7 @@
 package com.sharknados.views;
 
-import com.sharknados.models.AbstractSubject;
+
+import com.sharknados.models.Subject;
 
 /************************************
  Implements the observer pattern
@@ -8,5 +9,5 @@ import com.sharknados.models.AbstractSubject;
 
 public interface Observer {
     void update();
-    AbstractSubject getSubject();
+    Subject getSubject();
 }

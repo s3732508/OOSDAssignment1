@@ -1,6 +1,7 @@
 package com.sharknados.views;
 
 import com.sharknados.models.AbstractSubject;
+import com.sharknados.models.Subject;
 import com.sharknados.models.pieces.Piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,7 +19,7 @@ public class PieceView implements Observer {
     public Text hpText;
     private Piece subject;
 
-    public PieceView(AbstractSubject piece) throws FileNotFoundException {
+    public PieceView(Subject piece) throws FileNotFoundException {
         this.subject = (Piece) piece;
         this.subject.attach(this);
 
@@ -52,7 +53,7 @@ public class PieceView implements Observer {
 
 
     @Override
-    public AbstractSubject getSubject(){
+    public Subject getSubject(){
         return this.subject;
     }
 
