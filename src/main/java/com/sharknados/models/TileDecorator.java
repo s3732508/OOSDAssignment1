@@ -95,13 +95,13 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 
 	@Override
 	public void notifyAllObservers() {
-		
+		decoratedTile.notifyAllObservers();
 		
 	}
 
 	@Override
 	public void attach(Observer observer) {
-		
+		decoratedTile.attach(observer);
 		// TODO Auto-generated method stub
 		
 	}
