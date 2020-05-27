@@ -4,7 +4,7 @@ import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.Observer;
 import com.sharknados.views.TileView;
 
-public class HexagonTile implements Tile, java.io.Serializable{
+public class HexagonTile extends AbstractSubject implements Tile, java.io.Serializable{
     private int x, z;
     private boolean occupied = false;
     private boolean selected = false;
@@ -97,7 +97,7 @@ public class HexagonTile implements Tile, java.io.Serializable{
 
 	@Override
 	public void attach(Observer observer) {
-		
+		super.attach(observer);
 		// TODO Auto-generated method stub
 		
 	}
@@ -110,6 +110,7 @@ public class HexagonTile implements Tile, java.io.Serializable{
 
 	@Override
 	public void notifyAllObservers() {
+		super.notifyAllObservers();
 		// TODO Auto-generated method stub
 		
 	}

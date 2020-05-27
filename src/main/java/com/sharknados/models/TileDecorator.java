@@ -8,6 +8,7 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 
 	public TileDecorator(Tile decoratedTile2) {
 		this.decoratedTile = decoratedTile2;
+		
 	
 	}
 

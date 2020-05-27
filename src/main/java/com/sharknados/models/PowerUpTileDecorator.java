@@ -3,15 +3,17 @@ package com.sharknados.models;
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.TileView;
 
-public class ObstacleTileDecorator extends TileDecorator {
+public class PowerUpTileDecorator extends TileDecorator {
 
-	public ObstacleTileDecorator(Tile decoratedTile) {
+	public PowerUpTileDecorator(Tile decoratedTile) {
+		
 		super(decoratedTile);
+		System.out.println(" Constructor from PowewrUpTileDecorator");
 		// TODO Auto-generated constructor stub
 	}
 
 	public void setPiece(Piece piece) {
-		System.out.println("setPiece from ObstacleTile");
+		System.out.println("setPiece from PowewrUpTileDecorator");
 		decoratedTile.setPiece(piece);
 		
 	}}

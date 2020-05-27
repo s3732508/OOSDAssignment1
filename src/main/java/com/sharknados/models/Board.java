@@ -2,116 +2,180 @@ package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 import static java.lang.Math.*;
 
-public class Board implements java.io.Serializable{
+public class Board implements java.io.Serializable {
 
-    //Vectors for direction
-    public final static int NORTH = 0;
-    public final static int NORTHEAST = 1;
-    public final static int SOUTHEAST = 2;
-    public final static int SOUTH = 3;
-    public final static int SOUTHWEST = 4;
-    public final static int NORTHWEST = 5;
-    public final static int deltaX[] = { 0, 1, 1, 0, -1, -1 };
-    public final static int deltaZ[] = { -1, -1, 0, 1, 1, 0 };
+	// Vectors for direction
+	public final static int NORTH = 0;
+	public final static int NORTHEAST = 1;
+	public final static int SOUTHEAST = 2;
+	public final static int SOUTH = 3;
+	public final static int SOUTHWEST = 4;
+	public final static int NORTHWEST = 5;
+	public final static int deltaX[] = { 0, 1, 1, 0, -1, -1 };
+	public final static int deltaZ[] = { -1, -1, 0, 1, 1, 0 };
 
-    private int size;
+	private int size;
 
-    private Tile[][] tilePositions;
-    private List<Piece> pieces;
+	private Tile[][] tilePositions;
+	private List<Piece> pieces;
 
-    public Board(int size) {
-        this.size = size;
+	public Board(int size) {
+		this.size = size;
 //        this.tilePositions = new Tile[2*size+1][2*size+1];
-        this.tilePositions = new PassageTileDecorator[2*size+1][2*size+1];
+		this.tilePositions = new Tile[2 * size + 1][2 * size + 1];
+		List<Tile> emptytileList = new ArrayList<Tile>();
 
-
-        // Generate a board. Add tiles to the 2d array
-        for (int x = 0; x <= 2*size; x++) {
-            int zStart = max(0, size - x);
-            int zStop = min(2*size, 3*size - x);
-            for (int z = zStart; z <= zStop; z++) {
+		// Generate a board. Add tiles to the 2d array
+		for (int x = 0; x <= 2 * size; x++) {
+			int zStart = max(0, size - x);
+			int zStop = min(2 * size, 3 * size - x);
+			for (int z = zStart; z <= zStop; z++) {
 //                tilePositions[x][z] = new HexagonTile(x,z);
-                Tile tile=new PassageTileDecorator(new HexagonTile(x,z));
-                tilePositions[x][z] = tile;
-            }
-        }
+				Tile tile = new HexagonTile(x, z);
+				if (z != 6 && z != 0 && !(x == 2 && z == 5) && !(x == 4 && z == 1))
+					emptytileList.add(tile);
+//            	if(x==2 && z==5) {
+//            		
+//            		tile=new PassageTileDecorator(new ObstacleTileDecorator(tile));
+//            		
+////                    tile=new ObstacleTileDecorator(tile);
+//            	}
 
-        // For each tile in the board set each of it's neighbors
-        for (int x = 0; x <= 2*size; x++) {
-            int zStart = max(0, size - x);
-            int zStop = min(2*size, 3*size - x);
-            for (int z = zStart; z <= zStop; z++) {
-                //Loop through each direction setting a neighbor if it exists
-                for (int direction = 0; direction < 6; direction ++){
-                    trySetNeighbor(tilePositions[x][z], direction);
-                }
-            }
-        }
-    }
+				tilePositions[x][z] = tile;
+			}
+		}
+		setPowerUps(emptytileList);
+		setTraps(emptytileList);
+		setPassages(emptytileList);
 
-    private boolean trySetNeighbor(Tile tile, int direction){
-        boolean success = false;
-        Tile neighbor = null;
-        try {
-            neighbor = tilePositions[tile.getX() + deltaX[direction]][tile.getZ() + deltaZ[direction]];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            //
-        }
-        if (neighbor != null){
-            tile.setNeighbor(neighbor, direction);
-            success = true;
-        }
-        return success;
-    }
+		// For each tile in the board set each of it's neighbors
+		for (int x = 0; x <= 2 * size; x++) {
+			int zStart = max(0, size - x);
+			int zStop = min(2 * size, 3 * size - x);
+			for (int z = zStart; z <= zStop; z++) {
+				// Loop through each direction setting a neighbor if it exists
+				for (int direction = 0; direction < 6; direction++) {
+					trySetNeighbor(tilePositions[x][z], direction);
+				}
+			}
+		}
+	}
 
-    public int getSize() {
-        return size;
-    }
+	private void setPowerUps(List<Tile> emptytileList) {
+		Random randNum = new Random();
+		Set<Integer> set = new LinkedHashSet<Integer>();
+		while (set.size() < 4) {
+			set.add(randNum.nextInt(emptytileList.size() - 1));
+		}
+		Tile tile;
+		for (Iterator<Integer> it = set.iterator(); it.hasNext();) {
+			tile = emptytileList.get(it.next());
+//			System.out.println(it.next());
+			tilePositions[tile.getX()][tile.getZ()] = new PowerUpTileDecorator(tile);
+		}
 
-    public Tile[][] getAllTiles(){
-        return tilePositions;
-    }
+	}
 
-    public List<Piece> getPieces() {return pieces;}
+	private void setTraps(List<Tile> emptytileList) {
+		Random randNum = new Random();
+		Set<Integer> set = new LinkedHashSet<Integer>();
+		while (set.size() < 4) {
+			set.add(randNum.nextInt(emptytileList.size() - 1));
+		}
+		Tile tile;
+		for (Iterator<Integer> it = set.iterator(); it.hasNext();) {
+			tile = emptytileList.get(it.next());
+//			System.out.println(it.next());
+			tilePositions[tile.getX()][tile.getZ()] = new TrapTileDecorator(tile);
+		}
 
-    public Tile getTileAtPosition(int x, int z){
-    	
-        return tilePositions[x][z];
-    }
+	}
 
-    public Tile getCentreTile(){
-        return tilePositions[size][size];
-    }
+	private void setPassages(List<Tile> emptytileList) {
+		Random randNum = new Random();
+		Set<Integer> set = new LinkedHashSet<Integer>();
+		while (set.size() < 4) {
+			set.add(randNum.nextInt(emptytileList.size() - 1));
+		}
+		Tile tile;
+		for (Iterator<Integer> it = set.iterator(); it.hasNext();) {
+			tile = emptytileList.get(it.next());
+//			System.out.println(it.next());
+			tilePositions[tile.getX()][tile.getZ()] = new PassageTileDecorator(tile);
+		}
 
-    public List<Tile> getTileList(){
-        List<Tile> tileList = new ArrayList<>();
-        for (int x = 0; x <= 2*size; x++) {
-            int zStart = max(0, size - x);
-            int zStop = min(2*size, 3*size - x);
-            for (int z = zStart; z <= zStop; z++) {
-                tileList.add(tilePositions[x][z]);
-            }
-        }
-        return tileList;
-    }
+	}
 
-    public int getDistanceBetweenTiles(Tile a, Tile b){
-        //convert to cube coords
-        int aX = a.getX() - size;
-        int aZ = a.getZ() - size;
-        int aY = -aX - aZ;
-        int bX = b.getX() - size;
-        int bZ = b.getZ() - size;
-        int bY = -bX - bZ;
+	private boolean trySetNeighbor(Tile tile, int direction) {
+		boolean success = false;
+		Tile neighbor = null;
+		try {
+			neighbor = tilePositions[tile.getX() + deltaX[direction]][tile.getZ() + deltaZ[direction]];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			//
+		}
+		if (neighbor != null) {
+			tile.setNeighbor(neighbor, direction);
+			success = true;
+		}
+		return success;
+	}
 
-        int dX = abs(aX-bX);
-        int dY = abs(aY-bY);
-        int dZ = abs(aZ-bZ);
+	public int getSize() {
+		return size;
+	}
 
-        return max(max(dX,dY),dZ);
-    }
+	public Tile[][] getAllTiles() {
+		return tilePositions;
+	}
+
+	public List<Piece> getPieces() {
+		return pieces;
+	}
+
+	public Tile getTileAtPosition(int x, int z) {
+
+		return tilePositions[x][z];
+	}
+
+	public Tile getCentreTile() {
+		return tilePositions[size][size];
+	}
+
+	public List<Tile> getTileList() {
+		List<Tile> tileList = new ArrayList<>();
+		for (int x = 0; x <= 2 * size; x++) {
+			int zStart = max(0, size - x);
+			int zStop = min(2 * size, 3 * size - x);
+			for (int z = zStart; z <= zStop; z++) {
+				tileList.add(tilePositions[x][z]);
+			}
+		}
+		return tileList;
+	}
+
+	public int getDistanceBetweenTiles(Tile a, Tile b) {
+		// convert to cube coords
+		int aX = a.getX() - size;
+		int aZ = a.getZ() - size;
+		int aY = -aX - aZ;
+		int bX = b.getX() - size;
+		int bZ = b.getZ() - size;
+		int bY = -bX - bZ;
+
+		int dX = abs(aX - bX);
+		int dY = abs(aY - bY);
+		int dZ = abs(aZ - bZ);
+
+		return max(max(dX, dY), dZ);
+	}
 
 }

@@ -6,9 +6,9 @@ import com.sharknados.views.TileView;
 
 public class TrapTileDecorator extends TileDecorator {
 
-	public TrapTileDecorator(HexagonTile decoratedTile) {
+	public TrapTileDecorator(Tile decoratedTile) {
 		super(decoratedTile);
-		
+		System.out.println(" Constructor from TrapTileDecorator");
 		// TODO Auto-generated constructor stub
 	}
 	public void setPiece(Piece piece) {
