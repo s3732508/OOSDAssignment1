@@ -8,6 +8,7 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 
 	public TileDecorator(Tile decoratedTile2) {
 		this.decoratedTile = decoratedTile2;
+		notifyAllObservers();
 		
 	
 	}
@@ -105,5 +106,19 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void setPassageTile(boolean status) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public boolean getPassageTile() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 
 }

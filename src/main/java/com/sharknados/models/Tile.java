@@ -30,6 +30,8 @@ public interface Tile extends Subject{
 	boolean isSelected();
 
 	boolean isHighlighted();
+	
+	
 
 	int getX();
 
@@ -41,8 +43,12 @@ public interface Tile extends Subject{
 	void attach(Observer observer);
 
 	Tile getTile();
-
-
+	
+	
+	
+	 void setPassageTile(boolean status);
+	 
+	 public boolean getPassageTile() ;
 
 
 

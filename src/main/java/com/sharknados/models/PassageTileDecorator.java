@@ -9,6 +9,7 @@ public class PassageTileDecorator extends TileDecorator {
 	public PassageTileDecorator(Tile decoratedTile) {
 		super(decoratedTile);
 		System.out.println(" Constructor from PassageTileDecorator");
+		decoratedTile.setPassageTile(true);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -17,5 +18,7 @@ public class PassageTileDecorator extends TileDecorator {
 		decoratedTile.setPiece(piece);
 	}
 
+	
+	
 	
 }

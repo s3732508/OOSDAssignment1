@@ -52,9 +52,11 @@ public class Board implements java.io.Serializable {
 				tilePositions[x][z] = tile;
 			}
 		}
-		setPowerUps(emptytileList);
-		setTraps(emptytileList);
+
+		
+		emptytileList=setPowerUpsandTraps(emptytileList);
 		setPassages(emptytileList);
+		
 
 		// For each tile in the board set each of it's neighbors
 		for (int x = 0; x <= 2 * size; x++) {
@@ -69,35 +71,30 @@ public class Board implements java.io.Serializable {
 		}
 	}
 
-	private void setPowerUps(List<Tile> emptytileList) {
+	private List<Tile> setPowerUpsandTraps(List<Tile> emptytileList) {
+		List<Tile> emptyList=emptytileList;
 		Random randNum = new Random();
 		Set<Integer> set = new LinkedHashSet<Integer>();
-		while (set.size() < 4) {
+		while (set.size() < 6) {
 			set.add(randNum.nextInt(emptytileList.size() - 1));
 		}
 		Tile tile;
-		for (Iterator<Integer> it = set.iterator(); it.hasNext();) {
-			tile = emptytileList.get(it.next());
-//			System.out.println(it.next());
-			tilePositions[tile.getX()][tile.getZ()] = new PowerUpTileDecorator(tile);
+		int count = 0;
+		for (Iterator<Integer> it = set.iterator(); it.hasNext(); count++) {
+			int i = it.next();
+			tile = emptytileList.get(i);
+//			System.out.println(it.next()+" "+count);
+			if (count < 3)
+				tilePositions[tile.getX()][tile.getZ()] = new PowerUpTileDecorator(tile);
+			else
+				tilePositions[tile.getX()][tile.getZ()] = new TrapTileDecorator(tile);
+			emptyList.set(i, tilePositions[tile.getX()][tile.getZ()]);
 		}
+		return emptyList;
 
 	}
 
-	private void setTraps(List<Tile> emptytileList) {
-		Random randNum = new Random();
-		Set<Integer> set = new LinkedHashSet<Integer>();
-		while (set.size() < 4) {
-			set.add(randNum.nextInt(emptytileList.size() - 1));
-		}
-		Tile tile;
-		for (Iterator<Integer> it = set.iterator(); it.hasNext();) {
-			tile = emptytileList.get(it.next());
-//			System.out.println(it.next());
-			tilePositions[tile.getX()][tile.getZ()] = new TrapTileDecorator(tile);
-		}
 
-	}
 
 	private void setPassages(List<Tile> emptytileList) {
 		Random randNum = new Random();
@@ -110,6 +107,7 @@ public class Board implements java.io.Serializable {
 			tile = emptytileList.get(it.next());
 //			System.out.println(it.next());
 			tilePositions[tile.getX()][tile.getZ()] = new PassageTileDecorator(tile);
+			
 		}
 
 	}

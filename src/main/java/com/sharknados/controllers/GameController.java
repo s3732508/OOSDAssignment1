@@ -150,7 +150,7 @@ public class GameController{
             out.writeObject(game);
             out.close();
             gameOut.close();
-            System.out.printf("Serialized data is saved in /tmp/game.ser\n");
+//            System.out.printf("Serialized data is saved in /tmp/game.ser\n");
 
         } catch (IOException i) {
             i.printStackTrace();
@@ -164,7 +164,7 @@ public class GameController{
             out.writeObject(game);
             out.close();
             gameOut.close();
-            System.out.printf("Serialized data is saved in /tmp/" + game.getTurnNumber() + ".ser\n");
+//            System.out.printf("Serialized data is saved in /tmp/" + game.getTurnNumber() + ".ser\n");
 
         } catch (IOException i) {
             i.printStackTrace();
