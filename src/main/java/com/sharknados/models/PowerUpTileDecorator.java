@@ -14,6 +14,7 @@ public class PowerUpTileDecorator extends TileDecorator {
 	}
 
 	public void setPiece(Piece piece) {
+		System.out.println("setPiece from PowerUp");
 		decoratedTile.setPiece(piece);
         if (piece != null) {
         	int powerUp = 1;

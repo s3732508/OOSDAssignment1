@@ -102,11 +102,25 @@ public class Board implements java.io.Serializable {
 		while (set.size() < 4) {
 			set.add(randNum.nextInt(emptytileList.size() - 1));
 		}
-		Tile tile;
+		Tile tile1;
+		Tile tile2;
 		for (Iterator<Integer> it = set.iterator(); it.hasNext();) {
-			tile = emptytileList.get(it.next());
+			tile1 = new PassageTileDecorator(emptytileList.get(it.next()));
+			tile2 = new PassageTileDecorator(emptytileList.get(it.next()));
+			tile1.setPassageTile(tile2);
+			tile2.setPassageTile(tile1);
 //			System.out.println(it.next());
-			tilePositions[tile.getX()][tile.getZ()] = new PassageTileDecorator(tile);
+			tilePositions[tile1.getX()][tile1.getZ()] = tile1;
+			tilePositions[tile2.getX()][tile2.getZ()] = tile2;
+			
+			
+			Tile tile=tilePositions[tile1.getX()][tile1.getZ()].getPassageTile();
+			
+			
+			System.out.println(tile.getX()+" "+tile.getZ());
+			tile=tilePositions[tile2.getX()][tile2.getZ()].getPassageTile();
+			System.out.println(tile.getX()+" "+tile.getZ());
+			
 			
 		}
 

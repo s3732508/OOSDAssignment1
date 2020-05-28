@@ -106,18 +106,17 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void setPassageTile(boolean status) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
-	public boolean getPassageTile() {
+	public Tile getPassageTile() {
 		// TODO Auto-generated method stub
-		return false;
+		return decoratedTile.getPassageTile();
 	}
+	
+	public void setPassageTile(Tile tile) {
+		decoratedTile.setPassageTile(tile);
+	}
+
 
 
 

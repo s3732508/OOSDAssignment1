@@ -43,12 +43,13 @@ public interface Tile extends Subject{
 	void attach(Observer observer);
 
 	Tile getTile();
+
+	Tile getPassageTile();
+
+	void setPassageTile(Tile decorateTile2);
 	
 	
 	
-	 void setPassageTile(boolean status);
-	 
-	 public boolean getPassageTile() ;
 
 
 

@@ -216,8 +216,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             deselectAll();
 
             selectedTile.setPiece(null);
-            piece.setX(tile.getX());
-            piece.setZ(tile.getZ());
+            
             tile.setPiece(piece);
             selectedTile = null;
             nextTurn();

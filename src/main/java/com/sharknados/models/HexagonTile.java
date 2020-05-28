@@ -13,7 +13,7 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
     private Piece piece;
     private Tile neighbor[] = {null, null, null, null, null, null};
    
-    private boolean Passage;
+	Tile PassageTile;
 
     public HexagonTile(int x, int z){
         this.x = x;
@@ -80,6 +80,8 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
     public void setPiece(Piece piece){
         this.piece = piece;
         if (piece != null) {
+        	piece.setX(this.getX());
+            piece.setZ(this.getZ());
             setOccupied(true);
         }
         else{
@@ -117,18 +119,19 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 		
 	}
 
-
-
-
-    public boolean getPassageTile() {
-        return this.Passage;
-    }
-
 	@Override
-	public void setPassageTile(boolean status) {
-		// TODO Auto-generated method stub
-		
+	public Tile getPassageTile() {
+        return PassageTile;
+    }
+	
+	public void setPassageTile(Tile tile) {
+		this.PassageTile=tile;
 	}
+
+
+
+
+ 
 
 
 

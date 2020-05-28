@@ -14,6 +14,7 @@ public class TrapTileDecorator extends TileDecorator {
 	}
 
 	public void setPiece(Piece piece) {
+		System.out.println("setPiece from Trap");
 		decoratedTile.setPiece(piece);
 		if (piece != null) {
 			int damage = 1;
