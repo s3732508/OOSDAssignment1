@@ -1,9 +1,8 @@
 package com.sharknados.models;
 
-import com.sharknados.models.pieces.eagle.EagleFactory;
-import com.sharknados.models.pieces.PieceFactory;
+import com.sharknados.models.pieces.PieceAbstractFactory;
 import com.sharknados.models.pieces.Piece;
-import com.sharknados.models.pieces.shark.SharkFactory;
+import com.sharknados.util.Point;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -37,39 +36,46 @@ public class Game extends AbstractSubject implements java.io.Serializable{
         mode = Mode.SELECT;
     }
 
-    public List<Piece> createNewGamePieces(){
-        //Initial Setup
+    public Piece getCommander(PieceAbstractFactory factory){
+        return factory.createCommander();
+    }
+
+    public Piece getSoldier(PieceAbstractFactory factory){
+        return factory.createSoldier();
+    }
+
+    public Piece getTank(PieceAbstractFactory factory){
+        return factory.createTank();
+    }
+
+    public List<Piece> createPieces(Point[] positions, PieceAbstractFactory factory){
+        Piece piece;
         List<Piece> pieceList = new ArrayList<>();
 
-        PieceFactory factory = new PieceFactory();
+        //Commander
+        piece = getCommander(factory);
+        piece.setX(positions[0].x());
+        piece.setZ(positions[0].z());
+        pieceList.add(piece);
+        board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
 
-        //Shark Setup
-        pieceList.add(factory.getCommander(new SharkFactory(2,5)));
-        board.getTileAtPosition(2, 5).setPiece(pieceList.get(pieceList.size() - 1));
+        //Soldiers
+        for(int i = 1; i<=2; i++){
+            piece = getSoldier(factory);
+            piece.setX(positions[i].x());
+            piece.setZ(positions[i].z());
+            pieceList.add(piece);
+            board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
+        }
 
-        pieceList.add(factory.getSoldier(new SharkFactory(1,6)));
-        board.getTileAtPosition(1, 6).setPiece(pieceList.get(pieceList.size() - 1));
-        pieceList.add(factory.getSoldier(new SharkFactory(2,6)));
-        board.getTileAtPosition(2, 6).setPiece(pieceList.get(pieceList.size() - 1));
-
-        pieceList.add(factory.getTank(new SharkFactory(0,6)));
-        board.getTileAtPosition(0, 6).setPiece(pieceList.get(pieceList.size() - 1));
-        pieceList.add(factory.getTank(new SharkFactory(3,6)));
-        board.getTileAtPosition(3, 6).setPiece(pieceList.get(pieceList.size() - 1));
-
-        //Eagle Setup
-        pieceList.add(factory.getCommander(new EagleFactory(4,1)));
-        board.getTileAtPosition(4, 1).setPiece(pieceList.get(pieceList.size() - 1));
-
-        pieceList.add(factory.getSoldier(new EagleFactory(4,0)));
-        board.getTileAtPosition(4, 0).setPiece(pieceList.get(pieceList.size() - 1));
-        pieceList.add(factory.getSoldier(new EagleFactory(5,0)));
-        board.getTileAtPosition(5, 0).setPiece(pieceList.get(pieceList.size() - 1));
-
-        pieceList.add(factory.getTank(new EagleFactory(3,0)));
-        board.getTileAtPosition(3, 0).setPiece(pieceList.get(pieceList.size() - 1));
-        pieceList.add(factory.getTank(new EagleFactory(6,0)));
-        board.getTileAtPosition(6, 0).setPiece(pieceList.get(pieceList.size() - 1));
+        //Tanks
+        for(int i = 3; i<=4; i++) {
+            piece = getTank(factory);
+            piece.setX(positions[i].x());
+            piece.setZ(positions[i].z());
+            pieceList.add(piece);
+            board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
+        }
 
         return pieceList;
     }

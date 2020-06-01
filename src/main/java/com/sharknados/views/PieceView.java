@@ -73,9 +73,9 @@ public class PieceView implements Observer {
         pieceImage.setFitHeight(2*radius);
         pieceImage.setFitWidth(2*radius);
 
-        String atk = new String (new char[subject.getAttack()]).replace("\0","+");
-        String def = new String (new char[subject.getDefence()]).replace("\0","+");
-        String hp = new String (new char[subject.getHealth()]).replace("\0","+");
+        String atk = Integer.toString(subject.getAttack());
+        String def = Integer.toString(subject.getDefence());
+        String hp = Integer.toString(subject.getHealth());
         Font font = new Font("ARIAL", 10);
         atkText.setText("Atk " + atk);
         atkText.setFont(font);

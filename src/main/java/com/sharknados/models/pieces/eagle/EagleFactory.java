@@ -4,22 +4,20 @@ import com.sharknados.models.pieces.Piece;
 import com.sharknados.models.pieces.PieceAbstractFactory;
 
 public class EagleFactory implements PieceAbstractFactory {
-    private int x;
-    private int z;
-    public EagleFactory(int x, int z){
-        this.x = x;
-        this.z = z;
+
+    public EagleFactory(){
+
     }
 
     public Piece createCommander(){
-        return new EagleCommander(x, z);
+        return new EagleCommander();
     }
 
     public Piece createSoldier(){
-        return new EagleSoldier(x, z);
+        return new EagleSoldier();
     }
 
     public Piece createTank(){
-        return new EagleTank(x, z);
+        return new EagleTank();
     }
 }

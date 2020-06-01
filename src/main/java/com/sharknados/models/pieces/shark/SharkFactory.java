@@ -4,22 +4,20 @@ import com.sharknados.models.pieces.Piece;
 import com.sharknados.models.pieces.PieceAbstractFactory;
 
 public class SharkFactory implements PieceAbstractFactory {
-    private int x;
-    private int z;
-    public SharkFactory(int x, int z){
-        this.x = x;
-        this.z = z;
+
+    public SharkFactory(){
+
     }
 
     public Piece createCommander(){
-        return new SharkCommander(x, z);
+        return new SharkCommander();
     }
 
     public Piece createSoldier(){
-        return new SharkSoldier(x, z);
+        return new SharkSoldier();
     }
 
     public Piece createTank(){
-        return new SharkTank(x, z);
+        return new SharkTank();
     }
 }

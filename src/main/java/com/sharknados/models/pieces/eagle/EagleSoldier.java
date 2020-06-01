@@ -1,9 +1,7 @@
 package com.sharknados.models.pieces.eagle;
 
 public class EagleSoldier extends EaglePiece{
-    public EagleSoldier(int x, int z){
-        setX(x);
-        setZ(z);
+    public EagleSoldier(){
         setAttack(4);
         setDefence(1);
         setHealth(3);
