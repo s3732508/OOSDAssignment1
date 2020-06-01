@@ -1,7 +1,12 @@
 package com.sharknados.views;
 
 import com.sharknados.models.AbstractSubject;
+import com.sharknados.models.PassageTileDecorator;
+import com.sharknados.models.PowerUpTileDecorator;
+import com.sharknados.models.Subject;
 import com.sharknados.models.Tile;
+import com.sharknados.models.TrapTileDecorator;
+
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
@@ -11,8 +16,8 @@ public class TileView implements Observer {
 	public Polygon tilePoly = new Polygon();
 	private Tile subject;
 
-	public TileView(AbstractSubject tile) {
-		this.subject = (Tile) tile;
+	public TileView(Subject subject2) {
+		this.subject = (Tile) subject2;
 		this.subject.attach(this);
 
 		//Initial Drawing
@@ -30,17 +35,48 @@ public class TileView implements Observer {
 			tilePoly.getPoints().addAll(offsetX + pixelX * size, offsetY + pixelY * size - size);
 			tilePoly.setStroke(Color.WHITESMOKE);
 			tilePoly.setFill(Paint.valueOf("#DAD4D7"));
+			
+		}
+		if(subject instanceof TrapTileDecorator) { 
+			tilePoly.setFill(Paint.valueOf("#C685A5"));
+			
+			
+		}
+		if(subject instanceof PowerUpTileDecorator) {
+			tilePoly.setFill(Paint.valueOf("#C0CBA7"));			
+			
+			
+		}
+		if(subject instanceof PassageTileDecorator) {
+			if(subject.getTile() instanceof PowerUpTileDecorator)
+				tilePoly.setFill(Paint.valueOf("#C0CBA7"));		
+			else if(subject.getTile() instanceof TrapTileDecorator)
+				tilePoly.setFill(Paint.valueOf("#C685A5"));
+			tilePoly.setStroke(Color.BLACK);
+				
+			
 		}
 	}
 
 	@Override
-	public AbstractSubject getSubject(){
-			return this.subject;
+	public Subject getSubject(){	
+			return (Subject) this.subject;
 	}
 	@Override
 	public void update() {
 		//Default
 		tilePoly.setFill(Paint.valueOf("#DAD4D7"));
+		
+		if(subject instanceof PassageTileDecorator) {
+			if(subject.getTile() instanceof PowerUpTileDecorator)
+				tilePoly.setFill(Paint.valueOf("#C0CBA7"));		
+			else if(subject.getTile() instanceof TrapTileDecorator)
+				tilePoly.setFill(Paint.valueOf("#C685A5"));
+			tilePoly.setStroke(Color.BLACK);
+				
+			
+		}
+		
 
 		//Update the colour of the tile if the tile is occupied
 		if (subject.isOccupied()){
@@ -61,5 +97,16 @@ public class TileView implements Observer {
 		if (subject.isSelected()){
 			tilePoly.setFill(Paint.valueOf("#315B86"));
 		}
+		if(subject instanceof TrapTileDecorator) {
+			tilePoly.setFill(Paint.valueOf("#C685A5"));
+			
+			
+		}
+		if(subject instanceof PowerUpTileDecorator) {
+			tilePoly.setFill(Paint.valueOf("#C0CBA7"));			
+			
+			
+		}
+		
 	}
 }

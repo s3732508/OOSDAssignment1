@@ -1,5 +1,6 @@
 package com.sharknados.controllers;
 
+import com.sharknados.models.Subject;
 import com.sharknados.models.Game;
 import com.sharknados.models.Team;
 import com.sharknados.models.Tile;
@@ -38,7 +39,7 @@ public class GameController{
             int zStart = max(0, size - x);
             int zStop = min(2 * size, 3 * size - x);
             for (int z = zStart; z <= zStop; z++) {
-                TileView tileView = new TileView(game.getBoard().getTileAtPosition(x,z));
+                TileView tileView = new TileView((Subject) game.getBoard().getTileAtPosition(x,z));
                 tileView.tilePoly.addEventFilter(MouseEvent.MOUSE_CLICKED, clickTile(tileView));
                 gameView.addToView(tileView.tilePoly);
             }
@@ -149,7 +150,7 @@ public class GameController{
             out.writeObject(game);
             out.close();
             gameOut.close();
-            System.out.printf("Serialized data is saved in /tmp/game.ser\n");
+//            System.out.printf("Serialized data is saved in /tmp/game.ser\n");
 
         } catch (IOException i) {
             i.printStackTrace();
@@ -163,7 +164,7 @@ public class GameController{
             out.writeObject(game);
             out.close();
             gameOut.close();
-            System.out.printf("Serialized data is saved in /tmp/" + game.getTurnNumber() + ".ser\n");
+//            System.out.printf("Serialized data is saved in /tmp/" + game.getTurnNumber() + ".ser\n");
 
         } catch (IOException i) {
             i.printStackTrace();
