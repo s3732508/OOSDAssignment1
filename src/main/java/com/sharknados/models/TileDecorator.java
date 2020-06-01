@@ -6,8 +6,8 @@ import com.sharknados.views.Observer;
 public abstract class TileDecorator implements Tile, java.io.Serializable {
 	protected Tile decoratedTile;
 
-	public TileDecorator(Tile decoratedTile2) {
-		this.decoratedTile = decoratedTile2;
+	public TileDecorator(Tile decoratedTile) {
+		this.decoratedTile = decoratedTile;
 		notifyAllObservers();
 	}
 

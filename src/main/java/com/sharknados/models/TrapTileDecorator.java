@@ -1,6 +1,7 @@
 package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
+import javafx.application.Platform;
 
 public class TrapTileDecorator extends TileDecorator {
 
@@ -14,22 +15,19 @@ public class TrapTileDecorator extends TileDecorator {
 		System.out.println("setPiece from Trap");
 		decoratedTile.setPiece(piece);
 		if (piece != null) {
+			decoratedTile.setOccupied(true);
+
 			int damage = 1;
-			if (piece.getHealth() - damage <= 0) {
-				// todo implement proper solution for destroying pieces
-				// hack
-				decoratedTile.setPiece(null);
-				setOccupied(false);
-				piece.setX(-1);
-				piece.setZ(-1);
-			} else {
-				int newHealth = piece.getHealth() - damage;
-				piece.setHealth(newHealth);
-				setOccupied(true);
+			//Deal damage and check if a commander is killed
+			boolean isGameOver = piece.takeDamage(damage, decoratedTile);
+			if (isGameOver){
+				//gameOver();
+				Platform.exit();
+				System.exit(0);
 			}
-			
-		} else {
-			setOccupied(false);
+		}
+		else {
+			decoratedTile.setOccupied(false);
 		}
 	}
 }

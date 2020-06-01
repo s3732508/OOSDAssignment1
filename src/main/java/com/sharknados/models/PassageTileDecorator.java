@@ -13,14 +13,15 @@ public class PassageTileDecorator extends TileDecorator {
 
 	@Override
 	public void setPiece(Piece piece) {
+
 		if(piece != null) {
 			this.setUnavailable(true);
 			this.getPassageTile().getTile().setPiece(piece);
 		}
 		else {
-			 setOccupied(false);
-			 this.getPassageTile().getTile().setOccupied(false);
-			 
+			setOccupied(false);
+			this.getPassageTile().getTile().setOccupied(false);
+
 		}
 		System.out.println("setPiece from PassageTile");
 		

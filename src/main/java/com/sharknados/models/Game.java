@@ -3,6 +3,7 @@ package com.sharknados.models;
 import com.sharknados.models.pieces.PieceAbstractFactory;
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.util.Point;
+import javafx.application.Platform;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -98,7 +99,6 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             	
             }
         }
-        
         
         return pieceList;
     }
@@ -254,27 +254,22 @@ public class Game extends AbstractSubject implements java.io.Serializable{
         boolean valid = tile.isHighlighted();
 
         if (valid) {
-            Piece attacker = selectedTile.getPiece();
-
             //deselect all tiles
             deselectAll();
 
+            Piece attacker = selectedTile.getPiece();
             Piece target = tile.getPiece();
-            int damage = attacker.getAttack() - target.getDefence();
-            if (damage>0){
-                if (target.getHealth()-damage <= 0){
-                    //todo implement proper solution for destroying pieces
-                    //hack
-                    tile.setPiece(null);
-                    target.setX(-1);
-                    target.setZ(-1);
-                }
-                else{
-                    int newHealth = target.getHealth() - damage;
-                    target.setHealth(newHealth);
-                }
 
+            int damage = attacker.getAttack() - target.getDefence();
+
+            //Deal damage and check if a commander is killed
+            boolean isGameOver = target.takeDamage(damage, tile);
+            if (isGameOver){
+                //gameOver();
+                Platform.exit();
+                System.exit(0);
             }
+
             selectedTile = null;
             nextTurn();
             setMode(Mode.SELECT);

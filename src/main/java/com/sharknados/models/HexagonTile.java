@@ -120,15 +120,4 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 	public void setPassageTile(Tile tile) {
 		this.PassageTile=tile;
 	}
-
-
-
-
- 
-
-
-
-
-		
-	
 }

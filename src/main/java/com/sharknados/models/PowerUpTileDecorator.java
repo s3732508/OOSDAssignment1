@@ -14,14 +14,14 @@ public class PowerUpTileDecorator extends TileDecorator {
 		decoratedTile.setPiece(piece);
         if (piece != null) {
         	int powerUp = 1;
-            setOccupied(true);
+			decoratedTile.setOccupied(true);
             if (piece.getHealth() + powerUp <=5 ) {
             	int newHealth = piece.getHealth() + powerUp;
 				piece.setHealth(newHealth);
 			}
         }
         else{
-            setOccupied(false);
+			decoratedTile.setOccupied(false);
         }
 	}
 }

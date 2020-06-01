@@ -7,4 +7,9 @@ public class EagleCommander extends EaglePiece {
         setHealth(5);
         setMovement(1);
     }
+
+    @Override
+    public boolean isCommander(){
+        return true;
+    }
 }

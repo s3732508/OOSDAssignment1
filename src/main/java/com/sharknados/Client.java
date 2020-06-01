@@ -1,13 +1,7 @@
 package com.sharknados;
 
-
-import com.sharknados.controllers.GameController;
-
 import com.sharknados.controllers.HomescreenController;
 import com.sharknados.controllers.RootController;
-import com.sharknados.models.Game;
-import com.sharknados.views.GameView;
-import com.sharknados.views.HomescreenView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;

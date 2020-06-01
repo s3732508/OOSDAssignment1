@@ -34,7 +34,6 @@ public class TileView implements Observer {
 			tilePoly.getPoints().addAll(offsetX + pixelX * size, offsetY + pixelY * size - size);
 			tilePoly.setStroke(Color.WHITESMOKE);
 			tilePoly.setFill(Paint.valueOf("#DAD4D7"));
-			
 		}
 
 		if(subject instanceof TrapTileDecorator) { 
