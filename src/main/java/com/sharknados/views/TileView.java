@@ -36,24 +36,21 @@ public class TileView implements Observer {
 			tilePoly.setFill(Paint.valueOf("#DAD4D7"));
 			
 		}
+
 		if(subject instanceof TrapTileDecorator) { 
 			tilePoly.setFill(Paint.valueOf("#C685A5"));
-			
-			
 		}
+
 		if(subject instanceof PowerUpTileDecorator) {
-			tilePoly.setFill(Paint.valueOf("#C0CBA7"));			
-			
-			
+			tilePoly.setFill(Paint.valueOf("#C0CBA7"));
 		}
+
 		if(subject instanceof PassageTileDecorator) {
 			if(subject.getTile() instanceof PowerUpTileDecorator)
 				tilePoly.setFill(Paint.valueOf("#C0CBA7"));		
 			else if(subject.getTile() instanceof TrapTileDecorator)
 				tilePoly.setFill(Paint.valueOf("#C685A5"));
 			tilePoly.setStroke(Color.BLACK);
-				
-			
 		}
 	}
 
