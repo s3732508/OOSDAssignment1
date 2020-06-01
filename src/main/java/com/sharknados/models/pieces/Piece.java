@@ -4,88 +4,54 @@ import com.sharknados.models.AbstractSubject;
 import com.sharknados.models.Team;
 import com.sharknados.models.Tile;
 
-import java.util.List;
-
-public abstract class Piece extends AbstractSubject {
-
-
-    public enum Type {
-        AKHEILOS,
-        GREAT_WHITE,
-        AETOS_DIOS,
-        EAGLE_OWL
-    }
-
+public abstract class Piece extends AbstractSubject implements java.io.Serializable{
     private int defence;
     private int attack;
     private int health;
     private int movement;
     private int x;
     private int z;
-    private boolean isCommander;
-    private Team team;
-    private Type type;
 
-    public Piece(int x, int z, int attack, int defence, int health, int movement) {
-        this.attack = attack;
-        this.defence = defence;
-        this.health = health;
-        this.movement = movement;
-        this.x = x;
-        this.z = z;
-        this.isCommander = false;
+    public boolean isCommander(){
+        return false;
     }
 
-    public int getAttack() {
+    public int getAttack(){
         return attack;
     }
 
-    public int getDefence() {
+    public void setAttack(int atk){
+        this.attack = atk;
+        notifyAllObservers();
+    }
+
+    public int getDefence(){
         return defence;
+    }
+    public void setDefence(int def){
+        this.defence = def;
+        notifyAllObservers();
     }
 
     public int getHealth(){
         return health;
     }
-
     public void setHealth(int health){
         this.health = health;
-        notifyAllObservers();;
-    }
-
-    public boolean isCommander(){
-        return this.isCommander;
-    }
-
-    public void setTeam(Team team){
-        this.team = team;
-    }
-
-    public Team getTeam(){
-        return this.team;
-    }
-
-    public void setType(Type type){
-        this.type = type;
-    }
-
-    public Type getType(){
-        return this.type;
+        notifyAllObservers();
     }
 
     public int getX(){
         return x;
     }
-
-    public int getZ(){
-        return z;
-    }
-
     public void setX(int x){
         this.x = x;
         notifyAllObservers();
     }
 
+    public int getZ(){
+        return z;
+    }
     public void setZ(int z){
         this.z = z;
         notifyAllObservers();
@@ -94,11 +60,43 @@ public abstract class Piece extends AbstractSubject {
     public int getMovement(){
         return movement;
     }
+    public void setMovement(int movement){
+        this.movement = movement;
+        notifyAllObservers();
+    }
 
+    public boolean attackTile(Tile targetTile) {
+        boolean isGameOver = false;
+        Piece target = targetTile.getPiece();
+
+        int damage = getAttack() - target.getDefence();
+        target.takeDamage(damage, targetTile);
+        return isGameOver;
+    }
+
+    public boolean takeDamage(int damage, Tile myTile){
+        boolean isGameOver = false;
+        if (damage > 0) {
+            if (getHealth() - damage <= 0) {
+                isGameOver = destroyOrGameOver(myTile);
+            } else {
+                int newHealth = getHealth() - damage;
+                setHealth(newHealth);
+            }
+        }
+        return isGameOver;
+    }
+
+    //return true if a Commander has been destroyed
+    public boolean destroyOrGameOver(Tile pieceTile){
+        setHealth(0);
+        setX(-1);
+        setZ(-1);
+        pieceTile.setPiece(null);
+        return isCommander();
+    }
+
+    public abstract Team getTeam();
 
     public abstract boolean inTheSameArmyAs(Piece piece);
-    public abstract String getAbilityName();
-    public abstract int getAbilityCost();
-    public abstract List<Tile> getValidCellsForAbility(Tile currentTile);
-    public abstract void doAbility(Tile currentTile, Tile selectedTile);
 }

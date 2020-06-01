@@ -4,3 +4,7 @@ out/
 *.iml
 *.project
 *.eclipse
+/bin/
+*.ser
+Saved\ Game/*.ser
+*.classpath

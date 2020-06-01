@@ -32,7 +32,8 @@ public class HomescreenView extends VBox {
 
         loadButton = new Button("Load");
         loadButton.setFont(Font.font(24));
-        loadButton.setDisable(true);
+        loadButton.setDisable(false);
+        loadButton.setOnAction(clickLoad());
 
 
         exitButton = new Button("Exit");
@@ -44,7 +45,7 @@ public class HomescreenView extends VBox {
 
     public EventHandler<ActionEvent> clickPlay() {
         return event -> {
-            controller.newGame();
+            controller.newGameButtonHandler();
         };
     }
 
@@ -53,4 +54,12 @@ public class HomescreenView extends VBox {
             controller.exitGame();
         };
     }
+    
+    public EventHandler<ActionEvent> clickLoad() {
+        return event -> {
+            controller.loadGameButtonHandler();
+        };
+    }
+    
+
 }

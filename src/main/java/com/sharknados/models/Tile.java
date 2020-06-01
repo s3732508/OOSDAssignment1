@@ -1,90 +1,47 @@
 package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
+import com.sharknados.views.Observer;
 
 
-public class Tile extends AbstractSubject{
-    private int x, z;
-    private boolean occupied = false;
-    private boolean selected = false;
-    private boolean highlighted = false;
-    private boolean unavailable = false;
-    private Piece piece;
-    private Tile neighbor[] = {null, null, null, null, null, null};
+public interface Tile extends Subject{
 
-    public Tile(int x, int z){
-        this.x = x;
-        this.z = z;
-    }
+	int getZ();
 
-    public int getX(){
-        return x;
-    }
+	void setOccupied(boolean b);
 
-    public int getZ(){
-        return z;
-    }
+	void setPiece(Piece piece);
 
-    public void setNeighbor(Tile neighbor, int direction){
-                this.neighbor[direction] = neighbor;
-    }
+	void setNeighbor(Tile neighbor, int direction);
 
-    public Tile getNeighbor(int direction) {
-        return neighbor[direction];
-    }
-    public boolean checkneighbor(int direction) {
-        if(neighbor[direction] !=null)
-            return true;
-        return false;
-    }
+	boolean isOccupied();
 
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
-        notifyAllObservers();
-    }
+	Piece getPiece();
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-        notifyAllObservers();
-    }
+	Tile getNeighbor(int direction);
 
-    public void setHighlighted(boolean highlighted) {
-        this.highlighted = highlighted;
-        notifyAllObservers();
-    }
+	void setSelected(boolean b);
 
-    public void setUnavailable(boolean unavailable) {
-        this.unavailable = unavailable;
-        notifyAllObservers();
-    }
+	void setUnavailable(boolean b);
 
-    public boolean isOccupied() {
-        return occupied;
-    }
+	void setHighlighted(boolean b);
 
-    public boolean isSelected() {
-        return selected;
-    }
+	boolean isSelected();
 
-    public boolean isHighlighted() {
-        return highlighted;
-    }
+	boolean isHighlighted();
 
-    public boolean isUnavailable(){
-        return unavailable;
-    }
+	int getX();
 
-    public void setPiece(Piece piece){
-        this.piece = piece;
-    }
+	boolean isUnavailable();
 
-    public Piece getPiece(){
-        return this.piece;
-    }
+	void notifyAllObservers();
 
+	void attach(Observer observer);
 
-    @Override
-    public String toString(){
-        return String.format("Axial coords (" + x + ", " + z + ")");
-    }
+	Tile getTile();
+
+	Tile getPassageTile();
+
+	void setPassageTile(Tile decorateTile2);
+
 }

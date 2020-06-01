@@ -1,8 +1,8 @@
 package com.sharknados.views;
 
 import com.sharknados.controllers.GameController;
-import com.sharknados.models.AbstractSubject;
 import com.sharknados.models.Game;
+import com.sharknados.models.Subject;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
-public class StatusBar extends HBox implements Observer {
+public class StatusBar extends HBox implements Observer, java.io.Serializable{
     private Game subject;
     private Button cancelButton;
     private Button undoButton;
@@ -36,11 +36,13 @@ public class StatusBar extends HBox implements Observer {
 
         undoButton = new Button("Undo");
         undoButton.setPrefSize(140,40);
-        undoButton.setDisable(true);
+        undoButton.setDisable(false);
+        undoButton.setOnAction(undoButtonHandler);
 
         saveButton = new Button("Save");
         saveButton.setPrefSize(140,40);
-        saveButton.setDisable(true);
+        saveButton.setDisable(false);
+        saveButton.setOnAction(saveButtonHandler);
 
         this.setSpacing(5);
         this.setPadding(new Insets(0, 20, 10, 20));
@@ -54,6 +56,20 @@ public class StatusBar extends HBox implements Observer {
         @Override
         public void handle(ActionEvent event) {
             controller.cancelButtonHandler();
+        }
+    };
+
+    EventHandler<ActionEvent> undoButtonHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.undoButtonHandler();
+        }
+    };
+
+    EventHandler<ActionEvent> saveButtonHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.saveButtonHandler();
         }
     };
 
@@ -71,8 +87,8 @@ public class StatusBar extends HBox implements Observer {
     }
 
     @Override
-    public AbstractSubject getSubject() {
-        return null;
+    public Subject getSubject() {
+        return this.subject;
     }
 }
 

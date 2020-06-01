@@ -1,12 +1,7 @@
 package com.sharknados;
 
-
-import com.sharknados.controllers.GameController;
-
 import com.sharknados.controllers.HomescreenController;
-import com.sharknados.models.Game;
-import com.sharknados.views.GameView;
-import com.sharknados.views.HomescreenView;
+import com.sharknados.controllers.RootController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -18,9 +13,11 @@ public class Client extends Application{
     }
 
     public void start(Stage mainStage) throws Exception {
-        StackPane root = new StackPane();
-        HomescreenController homescreenController = new HomescreenController(root);
-        Scene scene = new Scene(root,490,700);
+        StackPane rootPane = new StackPane();
+        RootController rootController = new RootController(rootPane);
+
+        HomescreenController homescreenController = new HomescreenController(rootController.getRoot());
+        Scene scene = new Scene(rootPane,490,700);
         mainStage.setTitle("Sharknados");
         mainStage.setScene(scene);
         mainStage.show();

@@ -1,13 +1,17 @@
 package com.sharknados.models;
 
+import com.sharknados.models.pieces.PieceAbstractFactory;
 import com.sharknados.models.pieces.Piece;
-import com.sharknados.models.pieces.eagles.EagleOwl;
-import com.sharknados.models.pieces.sharks.GreatWhite;
+import com.sharknados.util.Point;
+import javafx.application.Platform;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends AbstractSubject{
+public class Game extends AbstractSubject implements java.io.Serializable{
 
     public enum Mode {
         SELECT,
@@ -19,9 +23,13 @@ public class Game extends AbstractSubject{
     private Team turn;
     private Mode mode;
     private Tile selectedTile;
-    private GameState saveState;
-    private GameState loadState;
+    private int turnNumber = 1;
 
+    private int eagleUndoMoveLeft = 3;
+    private int sharkUndoMoveLeft = 3;
+
+    private boolean eagleUndoOptionUsed = false;
+    private boolean sharkUndoOptionUsed = false;
 
     public Game() {
         board = new Board(3);
@@ -29,21 +37,69 @@ public class Game extends AbstractSubject{
         mode = Mode.SELECT;
     }
 
-    public List<Piece> createNewGamePieces(){
+    public Piece getCommander(PieceAbstractFactory factory){
+        return factory.createCommander();
+    }
+
+    public Piece getSoldier(PieceAbstractFactory factory){
+        return factory.createSoldier();
+    }
+
+    public Piece getTank(PieceAbstractFactory factory){
+        return factory.createTank();
+    }
+
+    public List<Piece> createPieces(Point[] positions, PieceAbstractFactory factory){
+        Piece piece;
+        List<Piece> pieceList = new ArrayList<>();
+
+        //Commander
+        piece = getCommander(factory);
+        piece.setX(positions[0].x());
+        piece.setZ(positions[0].z());
+        pieceList.add(piece);
+        board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
+
+        //Soldiers
+        for(int i = 1; i<=2; i++){
+            piece = getSoldier(factory);
+            piece.setX(positions[i].x());
+            piece.setZ(positions[i].z());
+            pieceList.add(piece);
+            board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
+        }
+
+        //Tanks
+        for(int i = 3; i<=4; i++) {
+            piece = getTank(factory);
+            piece.setX(positions[i].x());
+            piece.setZ(positions[i].z());
+            pieceList.add(piece);
+            board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
+        }
+
+        return pieceList;
+    }
+    
+    public List<Piece> loadGamePieces(){
         //Initial Setup
         List<Piece> pieceList = new ArrayList<>();
-        for( int i = 0; i <=3;i++){
-            Piece piece = new GreatWhite(i, 6);
-            board.getTileAtPosition(i, 6).setOccupied(true);
-            board.getTileAtPosition(i, 6).setPiece(piece);
-            pieceList.add(piece);
+        int size=board.getSize();
+        Tile[][] tiles=board.getAllTiles();
+        
+        for (int x = 0; x <= 2*size; x++) {
+            int zStart = max(0, size - x);
+            int zStop = min(2*size, 3*size - x);
+            for (int z = zStart; z <= zStop; z++) {
+                tiles[x][z].notifyAllObservers();
+            	if(tiles[x][z].isOccupied()) {
+            		board.getTileAtPosition(x,z).notifyAllObservers();
+            		pieceList.add(tiles[x][z].getPiece());
+            	}
+            	
+            }
         }
-        for( int i = 3; i <=6;i++){
-            Piece piece = new EagleOwl(i, 0);
-            board.getTileAtPosition(i, 0).setOccupied(true);
-            board.getTileAtPosition(i, 0).setPiece(piece);
-            pieceList.add(piece);
-        }
+        
         return pieceList;
     }
 
@@ -68,12 +124,50 @@ public class Game extends AbstractSubject{
         notifyAllObservers();
     }
 
+    public int getTurnNumber() {
+        return turnNumber;
+    }
+
+    public void setTurnNumber(int turnNumber) {
+        this.turnNumber = turnNumber;
+    }
+
+    public void incTurnNumber() {
+        this.turnNumber = turnNumber + 1;
+    }
+
+    public void decEagleUndoMoveLeft() {
+        this.eagleUndoMoveLeft = eagleUndoMoveLeft - 1;
+    }
+
+    public void decSharkUndoMoveLeft() {
+        this.sharkUndoMoveLeft = sharkUndoMoveLeft - 1;
+    }
+
+    public boolean isEagleUndoOptionUsed() {
+        return eagleUndoOptionUsed;
+    }
+
+    public boolean isSharkUndoOptionUsed() {
+        return sharkUndoOptionUsed;
+    }
+
+    public void setEagleUndoOptionUsed(boolean eagleUndoOptionUsed) {
+        this.eagleUndoOptionUsed = eagleUndoOptionUsed;
+    }
+
+    public void setSharkUndoOptionUsed(boolean sharkUndoOptionUsed) {
+        this.sharkUndoOptionUsed = sharkUndoOptionUsed;
+    }
+
     public Team nextTurn() {
         if (turn == Team.SHARK)
             turn = Team.EAGLE;
         else
             turn = Team.SHARK;
+        incTurnNumber();
         notifyAllObservers();
+        System.out.println("Current turn is: " + getTurnNumber());
         return turn;
     }
 
@@ -127,11 +221,8 @@ public class Game extends AbstractSubject{
             //deselect all tiles
             deselectAll();
 
-            selectedTile.setOccupied(false);
             selectedTile.setPiece(null);
-            piece.setX(tile.getX());
-            piece.setZ(tile.getZ());
-            tile.setOccupied(true);
+            
             tile.setPiece(piece);
             selectedTile = null;
             nextTurn();
@@ -163,28 +254,22 @@ public class Game extends AbstractSubject{
         boolean valid = tile.isHighlighted();
 
         if (valid) {
-            Piece attacker = selectedTile.getPiece();
-
             //deselect all tiles
             deselectAll();
 
+            Piece attacker = selectedTile.getPiece();
             Piece target = tile.getPiece();
-            int damage = attacker.getAttack() - target.getDefence();
-            if (damage>0){
-                if (target.getHealth()-damage <= 0){
-                    //todo implement proper solution for destroying pieces
-                    //hack
-                    tile.setPiece(null);
-                    tile.setOccupied(false);
-                    target.setX(-1);
-                    target.setZ(-1);
-                }
-                else{
-                    int newHealth = target.getHealth() - damage;
-                    target.setHealth(newHealth);
-                }
 
+            int damage = attacker.getAttack() - target.getDefence();
+
+            //Deal damage and check if a commander is killed
+            boolean isGameOver = target.takeDamage(damage, tile);
+            if (isGameOver){
+                //gameOver();
+                Platform.exit();
+                System.exit(0);
             }
+
             selectedTile = null;
             nextTurn();
             setMode(Mode.SELECT);

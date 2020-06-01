@@ -1,6 +1,7 @@
 package com.sharknados.views;
 
-import com.sharknados.models.AbstractSubject;
+
+import com.sharknados.models.Subject;
 import com.sharknados.models.pieces.Piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,19 +19,14 @@ public class PieceView implements Observer {
     public Text hpText;
     private Piece subject;
 
-    public PieceView(AbstractSubject piece) throws FileNotFoundException {
+    public PieceView(Subject piece) throws FileNotFoundException {
         this.subject = (Piece) piece;
         this.subject.attach(this);
 
         Image image;
-        String type = subject.getType().toString();
-        switch(type){
-            case "GREAT_WHITE":image = new Image(new FileInputStream("src/main/resources/Shark.png"));
-            break;
-            case "EAGLE_OWL": image = new Image(new FileInputStream("src/main/resources/Eagle.png"));
-            break;
-            default: image = new Image(new FileInputStream("src/main/resources/Shark.png"));
-        }
+        //Image for type of piece
+        String type = subject.getClass().getSimpleName();
+        image = new Image(new FileInputStream("src/main/resources/" + type + ".png"));
 
         // Setting the image view
         this.pieceImage = new ImageView(image);
@@ -52,7 +48,7 @@ public class PieceView implements Observer {
 
 
     @Override
-    public AbstractSubject getSubject(){
+    public Subject getSubject(){
         return this.subject;
     }
 
@@ -73,9 +69,9 @@ public class PieceView implements Observer {
         pieceImage.setFitHeight(2*radius);
         pieceImage.setFitWidth(2*radius);
 
-        String atk = new String (new char[subject.getAttack()]).replace("\0","+");
-        String def = new String (new char[subject.getDefence()]).replace("\0","+");
-        String hp = new String (new char[subject.getHealth()]).replace("\0","+");
+        String atk = Integer.toString(subject.getAttack());
+        String def = Integer.toString(subject.getDefence());
+        String hp = Integer.toString(subject.getHealth());
         Font font = new Font("ARIAL", 10);
         atkText.setText("Atk " + atk);
         atkText.setFont(font);

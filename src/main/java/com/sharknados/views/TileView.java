@@ -1,7 +1,11 @@
 package com.sharknados.views;
 
-import com.sharknados.models.AbstractSubject;
+import com.sharknados.models.PassageTileDecorator;
+import com.sharknados.models.PowerUpTileDecorator;
+import com.sharknados.models.Subject;
 import com.sharknados.models.Tile;
+import com.sharknados.models.TrapTileDecorator;
+
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
@@ -11,7 +15,7 @@ public class TileView implements Observer {
 	public Polygon tilePoly = new Polygon();
 	private Tile subject;
 
-	public TileView(AbstractSubject tile) {
+	public TileView(Subject tile) {
 		this.subject = (Tile) tile;
 		this.subject.attach(this);
 
@@ -31,16 +35,41 @@ public class TileView implements Observer {
 			tilePoly.setStroke(Color.WHITESMOKE);
 			tilePoly.setFill(Paint.valueOf("#DAD4D7"));
 		}
+
+		if(subject instanceof TrapTileDecorator) { 
+			tilePoly.setFill(Paint.valueOf("#C685A5"));
+		}
+
+		if(subject instanceof PowerUpTileDecorator) {
+			tilePoly.setFill(Paint.valueOf("#C0CBA7"));
+		}
+
+		if(subject instanceof PassageTileDecorator) {
+			if(subject.getTile() instanceof PowerUpTileDecorator)
+				tilePoly.setFill(Paint.valueOf("#C0CBA7"));		
+			else if(subject.getTile() instanceof TrapTileDecorator)
+				tilePoly.setFill(Paint.valueOf("#C685A5"));
+			tilePoly.setStroke(Color.BLACK);
+		}
 	}
 
 	@Override
-	public AbstractSubject getSubject(){
+	public Subject getSubject(){	
 			return this.subject;
 	}
+
 	@Override
 	public void update() {
 		//Default
 		tilePoly.setFill(Paint.valueOf("#DAD4D7"));
+		
+		if(subject instanceof PassageTileDecorator) {
+			if(subject.getTile() instanceof PowerUpTileDecorator)
+				tilePoly.setFill(Paint.valueOf("#C0CBA7"));		
+			else if(subject.getTile() instanceof TrapTileDecorator)
+				tilePoly.setFill(Paint.valueOf("#C685A5"));
+			tilePoly.setStroke(Color.BLACK);
+		}
 
 		//Update the colour of the tile if the tile is occupied
 		if (subject.isOccupied()){
@@ -60,6 +89,15 @@ public class TileView implements Observer {
 		//Update the colour of the tile if the tile is selected
 		if (subject.isSelected()){
 			tilePoly.setFill(Paint.valueOf("#315B86"));
+		}
+
+		if(subject instanceof TrapTileDecorator) {
+			tilePoly.setFill(Paint.valueOf("#C685A5"));
+		}
+
+		if(subject instanceof PowerUpTileDecorator) {
+			tilePoly.setFill(Paint.valueOf("#C0CBA7"));			
+
 		}
 	}
 }
