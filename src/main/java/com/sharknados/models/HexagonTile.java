@@ -2,7 +2,6 @@ package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.Observer;
-import com.sharknados.views.TileView;
 
 public class HexagonTile extends AbstractSubject implements Tile, java.io.Serializable{
     private int x, z;
@@ -34,11 +33,6 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 
     public Tile getNeighbor(int direction) {
         return neighbor[direction];
-    }
-    public boolean checkneighbor(int direction) {
-        if(neighbor[direction] !=null)
-            return true;
-        return false;
     }
 
     public void setOccupied(boolean occupied) {
@@ -103,7 +97,6 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 	public void attach(Observer observer) {
 		super.attach(observer);
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -116,14 +109,14 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 	public void notifyAllObservers() {
 		super.notifyAllObservers();
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Tile getPassageTile() {
         return PassageTile;
     }
-	
+
+    @Override
 	public void setPassageTile(Tile tile) {
 		this.PassageTile=tile;
 	}

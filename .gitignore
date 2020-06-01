@@ -6,3 +6,5 @@ out/
 *.eclipse
 /bin/
 *.ser
+Saved\ Game/*.ser
+*.classpath

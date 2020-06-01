@@ -1,6 +1,5 @@
 package com.sharknados.views;
 
-import com.sharknados.models.AbstractSubject;
 import com.sharknados.models.Subject;
 import com.sharknados.models.pieces.Piece;
 import javafx.scene.image.Image;

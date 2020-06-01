@@ -1,8 +1,8 @@
 package com.sharknados.views;
 
 import com.sharknados.controllers.GameController;
-import com.sharknados.models.AbstractSubject;
 import com.sharknados.models.Game;
+import com.sharknados.models.Subject;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -87,8 +87,8 @@ public class StatusBar extends HBox implements Observer, java.io.Serializable{
     }
 
     @Override
-    public AbstractSubject getSubject() {
-        return null;
+    public Subject getSubject() {
+        return this.subject;
     }
 }
 

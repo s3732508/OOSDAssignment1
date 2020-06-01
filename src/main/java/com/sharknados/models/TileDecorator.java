@@ -9,10 +9,7 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 	public TileDecorator(Tile decoratedTile2) {
 		this.decoratedTile = decoratedTile2;
 		notifyAllObservers();
-		
-	
 	}
-
 
 	public Tile getTile() {
 		return this.decoratedTile;
@@ -29,8 +26,6 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 		decoratedTile.setOccupied(b);
 	}
 
-
-
 	@Override
 	public boolean isOccupied() {
 		// TODO Auto-generated method stub
@@ -44,10 +39,14 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 	}
 
 	@Override
+	public Tile getNeighbor(int direction) {
+		return decoratedTile.getNeighbor(direction);
+	}
+
+	@Override
 	public void setSelected(boolean b) {
 		// TODO Auto-generated method stub
 		decoratedTile.setSelected(b);
-		
 	}
 
 	@Override
@@ -85,8 +84,6 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 		// TODO Auto-generated method stub
 		decoratedTile.setNeighbor(neighbor, direction);
 	}
-	
-	
 
 	@Override
 	public boolean isUnavailable() {
@@ -97,14 +94,12 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 	@Override
 	public void notifyAllObservers() {
 		decoratedTile.notifyAllObservers();
-		
 	}
 
 	@Override
 	public void attach(Observer observer) {
 		decoratedTile.attach(observer);
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
@@ -112,12 +107,10 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 		// TODO Auto-generated method stub
 		return decoratedTile.getPassageTile();
 	}
-	
+
+	@Override
 	public void setPassageTile(Tile tile) {
 		decoratedTile.setPassageTile(tile);
 	}
-
-
-
 
 }

@@ -42,20 +42,17 @@ public class HomescreenController {
          } catch (IOException i) {
             i.printStackTrace();
             return;
-         } catch (ClassNotFoundException c) {
-            System.out.println("Employee class not found");
+         } catch (ClassNotFoundException c) { ;
             c.printStackTrace();
             return;
          }
-         
-         System.out.println("Deserialized Employee...");
+
          GameController gameController = new GameController (game, root);
          gameController.loadGame();
          root.getChildren().remove(homescreenView);
          root.getChildren().add(gameController.getGameView());
 
     }
-
 
     public void exitGame(){
         Platform.exit();

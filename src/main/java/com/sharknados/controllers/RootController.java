@@ -13,4 +13,4 @@ public class RootController {
     public StackPane getRoot() {
         return root;
     }
-} //close class
+}

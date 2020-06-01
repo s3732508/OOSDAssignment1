@@ -1,15 +1,11 @@
 package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
-import com.sharknados.views.TileView;
 
 public class PowerUpTileDecorator extends TileDecorator {
 
 	public PowerUpTileDecorator(Tile decoratedTile) {
-		
 		super(decoratedTile);
-		
-	
 		// TODO Auto-generated constructor stub
 	}
 
@@ -22,10 +18,10 @@ public class PowerUpTileDecorator extends TileDecorator {
             if (piece.getHealth() + powerUp <=5 ) {
             	int newHealth = piece.getHealth() + powerUp;
 				piece.setHealth(newHealth);
-				
 			}
         }
         else{
             setOccupied(false);
         }
-	}}
+	}
+}

@@ -1,6 +1,5 @@
 package com.sharknados.views;
 
-import com.sharknados.models.AbstractSubject;
 import com.sharknados.models.PassageTileDecorator;
 import com.sharknados.models.PowerUpTileDecorator;
 import com.sharknados.models.Subject;
@@ -16,8 +15,8 @@ public class TileView implements Observer {
 	public Polygon tilePoly = new Polygon();
 	private Tile subject;
 
-	public TileView(Subject subject2) {
-		this.subject = (Tile) subject2;
+	public TileView(Subject tile) {
+		this.subject = (Tile) tile;
 		this.subject.attach(this);
 
 		//Initial Drawing
@@ -60,8 +59,9 @@ public class TileView implements Observer {
 
 	@Override
 	public Subject getSubject(){	
-			return (Subject) this.subject;
+			return this.subject;
 	}
+
 	@Override
 	public void update() {
 		//Default
@@ -73,10 +73,7 @@ public class TileView implements Observer {
 			else if(subject.getTile() instanceof TrapTileDecorator)
 				tilePoly.setFill(Paint.valueOf("#C685A5"));
 			tilePoly.setStroke(Color.BLACK);
-				
-			
 		}
-		
 
 		//Update the colour of the tile if the tile is occupied
 		if (subject.isOccupied()){
@@ -97,16 +94,14 @@ public class TileView implements Observer {
 		if (subject.isSelected()){
 			tilePoly.setFill(Paint.valueOf("#315B86"));
 		}
+
 		if(subject instanceof TrapTileDecorator) {
 			tilePoly.setFill(Paint.valueOf("#C685A5"));
-			
-			
 		}
+
 		if(subject instanceof PowerUpTileDecorator) {
 			tilePoly.setFill(Paint.valueOf("#C0CBA7"));			
-			
-			
+
 		}
-		
 	}
 }

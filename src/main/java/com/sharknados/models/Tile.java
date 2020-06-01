@@ -2,7 +2,6 @@ package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.Observer;
-import com.sharknados.views.TileView;
 
 
 public interface Tile extends Subject{
@@ -15,11 +14,11 @@ public interface Tile extends Subject{
 
 	void setNeighbor(Tile neighbor, int direction);
 
-
-
 	boolean isOccupied();
 
 	Piece getPiece();
+
+	Tile getNeighbor(int direction);
 
 	void setSelected(boolean b);
 
@@ -30,11 +29,8 @@ public interface Tile extends Subject{
 	boolean isSelected();
 
 	boolean isHighlighted();
-	
-	
 
 	int getX();
-
 
 	boolean isUnavailable();
 
@@ -47,12 +43,5 @@ public interface Tile extends Subject{
 	Tile getPassageTile();
 
 	void setPassageTile(Tile decorateTile2);
-	
-	
-	
-
-
-
-
 
 }

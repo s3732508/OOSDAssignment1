@@ -39,7 +39,7 @@ public class GameController{
             int zStart = max(0, size - x);
             int zStop = min(2 * size, 3 * size - x);
             for (int z = zStart; z <= zStop; z++) {
-                TileView tileView = new TileView((Subject) game.getBoard().getTileAtPosition(x,z));
+                TileView tileView = new TileView(game.getBoard().getTileAtPosition(x,z));
                 tileView.tilePoly.addEventFilter(MouseEvent.MOUSE_CLICKED, clickTile(tileView));
                 gameView.addToView(tileView.tilePoly);
             }
