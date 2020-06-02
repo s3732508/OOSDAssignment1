@@ -4,6 +4,9 @@ import com.sharknados.models.Team;
 import com.sharknados.models.pieces.Piece;
 
 public abstract class SharkPiece extends Piece {
+    protected SharkPiece(int attack, int defence, int health, int movement) {
+        super(attack, defence, health, movement, 1, new AttackMode());
+    }
 
     @Override
     public Team getTeam(){
