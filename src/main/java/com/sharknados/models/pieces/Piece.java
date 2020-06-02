@@ -4,6 +4,8 @@ import com.sharknados.models.AbstractSubject;
 import com.sharknados.models.Team;
 import com.sharknados.models.Tile;
 
+import java.util.List;
+
 public abstract class Piece extends AbstractSubject implements java.io.Serializable{
     private int defence;
     private int attack;
@@ -65,24 +67,21 @@ public abstract class Piece extends AbstractSubject implements java.io.Serializa
         notifyAllObservers();
     }
 
-    public boolean attackTile(Tile targetTile) {
+    public boolean takeDamage(int incomingDamage, Tile myTile){
         boolean isGameOver = false;
-        Piece target = targetTile.getPiece();
-
-        int damage = getAttack() - target.getDefence();
-        target.takeDamage(damage, targetTile);
-        return isGameOver;
-    }
-
-    public boolean takeDamage(int damage, Tile myTile){
-        boolean isGameOver = false;
-        if (damage > 0) {
-            if (getHealth() - damage <= 0) {
-                isGameOver = destroyOrGameOver(myTile);
-            } else {
-                int newHealth = getHealth() - damage;
-                setHealth(newHealth);
-            }
+        Piece self = myTile.getPiece();
+        int damage = incomingDamage - self.getDefence();
+        if (damage < 1) {
+            damage = 1;
+        }
+        System.out.println("HIT! " + self.getClass().getSimpleName() + " takes: " + damage + " damage!");
+        if (getHealth() - damage <= 0) {
+            System.out.println(self.getClass().getSimpleName() + " is destroyed!");
+            isGameOver = destroyOrGameOver(myTile);
+        }
+        else {
+            int newHealth = getHealth() - damage;
+            setHealth(newHealth);
         }
         return isGameOver;
     }
@@ -99,4 +98,8 @@ public abstract class Piece extends AbstractSubject implements java.io.Serializa
     public abstract Team getTeam();
 
     public abstract boolean inTheSameArmyAs(Piece piece);
+
+    public abstract List<Tile> getAbilityRange(Tile myTile, List<Tile> allTiles);
+
+    public abstract boolean doAbility(Tile targetTile);
 }

@@ -128,6 +128,11 @@ public class GameController{
                     saveButtonHandler();
                 }
 
+                //Piece Special Ability
+                if (game.getMode() == Game.Mode.ABILITY){
+                    game.executeAbility(tile);//same with this
+                    saveButtonHandler();
+                }
             }
         };
         return eventHandler;
@@ -142,6 +147,12 @@ public class GameController{
     public void attackButtonHandler(){
         game.setMode(Game.Mode.ATTACK);
         game.showAttackRange();
+        gameView.setCommandBarVisible(false);
+    }
+
+    public void abilityButtonHandler(){
+        game.setMode(Game.Mode.ABILITY);
+        game.showAbilityRange();
         gameView.setCommandBarVisible(false);
     }
 
