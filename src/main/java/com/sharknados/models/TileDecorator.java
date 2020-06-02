@@ -3,6 +3,8 @@ package com.sharknados.models;
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.Observer;
 
+import java.util.Map;
+
 public abstract class TileDecorator implements Tile, java.io.Serializable {
 	protected Tile decoratedTile;
 
@@ -111,6 +113,16 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 	@Override
 	public void setPassageTile(Tile tile) {
 		decoratedTile.setPassageTile(tile);
+	}
+
+	@Override
+	public Map<String, Integer> getDecorators() {
+		return decoratedTile.getDecorators();
+	}
+
+	@Override
+	public void incrementDecoratorCount(String decoratorType) {
+		decoratedTile.incrementDecoratorCount(decoratorType);
 	}
 
 }

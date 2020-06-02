@@ -3,8 +3,12 @@ package com.sharknados.models;
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.Observer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class HexagonTile extends AbstractSubject implements Tile, java.io.Serializable{
     private int x, z;
+    private Map<String, Integer > decorators;
     private boolean occupied = false;
     private boolean selected = false;
     private boolean highlighted = false;
@@ -15,6 +19,7 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 	Tile PassageTile;
 
     public HexagonTile(int x, int z){
+        this.decorators = new HashMap<String, Integer>();
         this.x = x;
         this.z = z;
     }
@@ -120,4 +125,14 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 	public void setPassageTile(Tile tile) {
 		this.PassageTile=tile;
 	}
+
+    @Override
+    public Map<String, Integer> getDecorators() {
+        return this.decorators;
+    }
+
+    @Override
+    public void incrementDecoratorCount(String decoratorType) {
+        decorators.merge(decoratorType, 1, Integer::sum);
+    }
 }
