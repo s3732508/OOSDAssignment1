@@ -7,10 +7,7 @@ import java.util.List;
 
 public class SharkSoldier extends SharkPiece {
     public SharkSoldier(){
-        setAttack(2);
-        setDefence(2);
-        setHealth(5);
-        setMovement(1);
+        super(2, 2, 5, 1);
     }
 
     @Override

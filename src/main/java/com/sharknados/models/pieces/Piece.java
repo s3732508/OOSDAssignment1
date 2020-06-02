@@ -6,40 +6,75 @@ import com.sharknados.models.Tile;
 
 import java.util.List;
 
-public abstract class Piece extends AbstractSubject implements java.io.Serializable{
-    private int defence;
-    private int attack;
-    private int health;
-    private int movement;
+public abstract class Piece extends AbstractSubject implements java.io.Serializable {
+    private PieceAttribute defence;
+    private PieceAttribute attack;
+    private PieceAttribute health;
+    private PieceAttribute movement;
+    private PieceAttribute attackRange;
+
+    private PieceMode mode;
+
     private int x;
     private int z;
+
+    protected Piece(int attack, int defence, int health, int movement, int attackRange, PieceMode defaultMode) {
+        this.defence = new PieceAttribute(defence);
+        this.attack = new PieceAttribute(attack);
+        this.health = new PieceAttribute(health);
+        this.movement = new PieceAttribute(movement);
+        this.attackRange = new PieceAttribute(attackRange);
+
+        this.mode = defaultMode;
+    }
 
     public boolean isCommander(){
         return false;
     }
 
-    public int getAttack(){
+    public void setMode(PieceMode mode) {
+        this.mode = mode;
+    }
+
+    private int getAttributeValue(PieceAttribute attribute) {
+        return attribute.getValue() + mode.getBonuses(this).getOrDefault(attribute, 0);
+    }
+
+    public PieceAttribute getAttackAttribute() {
         return attack;
     }
 
+    public int getAttack(){
+        return getAttributeValue(attack);
+    }
+
     public void setAttack(int atk){
-        this.attack = atk;
+        this.attack = new PieceAttribute(atk);
         notifyAllObservers();
+    }
+
+    public PieceAttribute getDefenceAttribute() {
+        return defence;
     }
 
     public int getDefence(){
-        return defence;
+        return getAttributeValue(defence);
     }
+
     public void setDefence(int def){
-        this.defence = def;
+        this.defence = new PieceAttribute(def);
         notifyAllObservers();
     }
 
-    public int getHealth(){
+    public PieceAttribute getHealthAttribute() {
         return health;
     }
+
+    public int getHealth(){
+        return getAttributeValue(health);
+    }
     public void setHealth(int health){
-        this.health = health;
+        this.health = new PieceAttribute(health);
         notifyAllObservers();
     }
 
@@ -59,12 +94,37 @@ public abstract class Piece extends AbstractSubject implements java.io.Serializa
         notifyAllObservers();
     }
 
-    public int getMovement(){
+    public PieceAttribute getMovementAttribute() {
         return movement;
     }
+
+    public int getMovement(){
+        return getAttributeValue(movement);
+    }
     public void setMovement(int movement){
-        this.movement = movement;
+        this.movement = new PieceAttribute(movement);
         notifyAllObservers();
+    }
+
+    public PieceAttribute getAttackRangeAttribute() {
+        return this.attackRange;
+    }
+
+    public int getAttackRange() {
+        return getAttributeValue(attackRange);
+    }
+
+    public void setAttackRange(int range) {
+        this.attackRange = new PieceAttribute(range);
+    }
+
+    public boolean attackTile(Tile targetTile) {
+        boolean isGameOver = false;
+        Piece target = targetTile.getPiece();
+
+        int damage = getAttack() - target.getDefence();
+        target.takeDamage(damage, targetTile);
+        return isGameOver;
     }
 
     public boolean takeDamage(int incomingDamage, Tile myTile){

@@ -239,8 +239,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
                 t.setUnavailable(true);
             }
 
-            //attack range of 1
-            if(board.getDistanceBetweenTiles(selectedTile, t) <= 1){
+            if(board.getDistanceBetweenTiles(selectedTile, t) <= piece.getAttackRange()){
                 if (t.isOccupied()){
                     if(!piece.inTheSameArmyAs(t.getPiece())) {
                         t.setUnavailable(false);

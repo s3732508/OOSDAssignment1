@@ -8,10 +8,7 @@ import java.util.List;
 
 public class EagleSoldier extends EaglePiece{
     public EagleSoldier(){
-        setAttack(4);
-        setDefence(1);
-        setHealth(3);
-        setMovement(2);
+        super(4, 1, 3, 2);
     }
     @Override
     public List<Tile> getAbilityRange(Tile myTile, List<Tile> allTiles) {

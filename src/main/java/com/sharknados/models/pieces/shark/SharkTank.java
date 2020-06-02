@@ -8,10 +8,7 @@ import java.util.List;
 
 public class SharkTank extends SharkPiece {
     public SharkTank(){
-        setAttack(1);
-        setDefence(4);
-        setHealth(4);
-        setMovement(1);
+        super(1, 4, 4, 1);
     }
 
     @Override
