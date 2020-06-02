@@ -2,10 +2,13 @@ package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
 
+import java.util.Map;
+
 public class PowerUpTileDecorator extends TileDecorator {
 
 	public PowerUpTileDecorator(Tile decoratedTile) {
 		super(decoratedTile);
+		decoratedTile.incrementDecoratorCount("PowerUp");
 		// TODO Auto-generated constructor stub
 	}
 

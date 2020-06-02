@@ -9,10 +9,17 @@ import com.sharknados.models.TrapTileDecorator;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class TileView implements Observer {
 
 	public Polygon tilePoly = new Polygon();
+	public List<Text> decoratorList = new ArrayList<>();
 	private Tile subject;
 
 	public TileView(Subject tile) {
@@ -34,6 +41,22 @@ public class TileView implements Observer {
 			tilePoly.getPoints().addAll(offsetX + pixelX * size, offsetY + pixelY * size - size);
 			tilePoly.setStroke(Color.WHITESMOKE);
 			tilePoly.setFill(Paint.valueOf("#DAD4D7"));
+		}
+
+		// Get decorators
+		Font font = new Font("ARIAL", 8);
+		int yDis = 0;
+		Map<String, Integer> decorators = subject.getDecorators();
+		for (Map.Entry<String,Integer> entry : decorators.entrySet()){
+			String decorator = entry.getKey() + " - " + entry.getValue();
+			Text text = new Text(decorator);
+			text.setFont(font);
+			text.setDisable(true);
+			text.setX(pixelX*2*radius + radius);
+			text.setY(pixelY*2*radius - 3*radius + yDis);
+			decoratorList.add(text);
+			yDis += 10;
+			System.out.println(decorator);
 		}
 
 		if(subject instanceof TrapTileDecorator) { 
