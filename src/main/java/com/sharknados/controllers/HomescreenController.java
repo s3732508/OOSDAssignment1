@@ -20,8 +20,13 @@ public class HomescreenController {
 
     }
 
-    public void newGameButtonHandler(){
-        Game game = new Game();
+    public void newGameButtonHandler(boolean bigBoard){
+        Game game;
+        if (!bigBoard) {
+            game = new Game(3);
+        } else {
+            game = new Game(4);
+        }
         GameController gameController = new GameController (game, root);
         gameController.newGame();
 
