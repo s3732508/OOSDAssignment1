@@ -27,7 +27,7 @@ public class CommandBar extends HBox implements java.io.Serializable{
 
         abilityButt = new Button("Ability");
         abilityButt.setPrefSize(140,40);
-        abilityButt.setDisable(true);
+        abilityButt.setOnAction(abilityButtonHandler);
 
         this.setSpacing(5);
         this.setPadding(new Insets(0, 20, 10, 20));
@@ -45,6 +45,13 @@ public class CommandBar extends HBox implements java.io.Serializable{
         @Override
         public void handle(ActionEvent event) {
             controller.attackButtonHandler();
+        }
+    };
+
+    EventHandler<ActionEvent> abilityButtonHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.abilityButtonHandler();
         }
     };
 

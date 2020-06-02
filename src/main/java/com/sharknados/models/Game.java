@@ -16,7 +16,8 @@ public class Game extends AbstractSubject implements java.io.Serializable{
     public enum Mode {
         SELECT,
         MOVE,
-        ATTACK
+        ATTACK,
+        ABILITY
     }
 
     private Board board;
@@ -213,6 +214,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             }
         }
     }
+
     public void executeMove(Tile tile){
         boolean valid = tile.isHighlighted();
         if (valid) {
@@ -260,16 +262,55 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             Piece attacker = selectedTile.getPiece();
             Piece target = tile.getPiece();
 
-            int damage = attacker.getAttack() - target.getDefence();
-
+            System.out.println("---------------");
+            System.out.println("ATTACK");
+            System.out.println("Attacker: " + attacker.getClass().getSimpleName() + " -- Attack: " + attacker.getAttack());
+            System.out.println("VS.");
+            System.out.println("Defender: " + target.getClass().getSimpleName() + " -- Defense: " + target.getDefence());
             //Deal damage and check if a commander is killed
-            boolean isGameOver = target.takeDamage(damage, tile);
+            boolean isGameOver = target.takeDamage(attacker.getAttack(), tile);
             if (isGameOver){
-                //gameOver();
-                Platform.exit();
-                System.exit(0);
+                gameOver();
             }
+            System.out.println("---------------");
 
+            selectedTile = null;
+            nextTurn();
+            setMode(Mode.SELECT);
+        }
+    }
+
+    public void showAbilityRange(){
+        Piece piece = selectedTile.getPiece();
+
+        //make all tiles unavailable
+        List<Tile> allTiles = board.getTileList();
+        for (Tile t : allTiles) {
+            if (!t.isSelected()) {
+                t.setUnavailable(true);
+            }
+        }
+
+        //get range of ability from piece
+        List<Tile> tilesInRange = piece.getAbilityRange(selectedTile, allTiles);
+        for (Tile t : tilesInRange) {
+            t.setUnavailable(false);
+            t.setHighlighted(true);
+        }
+    }
+
+    public void executeAbility(Tile targetTile){
+        boolean valid = targetTile.isHighlighted();
+
+        if (valid) {
+            //deselect all tiles
+            deselectAll();
+
+            Piece self = selectedTile.getPiece();
+            boolean isGameOver = self.doAbility(targetTile);
+            if (isGameOver){
+                gameOver();
+            }
             selectedTile = null;
             nextTurn();
             setMode(Mode.SELECT);
@@ -281,4 +322,11 @@ public class Game extends AbstractSubject implements java.io.Serializable{
         selectedTile = null;
     }
 
+    public void gameOver(){
+        System.out.println("---------------");
+        System.out.println("---GAME OVER---");
+        System.out.println("---------------");
+        Platform.exit();
+        System.exit(0);
+    }
 }
