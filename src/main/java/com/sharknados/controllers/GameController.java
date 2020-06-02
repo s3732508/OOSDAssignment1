@@ -13,6 +13,7 @@ import com.sharknados.views.TileView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -45,6 +46,9 @@ public class GameController{
                 TileView tileView = new TileView(game.getBoard().getTileAtPosition(x,z));
                 tileView.tilePoly.addEventFilter(MouseEvent.MOUSE_CLICKED, clickTile(tileView));
                 gameView.addToView(tileView.tilePoly);
+                for(Text t : tileView.decoratorList){
+                    gameView.addToView(t);
+                }
             }
         }
     }
@@ -128,6 +132,11 @@ public class GameController{
                     saveButtonHandler();
                 }
 
+                //Piece Special Ability
+                if (game.getMode() == Game.Mode.ABILITY){
+                    game.executeAbility(tile);//same with this
+                    saveButtonHandler();
+                }
             }
         };
         return eventHandler;
@@ -142,6 +151,12 @@ public class GameController{
     public void attackButtonHandler(){
         game.setMode(Game.Mode.ATTACK);
         game.showAttackRange();
+        gameView.setCommandBarVisible(false);
+    }
+
+    public void abilityButtonHandler(){
+        game.setMode(Game.Mode.ABILITY);
+        game.showAbilityRange();
         gameView.setCommandBarVisible(false);
     }
 
