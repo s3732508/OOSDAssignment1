@@ -13,6 +13,7 @@ import com.sharknados.views.TileView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -45,6 +46,9 @@ public class GameController{
                 TileView tileView = new TileView(game.getBoard().getTileAtPosition(x,z));
                 tileView.tilePoly.addEventFilter(MouseEvent.MOUSE_CLICKED, clickTile(tileView));
                 gameView.addToView(tileView.tilePoly);
+                for(Text t : tileView.decoratorList){
+                    gameView.addToView(t);
+                }
             }
         }
     }

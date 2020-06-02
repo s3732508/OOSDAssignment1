@@ -3,6 +3,8 @@ package com.sharknados.models;
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.Observer;
 
+import java.util.Map;
+
 
 public interface Tile extends Subject{
 
@@ -43,5 +45,9 @@ public interface Tile extends Subject{
 	Tile getPassageTile();
 
 	void setPassageTile(Tile decorateTile2);
+
+	Map<String, Integer> getDecorators();
+
+	void incrementDecoratorCount(String decoratorType);
 
 }
