@@ -63,7 +63,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
         board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
 
         //Soldiers
-        for(int i = 1; i<=2; i++){
+        for(int i = 1; i<= this.getBoard().getSize() - 1; i++){ //1to2 for small, 1to3 for big
             piece = getSoldier(factory);
             piece.setX(positions[i].x());
             piece.setZ(positions[i].z());
@@ -72,7 +72,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
         }
 
         //Tanks
-        for(int i = 3; i<=4; i++) {
+        for(int i = this.getBoard().getSize(); i<= (this.getBoard().getSize()-1)*2; i++) { //3to4 for small, 4to6 for big
             piece = getTank(factory);
             piece.setX(positions[i].x());
             piece.setZ(positions[i].z());
