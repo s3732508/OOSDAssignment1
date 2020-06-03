@@ -4,6 +4,7 @@ import com.sharknados.models.Game;
 import com.sharknados.models.Team;
 import com.sharknados.models.Tile;
 import com.sharknados.models.pieces.Piece;
+import com.sharknados.models.pieces.PieceMode;
 import com.sharknados.models.pieces.eagle.EagleFactory;
 import com.sharknados.models.pieces.shark.SharkFactory;
 import com.sharknados.util.Point;
@@ -101,6 +102,10 @@ public class GameController{
         return game;
     }
 
+    public Piece getSelectedPiece() {
+        return game.getSelectedTile().getPiece();
+    }
+
 
     public EventHandler clickTile (TileView tileView){
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
@@ -113,7 +118,7 @@ public class GameController{
                     boolean validSelection = game.selectTile(tile);
                     //returns true if tile has piece and it is that pieces turn, false otherwise
                     if(validSelection){
-                        gameView.setCommandBarVisible(true);
+                        gameView.showCommandBar(getSelectedPiece());
                     }
                     else{
                         gameView.setCommandBarVisible(false);
@@ -254,4 +259,9 @@ public class GameController{
         System.out.println("Current turn is: " + game.getTurnNumber());
     }
 
+    public void updateSelectedPieceMode(PieceMode mode) {
+        Piece piece = getSelectedPiece();
+        piece.setMode(mode);
+        gameView.showCommandBar(piece);
+    }
 }
