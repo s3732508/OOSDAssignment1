@@ -66,8 +66,8 @@ public class GameController{
             playerTwoPieces = new Point[] {new Point(4,1), new Point(4,0), new Point(5,0), new Point(3,0), new Point(6,0)};
             playerOnePieces = new Point[]{new Point(2,5), new Point(1,6), new Point(2,6), new Point(0,6), new Point(3,6)};
         } else {
-            playerTwoPieces = new Point[] {new Point(6,1), new Point(7,0), new Point(5,0), new Point(3,0), new Point(6,0)};
-            playerOnePieces = new Point[]{new Point(3,5), new Point(4,6), new Point(2,6), new Point(0,6), new Point(3,6)};
+            playerTwoPieces = new Point[] {new Point(5,1), new Point(5,0), new Point(6,0), new Point(4,0), new Point(7,0)};
+            playerOnePieces = new Point[]{new Point(3,7), new Point(1,8), new Point(2,8), new Point(0,8), new Point(3,8)};
         }
 
 
