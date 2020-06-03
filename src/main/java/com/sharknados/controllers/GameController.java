@@ -54,8 +54,19 @@ public class GameController{
     }
 
     public void newGame(){
-        Point playerOnePieces[] = {new Point(2,5), new Point(1,6), new Point(2,6), new Point(0,6), new Point(3,6)};
-        Point playerTwoPieces[] = {new Point(4,1), new Point(4,0), new Point(5,0), new Point(3,0), new Point(6,0)};
+        Point playerOnePieces[];
+        Point playerTwoPieces[];
+
+        if (this.game.getBoard().getSize() == 3 ) {
+            playerTwoPieces = new Point[] {new Point(4,1), new Point(4,0), new Point(5,0), new Point(3,0), new Point(6,0)};
+            playerOnePieces = new Point[]{new Point(2,5), new Point(1,6), new Point(2,6), new Point(0,6), new Point(3,6)};
+        } else {
+            playerTwoPieces = new Point[] {new Point(6,1), new Point(7,0), new Point(5,0), new Point(3,0), new Point(6,0)};
+            playerOnePieces = new Point[]{new Point(3,5), new Point(4,6), new Point(2,6), new Point(0,6), new Point(3,6)};
+        }
+
+
+
 
         List<Piece> pieceList = new ArrayList<>();
         pieceList.addAll(game.createPieces(playerOnePieces, new SharkFactory()));
@@ -210,7 +221,6 @@ public class GameController{
             }
         }
 
-
         if (game.getTurn() == Team.SHARK) {
             if (game.isSharkUndoOptionUsed()) {
                 return;
@@ -221,10 +231,10 @@ public class GameController{
             gameView.getStatusBar().getUndoButton1().setDisable(false);
         }
         if (game.getTurnNumber() > 4) {
-            gameView.getStatusBar().getUndoButton1().setDisable(false);
+            gameView.getStatusBar().getUndoButton2().setDisable(false);
         }
         if (game.getTurnNumber() > 6) {
-            gameView.getStatusBar().getUndoButton1().setDisable(false);
+            gameView.getStatusBar().getUndoButton3().setDisable(false);
         }
     }
 
