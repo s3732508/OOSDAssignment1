@@ -15,7 +15,9 @@ import javafx.scene.text.Text;
 public class StatusBar extends HBox implements Observer, java.io.Serializable{
     private Game subject;
     private Button cancelButton;
-    private Button undoButton;
+    private Button undoButton1;
+    private Button undoButton2;
+    private Button undoButton3;
     private Button saveButton;
     private Text currentTurn;
     private GameController controller;
@@ -34,10 +36,20 @@ public class StatusBar extends HBox implements Observer, java.io.Serializable{
         cancelButton.setOnAction(cancelButtonHandler);
 
 
-        undoButton = new Button("Undo");
-        undoButton.setPrefSize(140,40);
-        undoButton.setDisable(false);
-        undoButton.setOnAction(undoButtonHandler);
+        undoButton1 = new Button("Undo 1");
+        undoButton1.setPrefSize(140,40);
+        undoButton1.setDisable(false);
+        undoButton1.setOnAction(undoButtonHandler1);
+
+        undoButton2 = new Button("Undo 2");
+        undoButton2.setPrefSize(140,40);
+        undoButton2.setDisable(false);
+        undoButton2.setOnAction(undoButtonHandler2);
+
+        undoButton3 = new Button("Undo 3");
+        undoButton3.setPrefSize(140,40);
+        undoButton3.setDisable(false);
+        undoButton3.setOnAction(undoButtonHandler3);
 
         saveButton = new Button("Save");
         saveButton.setPrefSize(140,40);
@@ -47,7 +59,7 @@ public class StatusBar extends HBox implements Observer, java.io.Serializable{
         this.setSpacing(5);
         this.setPadding(new Insets(0, 20, 10, 20));
 
-        this.getChildren().addAll(currentTurn, cancelButton, undoButton, saveButton);
+        this.getChildren().addAll(currentTurn, cancelButton, undoButton1, undoButton2, undoButton3, saveButton);
 
         update();
     }
@@ -59,10 +71,24 @@ public class StatusBar extends HBox implements Observer, java.io.Serializable{
         }
     };
 
-    EventHandler<ActionEvent> undoButtonHandler = new EventHandler<ActionEvent>() {
+    EventHandler<ActionEvent> undoButtonHandler1 = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            controller.undoButtonHandler();
+            controller.undoButtonHandler(2);
+        }
+    };
+
+    EventHandler<ActionEvent> undoButtonHandler2 = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.undoButtonHandler(4);
+        }
+    };
+
+    EventHandler<ActionEvent> undoButtonHandler3 = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.undoButtonHandler(6);
         }
     };
 
@@ -89,6 +115,18 @@ public class StatusBar extends HBox implements Observer, java.io.Serializable{
     @Override
     public Subject getSubject() {
         return this.subject;
+    }
+
+    public Button getUndoButton1() {
+        return undoButton1;
+    }
+
+    public Button getUndoButton2() {
+        return undoButton2;
+    }
+
+    public Button getUndoButton3() {
+        return undoButton3;
     }
 }
 

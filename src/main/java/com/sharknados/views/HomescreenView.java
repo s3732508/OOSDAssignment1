@@ -10,7 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class HomescreenView extends VBox {
-    private final Button playButton;
+    private final Button playSmallButton;
+    private final Button playBigButton;
     private final Button loadButton;
     private final Button exitButton;
     private HomescreenController controller;
@@ -26,9 +27,13 @@ public class HomescreenView extends VBox {
         subtitle.setFont(Font.font(24));
 
 
-        playButton = new Button("Play");
-        playButton.setFont(Font.font(24));
-        playButton.setOnAction(clickPlay());
+        playSmallButton = new Button("Play Small");
+        playSmallButton.setFont(Font.font(24));
+        playSmallButton.setOnAction(clickPlaySmall());
+
+        playBigButton = new Button("Play Big");
+        playBigButton.setFont(Font.font(24));
+        playBigButton.setOnAction(clickPlayBig());
 
         loadButton = new Button("Load");
         loadButton.setFont(Font.font(24));
@@ -40,12 +45,18 @@ public class HomescreenView extends VBox {
         exitButton.setFont(Font.font(24));
         exitButton.setOnAction(clickExit());
 
-        getChildren().addAll(title, subtitle, playButton, loadButton, exitButton);
+        getChildren().addAll(title, subtitle, playSmallButton, playBigButton, loadButton, exitButton);
     }
 
-    public EventHandler<ActionEvent> clickPlay() {
+    public EventHandler<ActionEvent> clickPlaySmall() {
         return event -> {
-            controller.newGameButtonHandler();
+            controller.newGameButtonHandler(false);
+        };
+    }
+
+    public EventHandler<ActionEvent> clickPlayBig() {
+        return event -> {
+            controller.newGameButtonHandler(true);
         };
     }
 

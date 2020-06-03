@@ -32,8 +32,8 @@ public class Game extends AbstractSubject implements java.io.Serializable{
     private boolean eagleUndoOptionUsed = false;
     private boolean sharkUndoOptionUsed = false;
 
-    public Game() {
-        board = new Board(3);
+    public Game(int size) {
+        board = new Board(size);
         turn = Team.SHARK;
         mode = Mode.SELECT;
     }
@@ -50,6 +50,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
         return factory.createTank();
     }
 
+    // TODO: create for generic size
     public List<Piece> createPieces(Point[] positions, PieceAbstractFactory factory){
         Piece piece;
         List<Piece> pieceList = new ArrayList<>();
@@ -70,14 +71,14 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
         }
 
-        //Tanks
-        for(int i = 3; i<=4; i++) {
-            piece = getTank(factory);
-            piece.setX(positions[i].x());
-            piece.setZ(positions[i].z());
-            pieceList.add(piece);
-            board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
-        }
+//        //Tanks
+//        for(int i = 3; i<=4; i++) {
+//            piece = getTank(factory);
+//            piece.setX(positions[i].x());
+//            piece.setZ(positions[i].z());
+//            pieceList.add(piece);
+//            board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
+//        }
 
         return pieceList;
     }

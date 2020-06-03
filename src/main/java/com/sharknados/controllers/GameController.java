@@ -172,6 +172,8 @@ public class GameController{
     }
     
     public void saveButtonHandler(){
+        considerDisableUndoButtons();
+
         try {
             FileOutputStream gameOut =
                     new FileOutputStream("src/main/Saved Game/game.ser");
@@ -200,13 +202,42 @@ public class GameController{
         }
     }
 
-    public void undoButtonHandler(){
 
+    // TODO optimize this shit
+    public void considerDisableUndoButtons() {
+        gameView.getStatusBar().getUndoButton1().setDisable(true);
+        gameView.getStatusBar().getUndoButton2().setDisable(true);
+        gameView.getStatusBar().getUndoButton3().setDisable(true);
+
+        if (game.getTurn() == Team.EAGLE) {
+            if (game.isEagleUndoOptionUsed()) {
+                return;
+            }
+        }
+
+
+        if (game.getTurn() == Team.SHARK) {
+            if (game.isSharkUndoOptionUsed()) {
+                return;
+            }
+        }
+
+        if (game.getTurnNumber() > 2) {
+            gameView.getStatusBar().getUndoButton1().setDisable(false);
+        }
+        if (game.getTurnNumber() > 4) {
+            gameView.getStatusBar().getUndoButton1().setDisable(false);
+        }
+        if (game.getTurnNumber() > 6) {
+            gameView.getStatusBar().getUndoButton1().setDisable(false);
+        }
+    }
+
+    public void undoButtonHandler(int revertBy){
         System.out.println("Current turn is: " + game.getTurnNumber());
+        int turnToLoad = game.getTurnNumber() - revertBy;
 
-        int lastTurn = game.getTurnNumber() - 1;
-
-        if (lastTurn < 1) return;
+        if (turnToLoad < 1) return;
 
         boolean eagleUndoOptionUsed = game.isEagleUndoOptionUsed();
         boolean sharkUndoOptionUsed = game.isEagleUndoOptionUsed();
@@ -229,10 +260,10 @@ public class GameController{
 
         game=null;
 
-        System.out.println("Undo Move, loading turn " + lastTurn);
+        System.out.println("Undo Move, loading turn " + turnToLoad);
 
         try {
-            FileInputStream fileIn = new FileInputStream("src/main/Saved Game/" + lastTurn + ".ser");
+            FileInputStream fileIn = new FileInputStream("src/main/Saved Game/" + turnToLoad + ".ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             game = (Game) in.readObject();
             in.close();
@@ -246,13 +277,16 @@ public class GameController{
             return;
         }
 
-//        game.setSharkUndoOptionUsed(sharkUndoOptionUsed);
-//        game.setEagleUndoOptionUsed(eagleUndoOptionUsed);
-
         rootPane.getChildren().remove(gameView);
 
         init(); // reinit with new game obj
+
+        game.setSharkUndoOptionUsed(sharkUndoOptionUsed);
+        game.setEagleUndoOptionUsed(eagleUndoOptionUsed);
+
         loadGame();
+
+        considerDisableUndoButtons();
 
         rootPane.getChildren().add(gameView);
 

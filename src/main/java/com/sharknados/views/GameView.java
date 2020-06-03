@@ -41,4 +41,8 @@ public class GameView extends BorderPane implements java.io.Serializable{
     public void addToView(Node node){
         boardPane.getChildren().add(node);
     }
+
+    public StatusBar getStatusBar() {
+        return statusBar;
+    }
 }
