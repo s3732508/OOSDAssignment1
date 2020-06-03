@@ -71,14 +71,14 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
         }
 
-//        //Tanks
-//        for(int i = 3; i<=4; i++) {
-//            piece = getTank(factory);
-//            piece.setX(positions[i].x());
-//            piece.setZ(positions[i].z());
-//            pieceList.add(piece);
-//            board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
-//        }
+        //Tanks
+        for(int i = 3; i<=4; i++) {
+            piece = getTank(factory);
+            piece.setX(positions[i].x());
+            piece.setZ(positions[i].z());
+            pieceList.add(piece);
+            board.getTileAtPosition(piece.getX(), piece.getZ()).setPiece(piece);
+        }
 
         return pieceList;
     }
@@ -309,7 +309,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             deselectAll();
 
             Piece self = selectedTile.getPiece();
-            boolean isGameOver = self.doAbility(targetTile);
+            boolean isGameOver = self.doAbility(selectedTile, targetTile);
             if (isGameOver){
                 gameOver();
             }

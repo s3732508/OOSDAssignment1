@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SharkTank extends SharkPiece {
     public SharkTank(){
-        super(1, 4, 4, 1);
+        super(20, 20, 50, 1);
     }
 
     @Override
@@ -25,13 +25,13 @@ public class SharkTank extends SharkPiece {
     }
 
     @Override
-    public boolean doAbility(Tile targetTile) {
+    public boolean doAbility(Tile myTile, Tile targetTile) {
         System.out.println("---------------");
         System.out.println("ABILITY - SHARK TANK");
         Piece target = targetTile.getPiece();
         System.out.println(target.getClass().getSimpleName() + " Health and Defense buffed!");
-        target.setHealth(target.getHealth()+1);
-        target.setDefence(target.getDefence()+1);
+        target.setHealth(target.getHealth()+10);
+        target.setDefence(target.getDefence()+10);
         System.out.println("---------------");
         return false;
     }

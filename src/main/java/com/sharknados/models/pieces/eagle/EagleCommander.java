@@ -8,7 +8,7 @@ import java.util.List;
 
 public class EagleCommander extends EaglePiece {
     public EagleCommander(){
-        super(4, 0, 5, 1);
+        super(40, 0, 50, 1);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class EagleCommander extends EaglePiece {
     }
 
     @Override
-    public boolean doAbility(Tile myTile) {
+    public boolean doAbility(Tile tile, Tile myTile) {
         System.out.println("---------------");
         System.out.println("ABILITY - EAGLE COMMANDER");
         boolean isGameOver = false;

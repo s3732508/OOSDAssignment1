@@ -16,9 +16,9 @@ public class PowerUpTileDecorator extends TileDecorator {
 		System.out.println("setPiece from PowerUp");
 		decoratedTile.setPiece(piece);
         if (piece != null) {
-        	int powerUp = 1;
+        	int powerUp = 10;
 			decoratedTile.setOccupied(true);
-            if (piece.getHealth() + powerUp <=5 ) {
+            if (piece.getHealth() + powerUp <=50 ) {
             	int newHealth = piece.getHealth() + powerUp;
 				piece.setHealth(newHealth);
 			}

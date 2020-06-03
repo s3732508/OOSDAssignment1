@@ -18,7 +18,7 @@ public class TrapTileDecorator extends TileDecorator {
 		if (piece != null) {
 			decoratedTile.setOccupied(true);
 
-			int damage = 1;
+			int damage = 10;
 			//Deal damage and check if a commander is killed
 			boolean isGameOver = piece.takeDamage(damage, decoratedTile);
 			if (isGameOver){
