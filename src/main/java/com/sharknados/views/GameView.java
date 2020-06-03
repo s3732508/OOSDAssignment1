@@ -1,6 +1,7 @@
 package com.sharknados.views;
 
 import com.sharknados.controllers.GameController;
+import com.sharknados.models.pieces.Piece;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
@@ -26,6 +27,11 @@ public class GameView extends BorderPane implements java.io.Serializable{
 
     public void setCommandBarVisible(boolean vis){
         this.commandBar.setVisible(vis);
+    }
+
+    public void showCommandBar(Piece selectedPiece) {
+        commandBar.setVisible(true);
+        commandBar.refreshSelectableModes(selectedPiece);
     }
 
     public void setCommandBarDisable(boolean disable){
