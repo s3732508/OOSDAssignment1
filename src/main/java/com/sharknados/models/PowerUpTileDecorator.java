@@ -8,7 +8,7 @@ public class PowerUpTileDecorator extends TileDecorator {
 
 	public PowerUpTileDecorator(Tile decoratedTile) {
 		super(decoratedTile);
-		decoratedTile.incrementDecoratorCount("PowerUp");
+		decoratedTile.incrementDecoratorCount("(HP+)");
 		// TODO Auto-generated constructor stub
 	}
 

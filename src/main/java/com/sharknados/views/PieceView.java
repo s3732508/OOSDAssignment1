@@ -5,6 +5,8 @@ import com.sharknados.models.Subject;
 import com.sharknados.models.pieces.Piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -26,7 +28,7 @@ public class PieceView implements Observer {
         Image image;
         //Image for type of piece
         String type = subject.getClass().getSimpleName();
-        image = new Image(new FileInputStream("src/main/resources/" + type + ".png"));
+        image = new Image(new FileInputStream("src/main/resources/" + type + "2.png"));
 
         // Setting the image view
         this.pieceImage = new ImageView(image);
@@ -76,18 +78,24 @@ public class PieceView implements Observer {
         atkText.setText("Atk " + atk);
         atkText.setFont(font);
         atkText.setStyle("-fx-font-weight: bold;");
+        atkText.setStroke(Color.WHITE);
+        atkText.setStrokeType(StrokeType.OUTSIDE);
         atkText.setX(pixelX*2*radius + radius);
         atkText.setY(pixelY*2*radius - 3*radius -5);
 
         defText.setText("Def " + def);
         defText.setFont(font);
         defText.setStyle("-fx-font-weight: bold;");
+        defText.setStroke(Color.WHITE);
+        defText.setStrokeType(StrokeType.OUTSIDE);
         defText.setX(pixelX*2*radius + radius);
         defText.setY(pixelY*2*radius - 3*radius +5);
 
         hpText.setText("HP " + hp);
         hpText.setFont(font);
         hpText.setStyle("-fx-font-weight: bold;");
+        hpText.setStroke(Color.WHITE);
+        hpText.setStrokeType(StrokeType.OUTSIDE);
         hpText.setX(pixelX*2*radius + radius);
         hpText.setY(pixelY*2*radius -10);
     }
