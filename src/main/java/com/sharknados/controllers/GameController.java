@@ -66,9 +66,7 @@ public class GameController{
             try {
                 PieceView pieceView = new PieceView(p);
                 gameView.addToView(pieceView.pieceImage);
-                gameView.addToView(pieceView.atkText);
-                gameView.addToView(pieceView.defText);
-                gameView.addToView(pieceView.hpText);
+                gameView.addToView(pieceView.selectedPieceStats);
 
             }catch (Exception e) {
                 // Handle it.
@@ -85,9 +83,7 @@ public class GameController{
             try {
                 PieceView pieceView = new PieceView(p);
                 gameView.addToView(pieceView.pieceImage);
-                gameView.addToView(pieceView.atkText);
-                gameView.addToView(pieceView.defText);
-                gameView.addToView(pieceView.hpText);
+                gameView.addToView(pieceView.selectedPieceStats);
             }catch (Exception e) {
                 System.out.println("shit happens");
             }
@@ -226,10 +222,10 @@ public class GameController{
             gameView.getStatusBar().getUndoButton1().setDisable(false);
         }
         if (game.getTurnNumber() > 4) {
-            gameView.getStatusBar().getUndoButton1().setDisable(false);
+            gameView.getStatusBar().getUndoButton2().setDisable(false);
         }
         if (game.getTurnNumber() > 6) {
-            gameView.getStatusBar().getUndoButton1().setDisable(false);
+            gameView.getStatusBar().getUndoButton3().setDisable(false);
         }
     }
 
