@@ -7,6 +7,8 @@ import com.sharknados.models.pieces.Piece;
 import com.sharknados.models.pieces.PieceMode;
 import com.sharknados.models.pieces.eagle.EagleFactory;
 import com.sharknados.models.pieces.shark.SharkFactory;
+import com.sharknados.models.storage.StorageAdapter;
+import com.sharknados.models.storage.StorageAdapters;
 import com.sharknados.util.Point;
 import com.sharknados.views.GameView;
 import com.sharknados.views.PieceView;
@@ -28,10 +30,12 @@ public class GameController{
     private GameView gameView;
     private Pane rootPane;
 
+    private StorageAdapter storage;
 
     public GameController(Game game, Pane rootPane) {
         this.game = game;
         this.rootPane = rootPane;
+        this.storage = StorageAdapters.getStorageAdapter();
         init();
     }
 
@@ -96,7 +100,7 @@ public class GameController{
                 gameView.addToView(pieceView.pieceImage);
                 gameView.addToView(pieceView.selectedPieceStats);
             }catch (Exception e) {
-                System.out.println("shit happens");
+                System.out.println("stuff happens");
             }
         }
     }
@@ -182,35 +186,14 @@ public class GameController{
         considerDisableUndoButtons();
 
         try {
-            FileOutputStream gameOut =
-                    new FileOutputStream("src/main/Saved Game/game.ser");
-            ObjectOutputStream out = new ObjectOutputStream(gameOut);
-            out.writeObject(game);
-            out.close();
-            gameOut.close();
-//            System.out.printf("Serialized data is saved in /tmp/game.ser\n");
-
-        } catch (IOException i) {
-            i.printStackTrace();
-        }
-
-        // same for turn number
-        try {
-            FileOutputStream gameOut =
-                    new FileOutputStream("src/main/Saved Game/" + game.getTurnNumber() + ".ser");
-            ObjectOutputStream out = new ObjectOutputStream(gameOut);
-            out.writeObject(game);
-            out.close();
-            gameOut.close();
-//            System.out.printf("Serialized data is saved in /tmp/" + game.getTurnNumber() + ".ser\n");
-
-        } catch (IOException i) {
-            i.printStackTrace();
+            storage.save(game);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
 
-    // TODO optimize this shit
+    // TODO optimize this
     public void considerDisableUndoButtons() {
         gameView.getStatusBar().getUndoButton1().setDisable(true);
         gameView.getStatusBar().getUndoButton2().setDisable(true);
@@ -269,17 +252,9 @@ public class GameController{
         System.out.println("Undo Move, loading turn " + turnToLoad);
 
         try {
-            FileInputStream fileIn = new FileInputStream("src/main/Saved Game/" + turnToLoad + ".ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            game = (Game) in.readObject();
-            in.close();
-            fileIn.close();
-        } catch (IOException i) {
-            i.printStackTrace();
-            return;
-        } catch (ClassNotFoundException c) {
-            System.out.println("Employee class not found");
-            c.printStackTrace();
+            game = storage.loadTurn(turnToLoad);
+        } catch (IOException e) {
+            e.printStackTrace();
             return;
         }
 
