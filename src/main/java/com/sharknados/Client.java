@@ -17,7 +17,7 @@ public class Client extends Application{
         RootController rootController = new RootController(rootPane);
 
         HomescreenController homescreenController = new HomescreenController(rootController.getRoot());
-        Scene scene = new Scene(rootPane,490,700);
+        Scene scene = new Scene(rootPane,650,700);
         mainStage.setTitle("Sharknados");
         mainStage.setScene(scene);
         mainStage.show();

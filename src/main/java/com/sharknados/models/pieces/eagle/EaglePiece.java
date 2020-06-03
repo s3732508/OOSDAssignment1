@@ -2,6 +2,7 @@ package com.sharknados.models.pieces.eagle;
 
 import com.sharknados.models.Team;
 import com.sharknados.models.pieces.Piece;
+import com.sharknados.models.pieces.modes.MoveMode;
 
 public abstract class EaglePiece extends Piece {
     protected EaglePiece(int attack, int defence, int health, int movement) {

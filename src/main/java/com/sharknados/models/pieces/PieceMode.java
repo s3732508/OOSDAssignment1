@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface PieceMode extends Serializable {
-    List<PieceMode> connectsTo();
+    String getName();
     Map<PieceAttribute, Integer> getBonuses(Piece piece);
+    List<PieceMode> connectsTo();
 }

@@ -118,6 +118,10 @@ public abstract class Piece extends AbstractSubject implements java.io.Serializa
         this.attackRange = new PieceAttribute(range);
     }
 
+    public PieceMode getMode() {
+        return mode;
+    }
+
     public boolean attackTile(Tile targetTile) {
         boolean isGameOver = false;
         Piece target = targetTile.getPiece();
