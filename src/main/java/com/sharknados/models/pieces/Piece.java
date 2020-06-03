@@ -146,10 +146,8 @@ public abstract class Piece extends AbstractSubject implements java.io.Serializa
         boolean isGameOver = false;
         Piece self = myTile.getPiece();
         int damage = incomingDamage - self.getDefence();
-        if (damage < 1) {
-            damage = 1;
-        }
-        System.out.println("HIT! " + self.getClass().getSimpleName() + " takes: " + damage + " damage!");
+        System.out.println(self.getClass().getSimpleName() + " takes: " + damage + " damage!");
+
         if (getHealth() - damage <= 0) {
             System.out.println(self.getClass().getSimpleName() + " is destroyed!");
             isGameOver = destroyOrGameOver(myTile);
@@ -176,5 +174,5 @@ public abstract class Piece extends AbstractSubject implements java.io.Serializa
 
     public abstract List<Tile> getAbilityRange(Tile myTile, List<Tile> allTiles);
 
-    public abstract boolean doAbility(Tile targetTile);
+    public abstract boolean doAbility(Tile myTile, Tile targetTile);
 }

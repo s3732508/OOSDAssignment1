@@ -25,7 +25,7 @@ public class DefenceMode implements PieceMode {
     @Override
     public Map<PieceAttribute, Integer> getBonuses(Piece piece) {
         return new HashMap<>(){{
-            put(piece.getDefenceAttribute(), 1);
+            put(piece.getDefenceAttribute(), 10);
         }};
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class EagleTank extends EaglePiece{
     public EagleTank(){
-        super(1, 3, 5, 1);
+        super(30, 10, 50, 1);
     }
 
     @Override
@@ -25,13 +25,13 @@ public class EagleTank extends EaglePiece{
     }
 
     @Override
-    public boolean doAbility(Tile targetTile) {
+    public boolean doAbility(Tile myTile, Tile targetTile) {
         System.out.println("---------------");
         System.out.println("ABILITY - EAGLE TANK");
         Piece target = targetTile.getPiece();
         System.out.println(target.getClass().getSimpleName() + " Health and Attack buffed!");
-        target.setHealth(target.getHealth()+1);
-        target.setAttack(target.getAttack()+1);
+        target.setHealth(target.getHealth()+10);
+        target.setAttack(target.getAttack()+10);
         System.out.println("---------------");
         return false;
     }

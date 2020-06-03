@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SharkCommander extends SharkPiece {
     public SharkCommander(){
-        super(4, 0, 5, 1);
+        super(30, 10, 50, 1);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class SharkCommander extends SharkPiece {
     }
 
     @Override
-    public boolean doAbility(Tile myTile) {
+    public boolean doAbility(Tile tile, Tile myTile) {
         System.out.println("---------------");
         System.out.println("ABILITY - SHARK COMMANDER");
         boolean isGameOver = false;
@@ -41,7 +41,6 @@ public class SharkCommander extends SharkPiece {
                     }
                 }
             }
-
         }
         System.out.println("---------------");
         return isGameOver;

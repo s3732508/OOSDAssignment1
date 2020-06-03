@@ -69,8 +69,6 @@ public class Board implements java.io.Serializable {
 				}
 			}
 		}
-
-		tilePositions[3][3] = new PowerUpTileDecorator(new PowerUpTileDecorator(new HexagonTile(3,3)));
 	}
 
 	private List<Tile> setPowerUpsandTraps(List<Tile> emptytileList) {

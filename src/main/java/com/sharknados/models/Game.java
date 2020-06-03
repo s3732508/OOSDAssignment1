@@ -309,7 +309,7 @@ public class Game extends AbstractSubject implements java.io.Serializable{
             deselectAll();
 
             Piece self = selectedTile.getPiece();
-            boolean isGameOver = self.doAbility(targetTile);
+            boolean isGameOver = self.doAbility(selectedTile, targetTile);
             if (isGameOver){
                 gameOver();
             }
