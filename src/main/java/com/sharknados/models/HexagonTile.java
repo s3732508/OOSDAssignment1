@@ -47,6 +47,9 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+        if(occupied) {
+            this.piece.setSelected(selected);
+        }
         notifyAllObservers();
     }
 

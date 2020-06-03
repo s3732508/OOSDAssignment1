@@ -25,7 +25,7 @@ public class AttackMode implements PieceMode {
     @Override
     public Map<PieceAttribute, Integer> getBonuses(Piece piece) {
         return new HashMap<>() {{
-            put(piece.getMovementAttribute(), 1);
+            put(piece.getAttackAttribute(), 1);
         }};
     }
 }

@@ -17,6 +17,7 @@ public abstract class Piece extends AbstractSubject implements java.io.Serializa
 
     private int x;
     private int z;
+    private boolean selected;
 
     protected Piece(int attack, int defence, int health, int movement, int attackRange, PieceMode defaultMode) {
         this.defence = new PieceAttribute(defence);
@@ -32,8 +33,18 @@ public abstract class Piece extends AbstractSubject implements java.io.Serializa
         return false;
     }
 
+    public boolean isSelected(){
+        return this.selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        notifyAllObservers();
+    }
+
     public void setMode(PieceMode mode) {
         this.mode = mode;
+        notifyAllObservers();
     }
 
     private int getAttributeValue(PieceAttribute attribute) {

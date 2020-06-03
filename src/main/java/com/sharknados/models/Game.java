@@ -174,10 +174,8 @@ public class Game extends AbstractSubject implements java.io.Serializable{
     }
 
     public boolean selectTile(Tile tile){
+        boolean returnVal = true;
         Piece piece = tile.getPiece();
-        if (piece == null || piece.getTeam() != turn){
-            return false;
-        }
         for (Tile t : board.getTileList()) {
             t.setSelected(false);
             t.setHighlighted(false);
@@ -185,7 +183,11 @@ public class Game extends AbstractSubject implements java.io.Serializable{
         }
         this.selectedTile = tile;
         tile.setSelected(true);
-        return true;
+        if (piece == null || piece.getTeam() != turn){
+            returnVal = false;
+        }
+        notifyAllObservers();
+        return returnVal;
     }
 
     public Tile getSelectedTile(){

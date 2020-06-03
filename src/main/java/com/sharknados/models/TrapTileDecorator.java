@@ -7,7 +7,7 @@ public class TrapTileDecorator extends TileDecorator {
 
 	public TrapTileDecorator(Tile decoratedTile) {
 		super(decoratedTile);
-		decoratedTile.incrementDecoratorCount("Trap");
+		decoratedTile.incrementDecoratorCount("(HP-)");
 		System.out.println(" Constructor from TrapTileDecorator");
 		// TODO Auto-generated constructor stub
 	}

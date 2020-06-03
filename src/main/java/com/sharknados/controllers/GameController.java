@@ -77,9 +77,7 @@ public class GameController{
             try {
                 PieceView pieceView = new PieceView(p);
                 gameView.addToView(pieceView.pieceImage);
-                gameView.addToView(pieceView.atkText);
-                gameView.addToView(pieceView.defText);
-                gameView.addToView(pieceView.hpText);
+                gameView.addToView(pieceView.selectedPieceStats);
 
             }catch (Exception e) {
                 // Handle it.
@@ -96,9 +94,7 @@ public class GameController{
             try {
                 PieceView pieceView = new PieceView(p);
                 gameView.addToView(pieceView.pieceImage);
-                gameView.addToView(pieceView.atkText);
-                gameView.addToView(pieceView.defText);
-                gameView.addToView(pieceView.hpText);
+                gameView.addToView(pieceView.selectedPieceStats);
             }catch (Exception e) {
                 System.out.println("shit happens");
             }

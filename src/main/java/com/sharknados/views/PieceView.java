@@ -14,9 +14,7 @@ import java.io.FileNotFoundException;
 public class PieceView implements Observer {
 
     public ImageView pieceImage;
-    public Text atkText;
-    public Text defText;
-    public Text hpText;
+    public Text selectedPieceStats;
     private Piece subject;
 
     public PieceView(Subject piece) throws FileNotFoundException {
@@ -26,24 +24,26 @@ public class PieceView implements Observer {
         Image image;
         //Image for type of piece
         String type = subject.getClass().getSimpleName();
-        image = new Image(new FileInputStream("src/main/resources/" + type + ".png"));
+        image = new Image(new FileInputStream("src/main/resources/" + type + "2.png"));
 
         // Setting the image view
         this.pieceImage = new ImageView(image);
 
         //text
-        this.atkText = new Text();
-        this.defText = new Text();
-        this.hpText = new Text();
+        this.selectedPieceStats = new Text();
+        Font font = new Font("ARIAL", 16);
+        selectedPieceStats.setFont(font);
+        selectedPieceStats.setStyle("-fx-font-weight: bold;");
+        selectedPieceStats.setTranslateY(10);
+        selectedPieceStats.setTranslateX(10);
+
 
         //Initial Drawing
         update();
 
         //stop the image or text blocking action listener of tile below
         pieceImage.setDisable(true);
-        atkText.setDisable(true);
-        defText.setDisable(true);
-        hpText.setDisable(true);
+        selectedPieceStats.setDisable(true);
         }
 
 
@@ -69,26 +69,17 @@ public class PieceView implements Observer {
         pieceImage.setFitHeight(2*radius);
         pieceImage.setFitWidth(2*radius);
 
-        String atk = Integer.toString(subject.getAttack());
-        String def = Integer.toString(subject.getDefence());
-        String hp = Integer.toString(subject.getHealth());
-        Font font = new Font("ARIAL", 10);
-        atkText.setText("Atk " + atk);
-        atkText.setFont(font);
-        atkText.setStyle("-fx-font-weight: bold;");
-        atkText.setX(pixelX*2*radius + radius);
-        atkText.setY(pixelY*2*radius - 3*radius -5);
-
-        defText.setText("Def " + def);
-        defText.setFont(font);
-        defText.setStyle("-fx-font-weight: bold;");
-        defText.setX(pixelX*2*radius + radius);
-        defText.setY(pixelY*2*radius - 3*radius +5);
-
-        hpText.setText("HP " + hp);
-        hpText.setFont(font);
-        hpText.setStyle("-fx-font-weight: bold;");
-        hpText.setX(pixelX*2*radius + radius);
-        hpText.setY(pixelY*2*radius -10);
+        String pieceStats = "";
+        if(subject.isSelected()) {
+            String pieceName = subject.getClass().getSimpleName();
+            String pieceHealth = "HP: " + subject.getHealth();
+            String pieceAttack = "ATK: " + subject.getAttack();
+            String pieceDefense = "DEF: " + subject.getDefence();
+            String pieceMove = "MOV: " + subject.getMovement();
+            String pieceRange = "RNG: " + subject.getAttackRange();
+            String pieceMode = "MODE: " + subject.getMode().getName();
+            pieceStats += pieceName + " | " + pieceHealth + " | " + pieceAttack + " | " + pieceDefense + " | " + pieceMove + " | " + pieceRange + " | " + pieceMode;
+        }
+        selectedPieceStats.setText(pieceStats);
     }
 }
