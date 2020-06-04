@@ -8,7 +8,7 @@ import com.sharknados.models.pieces.PieceMode;
 import com.sharknados.models.pieces.eagle.EagleFactory;
 import com.sharknados.models.pieces.shark.SharkFactory;
 import com.sharknados.models.storage.StorageAdapter;
-import com.sharknados.models.storage.StorageAdapters;
+import com.sharknados.models.storage.StorageSingleton;
 import com.sharknados.util.Point;
 import com.sharknados.views.GameView;
 import com.sharknados.views.PieceView;
@@ -35,7 +35,7 @@ public class GameController{
     public GameController(Game game, Pane rootPane) {
         this.game = game;
         this.rootPane = rootPane;
-        this.storage = StorageAdapters.getStorageAdapter();
+        this.storage = StorageSingleton.getStorageAdapter();
         init();
     }
 

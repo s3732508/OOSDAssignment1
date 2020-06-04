@@ -3,7 +3,7 @@ package com.sharknados.controllers;
 import java.io.IOException;
 import com.sharknados.models.Game;
 import com.sharknados.models.storage.StorageAdapter;
-import com.sharknados.models.storage.StorageAdapters;
+import com.sharknados.models.storage.StorageSingleton;
 import com.sharknados.views.HomescreenView;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
@@ -17,7 +17,7 @@ public class HomescreenController {
     private Stage mainStage;
 
     public HomescreenController(Stage mainStage, Pane rootPane){
-        storage = StorageAdapters.getStorageAdapter();
+        storage = StorageSingleton.getStorageAdapter();
 
         this.mainStage = mainStage;
         this.root = (StackPane) rootPane;
