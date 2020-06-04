@@ -3,6 +3,9 @@ package com.sharknados.models.storage;
 import com.sharknados.models.Game;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class SerialisationStorageAdapter implements StorageAdapter {
     private static final String SAVED_GAME_PATH = "src/main/Saved Game/";
@@ -23,6 +26,10 @@ public class SerialisationStorageAdapter implements StorageAdapter {
     }
 
     private void saveGameTo(Game game, String filename) throws IOException {
+        Path path = Paths.get(SAVED_GAME_PATH + filename + SAVED_GAME_FILE_EXTENSION);
+        if (!Files.exists(path)) {
+            Files.createFile(path);
+        }
         FileOutputStream gameOut = new FileOutputStream(SAVED_GAME_PATH + filename + SAVED_GAME_FILE_EXTENSION);
         ObjectOutputStream out = new ObjectOutputStream(gameOut);
         out.writeObject(game);
