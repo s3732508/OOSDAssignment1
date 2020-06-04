@@ -49,5 +49,9 @@ public interface Tile extends Subject{
 	Map<String, Integer> getDecorators();
 
 	void incrementDecoratorCount(String decoratorType);
+	
+	void setpieceExists(boolean passageExists);
+	
+	boolean pieceExists();
 
 }

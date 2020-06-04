@@ -116,6 +116,7 @@ public class GameController{
 
 
     public EventHandler clickTile (TileView tileView){
+    	
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {

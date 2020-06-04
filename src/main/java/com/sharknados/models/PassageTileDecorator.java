@@ -16,17 +16,26 @@ public class PassageTileDecorator extends TileDecorator {
 	public void setPiece(Piece piece) {
 
 		if(piece != null) {
+			
 			this.setUnavailable(true);
+			this.setpieceExists(true);
 			this.getPassageTile().getTile().setPiece(piece);
 		}
 		else {
+			this.setpieceExists(false);
 			setOccupied(false);
-			this.getPassageTile().getTile().setOccupied(false);
+			
+			this.getPassageTile().getTile().setpieceExists(false);
+			this.getPassageTile().getTile().setUnavailable(false);
 
 		}
 		System.out.println("setPiece from PassageTile");
 		
 		notifyAllObservers();
 	}
+
+	
+
+	
 
 }

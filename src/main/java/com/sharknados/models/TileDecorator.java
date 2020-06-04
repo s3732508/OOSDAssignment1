@@ -124,5 +124,17 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 	public void incrementDecoratorCount(String decoratorType) {
 		decoratedTile.incrementDecoratorCount(decoratorType);
 	}
+	
+	@Override
+	public void setpieceExists(boolean passageExists) {
+		decoratedTile.setpieceExists(passageExists);
+		
+	}
+	
+	@Override
+	public boolean pieceExists() {
+		// TODO Auto-generated method stub
+		return decoratedTile.pieceExists();
+	}
 
 }

@@ -55,7 +55,7 @@ public class Board implements java.io.Serializable {
 
 		
 		emptytileList=setPowerUpsandTraps(emptytileList);
-		//setPassages(emptytileList);
+		setPassages(emptytileList);
 		
 
 		// For each tile in the board set each of it's neighbors
@@ -96,7 +96,7 @@ public class Board implements java.io.Serializable {
 
 
 
-/*	private void setPassages(List<Tile> emptytileList) {
+	private void setPassages(List<Tile> emptytileList) {
 		Random randNum = new Random();
 		Set<Integer> set = new LinkedHashSet<Integer>();
 		while (set.size() < 4) {
@@ -124,7 +124,7 @@ public class Board implements java.io.Serializable {
 			
 		}
 
-	}*/
+	}
 
 	private boolean trySetNeighbor(Tile tile, int direction) {
 		boolean success = false;
