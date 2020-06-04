@@ -26,9 +26,14 @@ public class SerialisationStorageAdapter implements StorageAdapter {
     }
 
     private void saveGameTo(Game game, String filename) throws IOException {
-        Path path = Paths.get(SAVED_GAME_PATH + filename + SAVED_GAME_FILE_EXTENSION);
-        if (!Files.exists(path)) {
-            Files.createFile(path);
+        Path saveDirectory = Paths.get(SAVED_GAME_PATH);
+        if (!Files.exists(saveDirectory)) {
+            Files.createDirectory(saveDirectory);
+        }
+
+        Path saveFile = Paths.get(SAVED_GAME_PATH + filename + SAVED_GAME_FILE_EXTENSION);
+        if (!Files.exists(saveFile)) {
+            Files.createFile(saveFile);
         }
         FileOutputStream gameOut = new FileOutputStream(SAVED_GAME_PATH + filename + SAVED_GAME_FILE_EXTENSION);
         ObjectOutputStream out = new ObjectOutputStream(gameOut);
