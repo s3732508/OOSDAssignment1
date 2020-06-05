@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Math.max;
@@ -102,7 +103,35 @@ public class GameController{
         }
 
                
-        
+        List<Point> battleFieldPoints  = new ArrayList<Point>();
+        Point point;
+        for (int x = 0; x <= 2 * size; x++) {
+			int zStart = max(0, size - x);
+			int zStop = min(2 * size, 3 * size - x);
+			for (int z = zStart; z <= zStop; z++) {
+				point=new Point(x,z);
+				int count=0;
+
+				for(int i=0; i<playerOnePieces.length ; i++) {
+					if(((playerOnePieces[i].x() ==x && playerOnePieces[i].z()==z || playerTwoPieces[i].x() ==x && playerTwoPieces[i].z()==z))) {
+						count++;
+						
+					}					
+					
+				}
+				if(count==0)
+					battleFieldPoints .add(point);
+				
+			}
+		}
+        //TODO precondition here
+
+        assert(!battleFieldPoints.stream().anyMatch(pointInBF -> Arrays.stream(playerOnePieces).anyMatch(playerPoints -> playerPoints.equals(pointInBF))));
+        assert(!battleFieldPoints.stream().anyMatch(pointInBF -> Arrays.stream(playerTwoPieces).anyMatch(playerPoints -> playerPoints.equals(pointInBF))));
+        this.game.getBoard().setPowerUpsandTraps(battleFieldPoints );
+        this.game.getBoard().setPassages(battleFieldPoints );
+        init();
+
         
         List<Piece> pieceList = new ArrayList<>();
         pieceList.addAll(game.createPieces(playerOnePieces, new SharkFactory()));
