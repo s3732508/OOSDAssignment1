@@ -17,7 +17,7 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 	private boolean pieceExists = false;
 	private Piece piece;
 	private Tile neighbor[] = { null, null, null, null, null, null };
-	private int PassageIdentifier =1;
+
 
 	Tile PassageTile;
 
@@ -142,7 +142,7 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 
 	@Override
 	public void incrementDecoratorCount(String decoratorType) {
-		decorators.merge(decoratorType, this.PassageIdentifier, Integer::sum);
+		decorators.merge(decoratorType, 1, Integer::sum);
 	}
 
 	@Override
@@ -151,9 +151,5 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 		return this.pieceExists;
 	}
 
-	@Override
-	public void setPassageIdentifier(int identifier) {
-		this.PassageIdentifier=identifier;
-		
-	}
+	
 }

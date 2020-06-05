@@ -94,6 +94,9 @@ public class GameController{
     		}
             
             this.game.getBoard().setPowerUpsandTraps(battleFieldTiles );
+            
+            this.game.getBoard().setStorms(battleFieldTiles);;
+            this.game.getBoard().setAttacks(battleFieldTiles);
             this.game.getBoard().setPassages(battleFieldTiles );
             init();
         }

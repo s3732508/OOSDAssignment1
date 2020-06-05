@@ -138,10 +138,6 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 		return decoratedTile.pieceExists();
 	}
 	
-	@Override
-	public void setPassageIdentifier(int identifier) {
-		decoratedTile.setPassageIdentifier(identifier);
-		
-	}
+
 
 }

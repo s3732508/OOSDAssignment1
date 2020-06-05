@@ -62,9 +62,9 @@ public class Board implements java.io.Serializable {
 		List<Point> emptyList = battleFieldTiles ;
 		Random randNum = new Random();
 		Set<Integer> set = new LinkedHashSet<Integer>();
-		int numberOfDecorators=6;
+		int numberOfDecorators=4;
 		if(this.size!=3) {
-			numberOfDecorators=8;
+			numberOfDecorators=6;
 		}
 		while (set.size() < numberOfDecorators) {
 			set.add(randNum.nextInt(battleFieldTiles .size() - 1));
@@ -80,6 +80,56 @@ public class Board implements java.io.Serializable {
 				tilePositions[tile.getX()][tile.getZ()] = new PowerUpTileDecorator(tile);
 			else
 				tilePositions[tile.getX()][tile.getZ()] = new TrapTileDecorator(tile);
+
+		}
+
+	}
+	
+	public void setStorms(List<Point> battleFieldTiles ) {
+		List<Point> emptyList = battleFieldTiles ;
+		Random randNum = new Random();
+		Set<Integer> set = new LinkedHashSet<Integer>();
+		int numberOfDecorators=2;
+		if(this.size!=3) {
+			numberOfDecorators=4;
+		}
+		while (set.size() < numberOfDecorators) {
+			set.add(randNum.nextInt(battleFieldTiles.size() - 1));
+		}
+		Tile tile;
+		int count = 0;
+		for (Iterator<Integer> it = set.iterator(); it.hasNext(); count++) {
+			int i = it.next();
+			Point point = battleFieldTiles.get(i);
+			tile = this.getTileAtPosition(point.x(), point.z());
+//			System.out.println(it.next()+" "+count);
+			
+				tilePositions[tile.getX()][tile.getZ()] = new StormTileDecorator(tile);
+			
+
+		}
+
+	}
+	
+	public void setAttacks(List<Point> battleFieldTiles ) {
+		List<Point> emptyList = battleFieldTiles ;
+		Random randNum = new Random();
+		Set<Integer> set = new LinkedHashSet<Integer>();
+		int numberOfDecorators=2;
+		if(this.size!=3) {
+			numberOfDecorators=4;
+		}
+		while (set.size() < numberOfDecorators) {
+			set.add(randNum.nextInt(battleFieldTiles.size() - 1));
+		}
+		Tile tile;
+		int count = 0;
+		for (Iterator<Integer> it = set.iterator(); it.hasNext(); count++) {
+			int i = it.next();
+			Point point = battleFieldTiles .get(i);
+			tile = this.getTileAtPosition(point.x(), point.z());
+			System.out.println(it.next()+" "+count);
+			tilePositions[tile.getX()][tile.getZ()] = new AttackDownTileDecorator(tile);
 
 		}
 

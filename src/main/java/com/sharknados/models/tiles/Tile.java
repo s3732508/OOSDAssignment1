@@ -55,6 +55,5 @@ public interface Tile extends Subject {
 	
 	boolean pieceExists();
 
-	void setPassageIdentifier(int identifier);
 
 }

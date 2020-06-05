@@ -7,8 +7,8 @@ public class PassageTileDecorator extends TileDecorator {
 
 	public PassageTileDecorator(Tile decoratedTile, int identifier ) {
 		super(decoratedTile);
-		decoratedTile.setPassageIdentifier(identifier);
-		decoratedTile.incrementDecoratorCount("PORTAL");
+		
+		decoratedTile.incrementDecoratorCount("PORTAL "+ identifier);
 	
 	}
 
