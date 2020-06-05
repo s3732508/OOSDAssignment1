@@ -88,24 +88,25 @@ public class Board implements java.io.Serializable {
 	public void setPassages(List<Point> battleFieldTiles ) {
 		Random randNum = new Random();
 		Set<Integer> set = new LinkedHashSet<Integer>();
-		int numberOfDecorators=4;
+		int numberOfpassages=2;
 		if(this.size!=3) {
-			numberOfDecorators=6;
+			numberOfpassages=3;
 		}
-		while (set.size() < numberOfDecorators) {
+		while (set.size() < numberOfpassages*2) {
 			set.add(randNum.nextInt(battleFieldTiles .size() - 1));
 		}
 		Tile tile1;
 		Tile tile2;
+		int identifier=1;
 		for (Iterator<Integer> it = set.iterator(); it.hasNext();) {
 			int i = it.next();
 			Point point = battleFieldTiles .get(i);
 			tile1 = this.getTileAtPosition(point.x(), point.z());
-			tile1 = new PassageTileDecorator(tile1);
+			tile1 = new PassageTileDecorator(tile1, identifier);
 			i = it.next();
 			point = battleFieldTiles .get(i);
 			tile2 = this.getTileAtPosition(point.x(), point.z());
-			tile2 = new PassageTileDecorator(tile2);
+			tile2 = new PassageTileDecorator(tile2, identifier);
 			tile1.setPassageTile(tile2);
 			tile2.setPassageTile(tile1);
 //			System.out.println(it.next());
@@ -117,6 +118,7 @@ public class Board implements java.io.Serializable {
 			System.out.println(tile.getX() + " " + tile.getZ());
 			tile = tilePositions[tile2.getX()][tile2.getZ()].getPassageTile();
 			System.out.println(tile.getX() + " " + tile.getZ());
+			identifier++;
 
 		}
 

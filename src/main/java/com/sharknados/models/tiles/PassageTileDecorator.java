@@ -5,11 +5,11 @@ import com.sharknados.models.pieces.Piece;
 
 public class PassageTileDecorator extends TileDecorator {
 
-	public PassageTileDecorator(Tile decoratedTile) {
+	public PassageTileDecorator(Tile decoratedTile, int identifier ) {
 		super(decoratedTile);
+		decoratedTile.setPassageIdentifier(identifier);
 		decoratedTile.incrementDecoratorCount("PORTAL");
-		System.out.println(" Constructor from PassageTileDecorator");
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	@Override
@@ -29,13 +29,8 @@ public class PassageTileDecorator extends TileDecorator {
 			this.getPassageTile().getTile().setUnavailable(false);
 
 		}
-		System.out.println("setPiece from PassageTile");
-		
 		notifyAllObservers();
 	}
 
 	
-
-	
-
 }

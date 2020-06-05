@@ -59,7 +59,7 @@ public class GameController{
         }
     }
 
-    public void newGame(){
+    public void newGame(boolean obstaclesExist){
         Point playerOnePieces[];
         Point playerTwoPieces[];
         int size = this.game.getBoard().getSize();
@@ -70,6 +70,33 @@ public class GameController{
         } else {
             playerOnePieces = new Point[]{new Point(3,7), new Point(1,7), new Point(2,7), new Point(4,7), new Point(1,8), new Point(2,8), new Point(3,8)};
             playerTwoPieces = new Point[] {new Point(5,1), new Point(4,1), new Point(6,1), new Point(7,1), new Point(5,0), new Point(6,0), new Point(7,0)};
+        }
+        if(obstaclesExist) {
+        	List<Point> battleFieldTiles  = new ArrayList<Point>();
+            Point point;
+            for (int x = 0; x <= 2 * size; x++) {
+    			int zStart = max(0, size - x);
+    			int zStop = min(2 * size, 3 * size - x);
+    			for (int z = zStart; z <= zStop; z++) {
+    				point=new Point(x,z);
+    				int count=0;
+
+    				for(int i=0; i<playerOnePieces.length ; i++) {
+    					if(((playerOnePieces[i].x() ==x && playerOnePieces[i].z()==z || playerTwoPieces[i].x() ==x && playerTwoPieces[i].z()==z))) {
+    						count++;
+    						
+    					}					
+    					
+    				}
+    				if(count==0)
+    					battleFieldTiles .add(point);		
+    				
+    			}
+    		}
+            
+            this.game.getBoard().setPowerUpsandTraps(battleFieldTiles );
+            this.game.getBoard().setPassages(battleFieldTiles );
+            init();
         }
 
                
@@ -101,6 +128,7 @@ public class GameController{
         this.game.getBoard().setPowerUpsandTraps(battleFieldPoints );
         this.game.getBoard().setPassages(battleFieldPoints );
         init();
+
         
         List<Piece> pieceList = new ArrayList<>();
         pieceList.addAll(game.createPieces(playerOnePieces, new SharkFactory()));

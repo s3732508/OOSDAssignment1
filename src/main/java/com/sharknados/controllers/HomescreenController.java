@@ -15,6 +15,7 @@ public class HomescreenController {
     private HomescreenView homescreenView;
     private StorageAdapter storage;
     private Stage mainStage;
+    private boolean ObstaclesExist = false;
 
     public HomescreenController(Stage mainStage, Pane rootPane){
         storage = StorageSingleton.getStorageAdapter();
@@ -34,7 +35,8 @@ public class HomescreenController {
             mainStage.setHeight(900);
         }
         GameController gameController = new GameController (game, root);
-        gameController.newGame();
+//        AllowObstaclesToggle(false);
+        gameController.newGame(ObstaclesExist);
 
         root.getChildren().remove(homescreenView);
         root.getChildren().add(gameController.getGameView());
@@ -58,4 +60,9 @@ public class HomescreenController {
         Platform.exit();
         System.exit(0);
     }
+
+	public void AllowObstaclesToggle(boolean ObstaclesExist) {
+		this.ObstaclesExist = ObstaclesExist;
+		
+	}
 }
