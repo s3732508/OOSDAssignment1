@@ -2,7 +2,7 @@ package com.sharknados.models.pieces;
 
 import com.sharknados.models.AbstractSubject;
 import com.sharknados.models.Team;
-import com.sharknados.models.Tile;
+import com.sharknados.models.tiles.Tile;
 
 import java.util.List;
 

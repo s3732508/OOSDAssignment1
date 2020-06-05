@@ -1,6 +1,6 @@
 package com.sharknados.models.pieces.shark;
 
-import com.sharknados.models.Tile;
+import com.sharknados.models.tiles.Tile;
 import com.sharknados.models.pieces.Piece;
 
 import java.util.ArrayList;

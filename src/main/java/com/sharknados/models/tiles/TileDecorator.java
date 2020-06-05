@@ -1,6 +1,7 @@
-package com.sharknados.models;
+package com.sharknados.models.tiles;
 
 import com.sharknados.models.pieces.Piece;
+import com.sharknados.models.tiles.Tile;
 import com.sharknados.views.Observer;
 
 import java.util.Map;

@@ -1,9 +1,8 @@
 package com.sharknados.controllers;
 
 import com.sharknados.models.Game;
-import com.sharknados.models.HexagonTile;
 import com.sharknados.models.Team;
-import com.sharknados.models.Tile;
+import com.sharknados.models.tiles.Tile;
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.models.pieces.PieceMode;
 import com.sharknados.models.pieces.eagle.EagleFactory;

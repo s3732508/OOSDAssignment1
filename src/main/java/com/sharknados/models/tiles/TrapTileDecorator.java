@@ -1,13 +1,15 @@
-package com.sharknados.models;
+package com.sharknados.models.tiles;
 
 import com.sharknados.models.pieces.Piece;
+import com.sharknados.models.tiles.Tile;
+import com.sharknados.models.tiles.TileDecorator;
 import javafx.application.Platform;
 
 public class TrapTileDecorator extends TileDecorator {
 
 	public TrapTileDecorator(Tile decoratedTile) {
 		super(decoratedTile);
-		decoratedTile.incrementDecoratorCount("(HP-)");
+		decoratedTile.incrementDecoratorCount("(TRAP)");
 		System.out.println(" Constructor from TrapTileDecorator");
 		// TODO Auto-generated constructor stub
 	}

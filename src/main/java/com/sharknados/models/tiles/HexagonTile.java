@@ -1,5 +1,6 @@
-package com.sharknados.models;
+package com.sharknados.models.tiles;
 
+import com.sharknados.models.AbstractSubject;
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.Observer;
 

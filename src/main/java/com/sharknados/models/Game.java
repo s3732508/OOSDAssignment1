@@ -2,6 +2,7 @@ package com.sharknados.models;
 
 import com.sharknados.models.pieces.PieceAbstractFactory;
 import com.sharknados.models.pieces.Piece;
+import com.sharknados.models.tiles.Tile;
 import com.sharknados.util.Point;
 import javafx.application.Platform;
 

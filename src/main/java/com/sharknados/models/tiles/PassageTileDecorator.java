@@ -1,4 +1,4 @@
-package com.sharknados.models;
+package com.sharknados.models.tiles;
 
 import com.sharknados.models.pieces.Piece;
 
@@ -7,7 +7,7 @@ public class PassageTileDecorator extends TileDecorator {
 
 	public PassageTileDecorator(Tile decoratedTile) {
 		super(decoratedTile);
-		decoratedTile.incrementDecoratorCount("TP");
+		decoratedTile.incrementDecoratorCount("PORTAL");
 		System.out.println(" Constructor from PassageTileDecorator");
 		// TODO Auto-generated constructor stub
 	}

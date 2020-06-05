@@ -2,6 +2,8 @@ package com.sharknados.views;
 
 import com.sharknados.models.*;
 
+import com.sharknados.models.tiles.Tile;
+import com.sharknados.models.tiles.TileDecorator;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;

@@ -1,14 +1,12 @@
-package com.sharknados.models;
+package com.sharknados.models.tiles;
 
 import com.sharknados.models.pieces.Piece;
-
-import java.util.Map;
 
 public class PowerUpTileDecorator extends TileDecorator {
 
 	public PowerUpTileDecorator(Tile decoratedTile) {
 		super(decoratedTile);
-		decoratedTile.incrementDecoratorCount("(HP+)");
+		decoratedTile.incrementDecoratorCount("(HP GEM)");
 		// TODO Auto-generated constructor stub
 	}
 

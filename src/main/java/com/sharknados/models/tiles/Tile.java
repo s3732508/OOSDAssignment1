@@ -1,12 +1,13 @@
-package com.sharknados.models;
+package com.sharknados.models.tiles;
 
+import com.sharknados.models.Subject;
 import com.sharknados.models.pieces.Piece;
 import com.sharknados.views.Observer;
 
 import java.util.Map;
 
 
-public interface Tile extends Subject{
+public interface Tile extends Subject {
 
 	int getZ();
 
