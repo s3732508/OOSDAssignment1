@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Math.max;
@@ -72,7 +73,7 @@ public class GameController{
         }
 
                
-        List<Point> battleFieldTiles  = new ArrayList<Point>();
+        List<Point> battleFieldPoints  = new ArrayList<Point>();
         Point point;
         for (int x = 0; x <= 2 * size; x++) {
 			int zStart = max(0, size - x);
@@ -89,13 +90,16 @@ public class GameController{
 					
 				}
 				if(count==0)
-					battleFieldTiles .add(point);		
+					battleFieldPoints .add(point);
 				
 			}
 		}
-        
-        this.game.getBoard().setPowerUpsandTraps(battleFieldTiles );
-        this.game.getBoard().setPassages(battleFieldTiles );
+        //TODO precondition here
+
+        assert(!battleFieldPoints.stream().anyMatch(pointInBF -> Arrays.stream(playerOnePieces).anyMatch(playerPoints -> playerPoints.equals(pointInBF))));
+        assert(!battleFieldPoints.stream().anyMatch(pointInBF -> Arrays.stream(playerTwoPieces).anyMatch(playerPoints -> playerPoints.equals(pointInBF))));
+        this.game.getBoard().setPowerUpsandTraps(battleFieldPoints );
+        this.game.getBoard().setPassages(battleFieldPoints );
         init();
         
         List<Piece> pieceList = new ArrayList<>();

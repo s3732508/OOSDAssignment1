@@ -20,6 +20,23 @@ public class Point {
         this.z = z;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getZ() {
+        return z;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if(obj == null || obj.getClass()!= this.getClass())
+            return false;
+        Point point = (Point) obj;
+        return (point.x == this.x && point.z == this.z);
+    }
+
     public void setX(int x){
         this.x = x;
     }
