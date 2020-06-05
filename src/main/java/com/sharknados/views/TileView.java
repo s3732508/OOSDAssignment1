@@ -45,7 +45,7 @@ public class TileView implements Observer {
 		}
 
 		// Get decorators
-		Font font = new Font("ARIAL", 12);
+		Font font = new Font("ARIAL", 8);
 		int yDis = 0;
 		Map<String, Integer> decorators = subject.getDecorators();
 		for (Map.Entry<String,Integer> entry : decorators.entrySet()){
@@ -55,7 +55,7 @@ public class TileView implements Observer {
 			text.setFill(Color.WHITE);
 			text.setStyle("-fx-font-weight: bold;");
 			text.setDisable(true);
-			text.setX(pixelX*2*radius + radius);
+			text.setX(pixelX*2*radius + radius - 2);
 			text.setY(pixelY*2*radius - 3*radius + yDis);
 			decoratorList.add(text);
 			yDis += 10;

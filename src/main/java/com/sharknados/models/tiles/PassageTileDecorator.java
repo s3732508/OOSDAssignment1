@@ -8,8 +8,6 @@ public class PassageTileDecorator extends TileDecorator {
 	public PassageTileDecorator(Tile decoratedTile) {
 		super(decoratedTile);
 		decoratedTile.incrementDecoratorCount("PORTAL");
-		System.out.println(" Constructor from PassageTileDecorator");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -29,13 +27,6 @@ public class PassageTileDecorator extends TileDecorator {
 			this.getPassageTile().getTile().setUnavailable(false);
 
 		}
-		System.out.println("setPiece from PassageTile");
-		
 		notifyAllObservers();
 	}
-
-	
-
-	
-
 }
