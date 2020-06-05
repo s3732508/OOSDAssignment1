@@ -1,6 +1,7 @@
 package com.sharknados.controllers;
 
 import com.sharknados.models.Game;
+import com.sharknados.models.HexagonTile;
 import com.sharknados.models.Team;
 import com.sharknados.models.Tile;
 import com.sharknados.models.pieces.Piece;
@@ -61,8 +62,9 @@ public class GameController{
     public void newGame(){
         Point playerOnePieces[];
         Point playerTwoPieces[];
+        int size = this.game.getBoard().getSize();
 
-        if (this.game.getBoard().getSize() == 3 ) {
+        if (size == 3 ) {
             playerOnePieces = new Point[]{new Point(2,5), new Point(1,6), new Point(2,6), new Point(0,6), new Point(3,6)};
             playerTwoPieces = new Point[] {new Point(4,1), new Point(4,0), new Point(5,0), new Point(3,0), new Point(6,0)};
         } else {
@@ -70,6 +72,33 @@ public class GameController{
             playerTwoPieces = new Point[] {new Point(5,1), new Point(4,1), new Point(6,1), new Point(7,1), new Point(5,0), new Point(6,0), new Point(7,0)};
         }
 
+               
+        List<Point> emptytileList = new ArrayList<Point>();
+        Point point;
+        for (int x = 0; x <= 2 * size; x++) {
+			int zStart = max(0, size - x);
+			int zStop = min(2 * size, 3 * size - x);
+			for (int z = zStart; z <= zStop; z++) {
+				point=new Point(x,z);
+				int count=0;
+
+				for(int i=0; i<playerOnePieces.length ; i++) {
+					if(((playerOnePieces[i].x() ==x && playerOnePieces[i].z()==z || playerTwoPieces[i].x() ==x && playerTwoPieces[i].z()==z))) {
+						count++;
+						
+					}					
+					
+				}
+				if(count==0)
+					emptytileList.add(point);		
+				
+			}
+		}
+        
+        this.game.getBoard().setPowerUpsandTraps(emptytileList);
+        this.game.getBoard().setPassages(emptytileList);
+        init();
+        
         List<Piece> pieceList = new ArrayList<>();
         pieceList.addAll(game.createPieces(playerOnePieces, new SharkFactory()));
         pieceList.addAll(game.createPieces(playerTwoPieces, new EagleFactory()));
@@ -116,6 +145,7 @@ public class GameController{
 
 
     public EventHandler clickTile (TileView tileView){
+    	
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {

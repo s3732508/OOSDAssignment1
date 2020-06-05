@@ -1,6 +1,8 @@
 package com.sharknados.models;
 
 import com.sharknados.models.pieces.Piece;
+import com.sharknados.util.Point;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -29,7 +31,6 @@ public class Board implements java.io.Serializable {
 
 	public Board(int size) {
 		this.size = size;
-//        this.tilePositions = new Tile[2*size+1][2*size+1];
 		this.tilePositions = new Tile[2 * size + 1][2 * size + 1];
 		List<Tile> emptytileList = new ArrayList<Tile>();
 
@@ -38,25 +39,14 @@ public class Board implements java.io.Serializable {
 			int zStart = max(0, size - x);
 			int zStop = min(2 * size, 3 * size - x);
 			for (int z = zStart; z <= zStop; z++) {
-//                tilePositions[x][z] = new HexagonTile(x,z);
+
 				Tile tile = new HexagonTile(x, z);
 				if (z != 6 && z != 0 && !(x == 2 && z == 5) && !(x == 4 && z == 1))
 					emptytileList.add(tile);
-//            	if(x==2 && z==5) {
-//            		
-//            		tile=new PassageTileDecorator(new ObstacleTileDecorator(tile));
-//            		
-////                    tile=new ObstacleTileDecorator(tile);
-//            	}
 
 				tilePositions[x][z] = tile;
 			}
 		}
-
-		
-		emptytileList=setPowerUpsandTraps(emptytileList);
-		//setPassages(emptytileList);
-		
 
 		// For each tile in the board set each of it's neighbors
 		for (int x = 0; x <= 2 * size; x++) {
@@ -71,8 +61,8 @@ public class Board implements java.io.Serializable {
 		}
 	}
 
-	private List<Tile> setPowerUpsandTraps(List<Tile> emptytileList) {
-		List<Tile> emptyList=emptytileList;
+	public void setPowerUpsandTraps(List<Point> emptytileList) {
+		List<Point> emptyList = emptytileList;
 		Random randNum = new Random();
 		Set<Integer> set = new LinkedHashSet<Integer>();
 		while (set.size() < 6) {
@@ -82,21 +72,19 @@ public class Board implements java.io.Serializable {
 		int count = 0;
 		for (Iterator<Integer> it = set.iterator(); it.hasNext(); count++) {
 			int i = it.next();
-			tile = emptytileList.get(i);
+			Point point = emptytileList.get(i);
+			tile = this.getTileAtPosition(point.x(), point.z());
 //			System.out.println(it.next()+" "+count);
 			if (count < 3)
 				tilePositions[tile.getX()][tile.getZ()] = new PowerUpTileDecorator(tile);
 			else
 				tilePositions[tile.getX()][tile.getZ()] = new TrapTileDecorator(tile);
-			emptyList.set(i, tilePositions[tile.getX()][tile.getZ()]);
+
 		}
-		return emptyList;
 
 	}
 
-
-
-/*	private void setPassages(List<Tile> emptytileList) {
+	public void setPassages(List<Point> emptytileList) {
 		Random randNum = new Random();
 		Set<Integer> set = new LinkedHashSet<Integer>();
 		while (set.size() < 4) {
@@ -105,26 +93,29 @@ public class Board implements java.io.Serializable {
 		Tile tile1;
 		Tile tile2;
 		for (Iterator<Integer> it = set.iterator(); it.hasNext();) {
-			tile1 = new PassageTileDecorator(emptytileList.get(it.next()));
-			tile2 = new PassageTileDecorator(emptytileList.get(it.next()));
+			int i = it.next();
+			Point point = emptytileList.get(i);
+			tile1 = this.getTileAtPosition(point.x(), point.z());
+			tile1 = new PassageTileDecorator(tile1);
+			i = it.next();
+			point = emptytileList.get(i);
+			tile2 = this.getTileAtPosition(point.x(), point.z());
+			tile2 = new PassageTileDecorator(tile2);
 			tile1.setPassageTile(tile2);
 			tile2.setPassageTile(tile1);
 //			System.out.println(it.next());
 			tilePositions[tile1.getX()][tile1.getZ()] = tile1;
 			tilePositions[tile2.getX()][tile2.getZ()] = tile2;
-			
-			
-			Tile tile=tilePositions[tile1.getX()][tile1.getZ()].getPassageTile();
-			
-			
-			System.out.println(tile.getX()+" "+tile.getZ());
-			tile=tilePositions[tile2.getX()][tile2.getZ()].getPassageTile();
-			System.out.println(tile.getX()+" "+tile.getZ());
-			
-			
+
+			Tile tile = tilePositions[tile1.getX()][tile1.getZ()].getPassageTile();
+
+			System.out.println(tile.getX() + " " + tile.getZ());
+			tile = tilePositions[tile2.getX()][tile2.getZ()].getPassageTile();
+			System.out.println(tile.getX() + " " + tile.getZ());
+
 		}
 
-	}*/
+	}
 
 	private boolean trySetNeighbor(Tile tile, int direction) {
 		boolean success = false;
@@ -189,7 +180,5 @@ public class Board implements java.io.Serializable {
 
 		return max(max(dX, dY), dZ);
 	}
-
-
 
 }
