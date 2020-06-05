@@ -137,5 +137,11 @@ public abstract class TileDecorator implements Tile, java.io.Serializable {
 		// TODO Auto-generated method stub
 		return decoratedTile.pieceExists();
 	}
+	
+	@Override
+	public void setPassageIdentifier(int identifier) {
+		decoratedTile.setPassageIdentifier(identifier);
+		
+	}
 
 }
