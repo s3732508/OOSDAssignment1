@@ -66,7 +66,11 @@ public class Board implements java.io.Serializable {
 		List<Point> emptyList = emptytileList;
 		Random randNum = new Random();
 		Set<Integer> set = new LinkedHashSet<Integer>();
-		while (set.size() < 6) {
+		int numberOfDecorators=6;
+		if(this.size!=3) {
+			numberOfDecorators=8;
+		}
+		while (set.size() < numberOfDecorators) {
 			set.add(randNum.nextInt(emptytileList.size() - 1));
 		}
 		Tile tile;
@@ -76,7 +80,7 @@ public class Board implements java.io.Serializable {
 			Point point = emptytileList.get(i);
 			tile = this.getTileAtPosition(point.x(), point.z());
 //			System.out.println(it.next()+" "+count);
-			if (count < 3)
+			if (count < numberOfDecorators/2)
 				tilePositions[tile.getX()][tile.getZ()] = new PowerUpTileDecorator(tile);
 			else
 				tilePositions[tile.getX()][tile.getZ()] = new TrapTileDecorator(tile);
@@ -88,7 +92,11 @@ public class Board implements java.io.Serializable {
 	public void setPassages(List<Point> emptytileList) {
 		Random randNum = new Random();
 		Set<Integer> set = new LinkedHashSet<Integer>();
-		while (set.size() < 4) {
+		int numberOfDecorators=4;
+		if(this.size!=3) {
+			numberOfDecorators=6;
+		}
+		while (set.size() < numberOfDecorators) {
 			set.add(randNum.nextInt(emptytileList.size() - 1));
 		}
 		Tile tile1;
