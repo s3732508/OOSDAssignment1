@@ -17,7 +17,7 @@ public class HomescreenView extends VBox {
 	private final Button exitButton;
 	private HomescreenController controller;
 	final String IDLE_BUTTON_STYLE_SELECTED = "-fx-background-color: #A1B86E;-fx-border-color:black; -fx-border-width: 2 2 2 2;";
-	final String IDLE_BUTTON_STYLE_NOT_SELECTED = "-fx-background-color: #BA4A00; -fx-border-color:black; -fx-border-width: 2 2 2 2;";
+	final String IDLE_BUTTON_STYLE_NOT_SELECTED = "-fx-background-color: #BA4A00; -fx-border-color:black; -fx-border-width: 2 2 2 2; ";
 
 	public HomescreenView(HomescreenController controller) {
 		this.controller = controller;
@@ -46,15 +46,17 @@ public class HomescreenView extends VBox {
 		exitButton.setFont(Font.font(24));
 		exitButton.setOnAction(clickExit());
 
-		ToggleButton obstaclestoggleButton = new ToggleButton("Obstacles");
+		ToggleButton obstaclestoggleButton = new ToggleButton("No Obstacles");
 
 		obstaclestoggleButton.setStyle(IDLE_BUTTON_STYLE_NOT_SELECTED);
 		obstaclestoggleButton.setOnAction(event -> {
 			if (obstaclestoggleButton.isSelected()) {
 				obstaclestoggleButton.setStyle(IDLE_BUTTON_STYLE_SELECTED);
+				obstaclestoggleButton.setText("Obstacles");
 				controller.AllowObstaclesToggle(true);
 			} else {
 				obstaclestoggleButton.setStyle(IDLE_BUTTON_STYLE_NOT_SELECTED);
+				obstaclestoggleButton.setText("No Obstacles");
 				controller.AllowObstaclesToggle(false);
 			}
 		});
