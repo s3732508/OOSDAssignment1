@@ -33,18 +33,14 @@ public class Board implements java.io.Serializable {
 	public Board(int size) {
 		this.size = size;
 		this.tilePositions = new Tile[2 * size + 1][2 * size + 1];
-		List<Tile> battleFieldTiles  = new ArrayList<Tile>();
+	
 
 		// Generate a board. Add tiles to the 2d array
 		for (int x = 0; x <= 2 * size; x++) {
 			int zStart = max(0, size - x);
 			int zStop = min(2 * size, 3 * size - x);
 			for (int z = zStart; z <= zStop; z++) {
-
-				Tile tile = new HexagonTile(x, z);
-				if (z != 6 && z != 0 && !(x == 2 && z == 5) && !(x == 4 && z == 1))
-					battleFieldTiles .add(tile);
-
+				Tile tile = new HexagonTile(x, z);				
 				tilePositions[x][z] = tile;
 			}
 		}
