@@ -33,7 +33,7 @@ public class Board implements java.io.Serializable {
 	public Board(int size) {
 		this.size = size;
 		this.tilePositions = new Tile[2 * size + 1][2 * size + 1];
-		List<Tile> emptytileList = new ArrayList<Tile>();
+		List<Tile> battleFieldTiles  = new ArrayList<Tile>();
 
 		// Generate a board. Add tiles to the 2d array
 		for (int x = 0; x <= 2 * size; x++) {
@@ -43,7 +43,7 @@ public class Board implements java.io.Serializable {
 
 				Tile tile = new HexagonTile(x, z);
 				if (z != 6 && z != 0 && !(x == 2 && z == 5) && !(x == 4 && z == 1))
-					emptytileList.add(tile);
+					battleFieldTiles .add(tile);
 
 				tilePositions[x][z] = tile;
 			}
@@ -62,8 +62,8 @@ public class Board implements java.io.Serializable {
 		}
 	}
 
-	public void setPowerUpsandTraps(List<Point> emptytileList) {
-		List<Point> emptyList = emptytileList;
+	public void setPowerUpsandTraps(List<Point> battleFieldTiles ) {
+		List<Point> emptyList = battleFieldTiles ;
 		Random randNum = new Random();
 		Set<Integer> set = new LinkedHashSet<Integer>();
 		int numberOfDecorators=6;
@@ -71,13 +71,13 @@ public class Board implements java.io.Serializable {
 			numberOfDecorators=8;
 		}
 		while (set.size() < numberOfDecorators) {
-			set.add(randNum.nextInt(emptytileList.size() - 1));
+			set.add(randNum.nextInt(battleFieldTiles .size() - 1));
 		}
 		Tile tile;
 		int count = 0;
 		for (Iterator<Integer> it = set.iterator(); it.hasNext(); count++) {
 			int i = it.next();
-			Point point = emptytileList.get(i);
+			Point point = battleFieldTiles .get(i);
 			tile = this.getTileAtPosition(point.x(), point.z());
 //			System.out.println(it.next()+" "+count);
 			if (count < numberOfDecorators/2)
@@ -89,7 +89,7 @@ public class Board implements java.io.Serializable {
 
 	}
 
-	public void setPassages(List<Point> emptytileList) {
+	public void setPassages(List<Point> battleFieldTiles ) {
 		Random randNum = new Random();
 		Set<Integer> set = new LinkedHashSet<Integer>();
 		int numberOfDecorators=4;
@@ -97,17 +97,17 @@ public class Board implements java.io.Serializable {
 			numberOfDecorators=6;
 		}
 		while (set.size() < numberOfDecorators) {
-			set.add(randNum.nextInt(emptytileList.size() - 1));
+			set.add(randNum.nextInt(battleFieldTiles .size() - 1));
 		}
 		Tile tile1;
 		Tile tile2;
 		for (Iterator<Integer> it = set.iterator(); it.hasNext();) {
 			int i = it.next();
-			Point point = emptytileList.get(i);
+			Point point = battleFieldTiles .get(i);
 			tile1 = this.getTileAtPosition(point.x(), point.z());
 			tile1 = new PassageTileDecorator(tile1);
 			i = it.next();
-			point = emptytileList.get(i);
+			point = battleFieldTiles .get(i);
 			tile2 = this.getTileAtPosition(point.x(), point.z());
 			tile2 = new PassageTileDecorator(tile2);
 			tile1.setPassageTile(tile2);

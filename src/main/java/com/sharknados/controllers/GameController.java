@@ -72,7 +72,7 @@ public class GameController{
         }
 
                
-        List<Point> emptytileList = new ArrayList<Point>();
+        List<Point> battleFieldTiles  = new ArrayList<Point>();
         Point point;
         for (int x = 0; x <= 2 * size; x++) {
 			int zStart = max(0, size - x);
@@ -89,13 +89,13 @@ public class GameController{
 					
 				}
 				if(count==0)
-					emptytileList.add(point);		
+					battleFieldTiles .add(point);		
 				
 			}
 		}
         
-        this.game.getBoard().setPowerUpsandTraps(emptytileList);
-        this.game.getBoard().setPassages(emptytileList);
+        this.game.getBoard().setPowerUpsandTraps(battleFieldTiles );
+        this.game.getBoard().setPassages(battleFieldTiles );
         init();
         
         List<Piece> pieceList = new ArrayList<>();
