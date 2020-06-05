@@ -35,7 +35,6 @@ public class HomescreenController {
             mainStage.setHeight(900);
         }
         GameController gameController = new GameController (game, root);
-//        AllowObstaclesToggle(false);
         gameController.newGame(ObstaclesExist);
 
         root.getChildren().remove(homescreenView);

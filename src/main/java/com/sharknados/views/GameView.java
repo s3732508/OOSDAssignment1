@@ -34,10 +34,6 @@ public class GameView extends BorderPane implements java.io.Serializable{
         commandBar.refreshSelectableModes(selectedPiece);
     }
 
-    public void setCommandBarDisable(boolean disable){
-        this.commandBar.disableButtons(disable);
-    }
-
     public void addToView(Node node){
         boardPane.getChildren().add(node);
     }

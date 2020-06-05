@@ -133,15 +133,6 @@ public abstract class Piece extends AbstractSubject implements java.io.Serializa
         return mode;
     }
 
-    public boolean attackTile(Tile targetTile) {
-        boolean isGameOver = false;
-        Piece target = targetTile.getPiece();
-
-        int damage = getAttack() - target.getDefence();
-        target.takeDamage(damage, targetTile);
-        return isGameOver;
-    }
-
     public boolean takeDamage(int incomingDamage, Tile myTile){
         boolean isGameOver = false;
         Piece self = myTile.getPiece();

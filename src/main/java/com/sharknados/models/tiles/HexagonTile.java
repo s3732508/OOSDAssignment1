@@ -110,19 +110,16 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 	@Override
 	public void attach(Observer observer) {
 		super.attach(observer);
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public Tile getTile() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 
 	@Override
 	public void notifyAllObservers() {
 		super.notifyAllObservers();
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -147,9 +144,6 @@ public class HexagonTile extends AbstractSubject implements Tile, java.io.Serial
 
 	@Override
 	public boolean pieceExists() {
-		// TODO Auto-generated method stub
 		return this.pieceExists;
 	}
-
-	
 }

@@ -33,7 +33,6 @@ public class Board implements java.io.Serializable {
 	public Board(int size) {
 		this.size = size;
 		this.tilePositions = new Tile[2 * size + 1][2 * size + 1];
-	
 
 		// Generate a board. Add tiles to the 2d array
 		for (int x = 0; x <= 2 * size; x++) {
@@ -69,20 +68,18 @@ public class Board implements java.io.Serializable {
 		while (set.size() < numberOfDecorators) {
 			set.add(randNum.nextInt(battleFieldTiles .size() - 1));
 		}
+
 		Tile tile;
 		int count = 0;
 		for (Iterator<Integer> it = set.iterator(); it.hasNext(); count++) {
 			int i = it.next();
 			Point point = battleFieldTiles .get(i);
 			tile = this.getTileAtPosition(point.x(), point.z());
-//			System.out.println(it.next()+" "+count);
 			if (count < numberOfDecorators/2)
 				tilePositions[tile.getX()][tile.getZ()] = new PowerUpTileDecorator(tile);
 			else
 				tilePositions[tile.getX()][tile.getZ()] = new TrapTileDecorator(tile);
-
 		}
-
 	}
 	
 	public void setStorms(List<Point> battleFieldTiles ) {
@@ -96,19 +93,15 @@ public class Board implements java.io.Serializable {
 		while (set.size() < numberOfDecorators) {
 			set.add(randNum.nextInt(battleFieldTiles.size() - 1));
 		}
+
 		Tile tile;
 		int count = 0;
 		for (Iterator<Integer> it = set.iterator(); it.hasNext(); count++) {
 			int i = it.next();
 			Point point = battleFieldTiles.get(i);
 			tile = this.getTileAtPosition(point.x(), point.z());
-//			System.out.println(it.next()+" "+count);
-			
 				tilePositions[tile.getX()][tile.getZ()] = new StormTileDecorator(tile);
-			
-
 		}
-
 	}
 	
 	public void setAttacks(List<Point> battleFieldTiles ) {
@@ -123,16 +116,14 @@ public class Board implements java.io.Serializable {
 			set.add(randNum.nextInt(battleFieldTiles.size() - 1));
 		}
 		Tile tile;
+
 		int count = 0;
 		for (Iterator<Integer> it = set.iterator(); it.hasNext(); count++) {
 			int i = it.next();
 			Point point = battleFieldTiles .get(i);
 			tile = this.getTileAtPosition(point.x(), point.z());
-			System.out.println(it.next()+" "+count);
 			tilePositions[tile.getX()][tile.getZ()] = new AttackDownTileDecorator(tile);
-
 		}
-
 	}
 
 	public void setPassages(List<Point> battleFieldTiles ) {
@@ -159,7 +150,6 @@ public class Board implements java.io.Serializable {
 			tile2 = new PassageTileDecorator(tile2, identifier);
 			tile1.setPassageTile(tile2);
 			tile2.setPassageTile(tile1);
-//			System.out.println(it.next());
 			tilePositions[tile1.getX()][tile1.getZ()] = tile1;
 			tilePositions[tile2.getX()][tile2.getZ()] = tile2;
 
@@ -171,7 +161,6 @@ public class Board implements java.io.Serializable {
 			identifier++;
 
 		}
-
 	}
 
 	private boolean trySetNeighbor(Tile tile, int direction) {
@@ -206,10 +195,6 @@ public class Board implements java.io.Serializable {
 		return tilePositions[x][z];
 	}
 
-	public Tile getCentreTile() {
-		return tilePositions[size][size];
-	}
-
 	public List<Tile> getTileList() {
 		List<Tile> tileList = new ArrayList<>();
 		for (int x = 0; x <= 2 * size; x++) {
@@ -237,5 +222,4 @@ public class Board implements java.io.Serializable {
 
 		return max(max(dX, dY), dZ);
 	}
-
 }

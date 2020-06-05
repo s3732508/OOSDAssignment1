@@ -55,5 +55,4 @@ public interface Tile extends Subject {
 	
 	boolean pieceExists();
 
-
 }

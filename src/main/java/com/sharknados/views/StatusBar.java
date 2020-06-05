@@ -11,7 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-
 public class StatusBar extends HBox implements Observer, java.io.Serializable{
     private Game subject;
     private Button cancelButton;

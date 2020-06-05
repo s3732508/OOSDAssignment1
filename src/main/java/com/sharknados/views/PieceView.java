@@ -1,6 +1,5 @@
 package com.sharknados.views;
 
-
 import com.sharknados.models.Subject;
 import com.sharknados.models.pieces.Piece;
 import javafx.scene.image.Image;
@@ -24,7 +23,7 @@ public class PieceView implements Observer {
         Image image;
         //Image for type of piece
         String type = subject.getClass().getSimpleName();
-        image = new Image(new FileInputStream("src/main/resources/" + type + "2.png"));
+        image = new Image(new FileInputStream("src/main/resources/" + type + ".png"));
 
         // Setting the image view
         this.pieceImage = new ImageView(image);

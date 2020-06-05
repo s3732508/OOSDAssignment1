@@ -97,10 +97,8 @@ public class Game extends AbstractSubject implements java.io.Serializable {
 					board.getTileAtPosition(x, z).notifyAllObservers();
 					pieceList.add(tiles[x][z].getPiece());
 				}
-
 			}
 		}
-
 		return pieceList;
 	}
 
@@ -110,10 +108,6 @@ public class Game extends AbstractSubject implements java.io.Serializable {
 
 	public Team getTurn() {
 		return turn;
-	}
-
-	public void setTurn(Team turn) {
-		this.turn = turn;
 	}
 
 	public Mode getMode() {
@@ -129,20 +123,8 @@ public class Game extends AbstractSubject implements java.io.Serializable {
 		return turnNumber;
 	}
 
-	public void setTurnNumber(int turnNumber) {
-		this.turnNumber = turnNumber;
-	}
-
 	public void incTurnNumber() {
 		this.turnNumber = turnNumber + 1;
-	}
-
-	public void decEagleUndoMoveLeft() {
-		this.eagleUndoMoveLeft = eagleUndoMoveLeft - 1;
-	}
-
-	public void decSharkUndoMoveLeft() {
-		this.sharkUndoMoveLeft = sharkUndoMoveLeft - 1;
 	}
 
 	public boolean isEagleUndoOptionUsed() {
