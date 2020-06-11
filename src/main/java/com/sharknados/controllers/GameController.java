@@ -95,6 +95,8 @@ public class GameController{
             assert (!battleFieldPoints.stream().anyMatch(pointInBF -> Arrays.stream(playerOnePieces).anyMatch(playerPoints -> playerPoints.equals(pointInBF))));
             assert (!battleFieldPoints.stream().anyMatch(pointInBF -> Arrays.stream(playerTwoPieces).anyMatch(playerPoints -> playerPoints.equals(pointInBF))));
             this.game.getBoard().setPowerUpsandTraps(battleFieldPoints);
+            this.game.getBoard().setStorms(battleFieldPoints);;
+            this.game.getBoard().setAttacks(battleFieldPoints);
             this.game.getBoard().setPassages(battleFieldPoints);
             init();
         }
